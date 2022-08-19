@@ -41,7 +41,7 @@ header-includes:
 - \fancyhead[LO,LE]{ }
 - \fancyhead[RO,RE]{ }
 - \renewcommand{\headrulewidth}{0.5pt}
-- \fancyfoot[C]{\cincopuntos \thepage \\ \vspace{-0.2cm} ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \\ \vspace{-0.2cm} \cincopuntos CONVENIO DE DESEMPEÑO 2021 IFOP/SUBSECRETARÍA DE ECONOMíA Y EMT \\ \vspace{-0.1cm} TERCER INFORME (FINAL). ANCHOVETA,  REGIÓN DE VALPARAÍSO A LA REGIÓN DE LOS LAGOS, 2022}
+- \fancyfoot[C]{\cincopuntos \thepage \\ \vspace{-0.2cm} ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ \\ \vspace{-0.2cm} \cincopuntos CONVENIO DE DESEMPEÑO 2022 IFOP/SUBSECRETARÍA DE ECONOMíA Y EMT \\ \vspace{-0.1cm} PRIMER INFORME. ANCHOVETA,  REGIÓN DE VALPARAÍSO A LA REGIÓN DE LOS LAGOS, 2023}
 
 number_sections: yes
 
@@ -67,7 +67,7 @@ citecolor: blue
 \spacing{1.5}
 
 
-# RESUMEN EJECUTIVO
+# RESUMEN EJECUTIVO {-}
 
 El presente informe contiene la segunda actualización del estatus del año biológico 2021/22 y la Captura Biológicamente Aceptable (CBA) del año calendario 2022 para el stock de anchoveta en la Unidad de Pesquería Centro-Sur (UPCS) de Chile (Región de Valparaíso a Región de Los Lagos) basado en un modelo en escala biológica. El análisis es actualizado con la siguiente información: (1) Estadísticas de desembarques de SERNAPESCA corregidas por IFOP los años 1998 al 2001, correspondiente al período 1996/97-2021/22. (2) El porcentaje de descarte obtenido mediante el Programa de Descarte de IFOP corresponde al período 2015-2019. (3) Información de captura a la edad y pesos individuales a la edad, proveniente del "Programa de Seguimiento de las Principales Pesquerías Nacionales (Pesquerías Pelágicas)" desde 1996/97 al 2021/22. (4) Series de biomasas acústicas y composiciones de edad de los cruceros de verano (años 2000-2022) y otoño (años 2003-2022) provenientes del programa de cruceros IFOP sobre evaluación hidroacústica del reclutamiento de anchoveta entre las Regiones de Valparaíso y Los Lagos. (5) Publicaciones cientíﬁcas y técnicas relacionadas con los parámetros del ciclo de vida (mortalidad natural y madurez).
 
@@ -4021,3 +4021,9 @@ En marzo se inicia el período de extracción y en mayo se realiza el segundo cr
 # REFERENCIAS BIBLIOGRÁFICAS
 
 <div id="refs"></div>
+
+
+\pagebreak
+
+# ANEXOS {-} 
+
