@@ -366,7 +366,7 @@ dataDes_y_descar<-data.frame("Año"=bioyear,
 
 ```{r Variables_sept, echo=F,message=FALSE, warning=FALSE, include=T}
 
-yearsb<-c("1990/91","1991/92","1992/93","1993/94","1994/95","1995/96","1996/97",
+yearsb<-c("1996/97",
           "1997/98","1998/99","1999/00","2000/01","2001/02","2002/03","2003/04",
           "2004/05","2005/06","2006/07","2007/08","2008/09","2009/10","2010/11",
           "2011/12","2012/13","2013/14","2014/15","2015/16","2016/17","2017/18",
@@ -462,7 +462,7 @@ VarPobJul<- data.frame(x=years3,
 
 ```
 
-```{r Dat_Retrospectivo, echo=F, message=FALSE, warning=FALSE, include=T,eval=F}
+```{r Dat_Retrospectivo, echo=F, message=FALSE, warning=FALSE, include=T,eval=T}
 dir<-paste(dir.0,"/Retrospectivo_sept",sep="")
 setwd(dir)
 admb<-"MAE922"
@@ -568,21 +568,23 @@ asesoria_1<-"septiembre 2022"
 ## Datos actualizados
 
 
+Entre los años 2009 y 2017 se registraron los niveles más bajos de biomasa acústica de verano con un valor promedio de **101** mil t. Sin embargo, el año 2018 se observó un primer incremento importante hasta **347** mil t y los últimos cuatro años 2019 al 2022 se consolida éste incremento con valores cercanos a las **625** mil toneladas en promedio, registrándose el 2022 un incremento del **90%** respecto al año previo. Algo similar se observa en las tendencias de los cruceros de otoño. Sin embargo, en este estudio, la recuperación en la biomasa del stock se apreció a partir del año 2016, observandose una recuperación en la biomasa del stock desde el 2016, registrándose el año 2022 el nivel más alto de los últimos **12** años, en **1,4** millones de t (\textbf{Tabla \ref{t1}}). En relación a las capturas de anchoveta de las regiones de Valparaíso a Los Lagos, su variación es consistente con los cambios en los niveles de biomasa estimados por los cruceros acústicos de verano y otoño. Entre el 2011/12 y 2017/18 se registran desembarques oficiales en torno a **60** mil toneladas en promedio. Para el 2018/19 se incrementan a **136** mil t, para el año 2019/20 a **158** mil t, un **16%** mayor al año previo, y para el año 2020/21 se incrementa **205** mil t, un **30%** mayor al año previo y **159%** mayor al promedio de los últimos **9** años (período 2011/12 - 2019/20). Para el año 2021/22 se registra una disminución del **3%** respecto a lo registrado el año previo (\textbf{Tabla \ref{t2}} y \textbf{Figura \ref{Fig17}}). La pesquería está sustentada principalmente por la abundancia de los grupos de edad (GE) 1 y 2. A partir del 2017 el GE 0 muestra una tendencia al incremento, sin embargo, para el 2020/21 y 2021/22 su aporte a la abundancia total es inferior al **12%**. Respecto a los pesos medios, para el GE 0 se encuentra en torno a los **10-15** grs, para el GE 1 en los **20-25** grs en promedio. Desde el año 2014 se observa un incremento en esta variable en todos los GE, excepto en los ejemplares de edad 0 (\textbf{Figura \ref{Fig18}} y \textbf{ \ref{Fig19}}). En relación a la información proveniente de los cruceros acústicos, la composición de edad registrada por el estudio de verano muestra que el GE 0 representa en torno al **67%** de la captura en número, no obstante, para los años 2021 y 2022 su aporte es inferior al **25%**, mientras que el crucero de otoño muestra mayor variabilidad y un aporte sobre el **75%** del grupo de edad 0 los años 2016, 2017, 2018, 2019 y 2022 (\textbf{Figura \ref{Fig20}} y \textbf{\ref{Fig21}}). 
+
+
+
+
 ## Diagnóstico del modelo de evaluación de stock
 
-El modelo de evaluación utilizado para estudiar la dinámica del stock, sigue la tendencia general de las estimaciones de biomasa de los cruceros hidroacústicos, principalmente a partir del año 2009. El modelo reproduce de manera satisfactoria los bajos niveles poblacionales en el período 2009-2015 y su tendencia al incremento a partir del año 2016. El modelo representa principalmente la tendencia que muestra el crucero de otoño.  Los valores más altos del crucero de verano, que poseen mayor incertidumbre, no son ajustados de manera satisfactoria (período 2002-2008 y 2022). La alta variabilidad de estos índices de abundancia se evidencia en la amplitud de los intervalos de confianza supuestos con un coeficiente de variación de cv=0,3 (\textbf{Figura \ref{Fig22}}). Para el año 2022 el modelo no logra capturar el incremento que se observa al incorporar  la  biomasa del crucero de verano 2022, sin embargo, la información del crucero de otoño es ajustada adecuadamente.. El suavizador tipo loess de los residuales del modelo sugieren tendencias leves. El diagrama QQ corrobora, en términos generales, la linealidad en la escala log en todos los índices. No obstante, observando la mayor variabilidad y lejanía relativa respecto de la línea esperada, el análisis evidencia la falta de ajuste a los valores más altos del crucero de verano. Los datos de la captura (desembarques), se asumen insesgados y precisos con un cv=0,01, lo cual es reflejado en un buen ajuste del modelo a los valores observados (\textbf{Figura \ref{Fig23}}).
+El modelo de evaluación utilizado para estudiar la dinámica del stock, sigue la tendencia general de las estimaciones de biomasa de los cruceros hidroacústicos, principalmente a partir del año 2009. El modelo reproduce de manera satisfactoria los bajos niveles poblacionales en el período 2009-2015 y su tendencia al incremento a partir del año 2016. El modelo representa principalmente la tendencia que muestra el crucero de otoño.  Los valores más altos del crucero de verano, que poseen mayor incertidumbre, no son ajustados de manera satisfactoria (período 2002-2008 y 2022). La alta variabilidad de estos índices de abundancia se evidencia en la amplitud de los intervalos de confianza supuestos con un coeficiente de variación de cv=0,3 (\textbf{Figura \ref{Fig22}}). Para el año 2022 el modelo no logra capturar el incremento que se observa al incorporar  la  biomasa del crucero de verano 2022, sin embargo, la información del crucero de otoño es ajustada adecuadamente. El suavizador tipo loess de los residuales del modelo sugieren tendencias leves. El diagrama QQ corrobora, en términos generales, la linealidad en la escala log en todos los índices. No obstante, observando la mayor variabilidad y lejanía relativa respecto de la línea esperada, el análisis evidencia la falta de ajuste a los valores más altos del crucero de verano. Los datos de la captura (desembarques), se asumen insesgados y precisos con un cv=0,01, lo cual es reflejado en un buen ajuste del modelo a los valores observados (\textbf{Figura \ref{Fig23}}).
 
 
 En relación al ajuste a los datos de composiciones de edades, se observa que el modelo recoge la variabilidad general de la estructura de edades proveniente de la flota, con patrones de sobre-estimación del grupo de edad 0 desde el 2010 al 2018 producto de los bajos niveles de abundancia registrados en ese período (\textbf{Figura \ref{Fig24}}). En el caso de los cruceros, el modelo muestra un mejor desempeño en ajustar la composición de edades de los estudios de verano (\textbf{Figura \ref{Fig25}}). En el caso de los cruceros de otoño, el ajuste es menos consistente, subestimando el GE de 0 en los últimos años (\textbf{Figura \ref{Fig26}}). El comportamiento de los residuales a las composiciones de edades de la flota, sugieren patrones de subestimación del grupo de edad 0 entre los años 2001 al 2009 y de sobre-estimación desde el 2010 al 2018 correspondiente al período con bajos niveles poblacionales. En el caso de los cruceros de verano, se observa una tendencia a sobreestimar el grupo de edad 0 desde el 2017 al 2022, mientras que en el caso de los cruceros de otoño se observan ciertos patrones que reflejan la tendencia a la subestimación del GE 0 desde el 2016 (\textbf{Figura \ref{Fig27}}).
 
+En la asesoría actual (septiembre 2022) se comparan los resultados de los principales indicadores de estatus del modelo base con versiones anteriores (marzo 2022, sept 2021, julio 2021, marzo 2021, sept 2020) para evaluar la consistencia de la evaluación presente (\textbf{Figura \ref{Fig28a}}). En general, existe consistencia en los resultados, en las asesorías de marzo se genera la mayor incertidumbre producto de la incompletitud de datos en este hito de revisión.
 
 
 
-El stock de anchoveta en la UPCS comenzó a ser evaluada oficialmente en 1996 por @Barria1998 y @Barria1999, con métodos estructurados por edad en escala calendaria. En la asesoría de septiembre 2020 se realizó el cambio de modelo base de año calendario (MAE) a año biológico (MAEb), el cual fue adoptado por el CCT-PP en la sesión de mayo 2020 (Acta Sesión Nº3). Este nuevo modelo base permite una mejor representación del reclutamiento y de la dinámica de anchoveta, disminuyendo la incertidumbre en los indicadores utilizados para medidas de manejo [@Zuniga2020b]. En la asesoría actual (julio 2022) se comparan los resultados de los principales indicadores de estatus del modelo base con versiones anteriores (marzo 2022, sept 2021, julio 2021, marzo 2021, sept 2020) para evaluar la consistencia de la evaluación presente (\textbf{Figura \ref{Fig28a}}). En general, existe consistencia en los resultados, en las asesorías de marzo se genera la mayor incertidumbre producto de la incompletitud de datos en este hito de revisión.
-
-
-
-En la \textbf{Figura \ref{Fig28}} se muestra el patrón retrospectivo estándar y relativo de los reclutamientos, BD y F de la anchoveta en la UPCS para el modelo base actual (julio 2022). El análisis retrospectivo del modelo de evaluación muestra que en términos de rho (promedio de anomalías retrospectivas) la reducción de información genera un patrón de subestimación del reclutamiento (rho = -0,02) y de la mortalidad por pesca (rho = -0,09) y un patrón de sobre-estimación de la biomasa desovante (rho = 0,04). En general, las estimaciones de reclutamientos, biomasas y F para los últimos años pueden variar sustancialmente entre las sucesivas actualizaciones, mientras que en los primeros años tienden a converger a valores estables. El año 2019 se genera un problema de convergencia producto del cambio de tendencia hacia el final de la serie. No obstante, el modelo presenta una baja varianza estadística los últimos años de las serie, lo que se traduce en una menor incertidumbre, generando estimaciones más confiables para medidas de manejo.
+En la \textbf{Figura \ref{Fig28}} se muestra el patrón retrospectivo estándar y relativo de los reclutamientos, BD y F de la anchoveta en la UPCS para el modelo base actual. El análisis retrospectivo del modelo de evaluación muestra que en términos de rho (promedio de anomalías retrospectivas) la reducción de información genera un patrón de subestimación del reclutamiento (rho = **-0,02**) y de la mortalidad por pesca (rho = **-0,09**) y un patrón de sobre-estimación de la biomasa desovante (rho = **0,04**). En general, las estimaciones de reclutamientos, biomasas y F para los últimos años pueden variar sustancialmente entre las sucesivas actualizaciones, mientras que en los primeros años tienden a converger a valores estables. El año 2019 se genera un problema de convergencia producto del cambio de tendencia hacia el final de la serie. No obstante, el modelo presenta una baja varianza estadística los últimos años de las serie, lo que se traduce en una menor incertidumbre, generando estimaciones más confiables para medidas de manejo.
 
 
 
@@ -751,11 +753,11 @@ ln_Fyr3       <- Ft3                 # logaritmo de Ft
 ln_FSE3       <- Ft3std              # logaritmo de la desviaci?n standar de Ft
 ```
 
-La \textbf{Figura \ref{Fig30}} y la \textbf{Tabla \ref{Tab17}} muestran los cambios que ha experimentado anchoveta en sus tendencias poblacionales en un período de 26 años (1996/97 - 2021/22). El análisis respecto a la media histórica de los indicadores de estado y flujo (Rpromedio = 43 mil millones de peces, BTpromedio = 775 mil t, BDpromedio = 404 mil t, Fmediana = 0,68) permite identificar claramente dos ciclos con altos y bajos niveles de abundancia de una duración de 10 años aprox. El período de altos niveles de abundancia de anchoveta se registra desde el año 2002/03 hasta el año 2008/09 con valores sobre el promedio histórico (R\_alto = 75 mil millones de peces, BT\_alto = 1,42 millones de t, BD\_alto = 716 mil t). Los niveles bajo el promedio histórico se registran desde el año 2009/10 hasta el 2017/18 (R\_bajo = 18 mil millones de peces, BT\_bajo = 275 mil t., BD\_bajo = 143 mil t). Respecto a la asesoría previa (marzo 2022) los reclutamientos incrementan un 34%, la biomasa total incrementa un 4% y la biomasa desovante disminuye un 1%).
+La \textbf{Figura \ref{Fig30}} y la \textbf{Tabla \ref{Tab17}} muestran los cambios que ha experimentado anchoveta en sus tendencias poblacionales en un período de 26 años (1996/97 - 2021/22). El análisis respecto a la media histórica de los indicadores de estado y flujo (Rpromedio = **43** mil millones de peces, BTpromedio = **775** mil t, BDpromedio = **404** mil t, Fmediana = **0,68**) permite identificar claramente dos ciclos con altos y bajos niveles de abundancia de una duración de 10 años aprox. El período de altos niveles de abundancia de anchoveta se registra desde el año 2002/03 hasta el año 2008/09 con valores sobre el promedio histórico (R\_alto = **75** mil millones de peces, BT\_alto = **1,42** millones de t, BD\_alto = **716** mil t). Los niveles bajo el promedio histórico se registran desde el año 2009/10 hasta el 2017/18 (R\_bajo = **18** mil millones de peces, BT\_bajo = **275** mil t., BD\_bajo = **143** mil t). Respecto a la asesoría previa (marzo 2022) los reclutamientos incrementan un **34%**, la biomasa total incrementa un **4%** y la biomasa desovante disminuye un **1%**).
 
-Los mayores niveles de mortalidad por pesca se registraron durante el período de baja abundancia (F \> Fmediana) debido a los bajos rendimientos. A partir del año 2015/16, se observa el inicio de un nuevo ciclo con tendencia positiva generada por la fuerza de la clase anual reclutada que se incorpora a la población y a los bajos niveles de mortalidad por pesca (F \< Fmediana). El incremento de los reclutamientos 2018/19 y 2019/20, la disminución de la mortalidad por pesca 2/3 por debajo de M (M=0,7 año^-1^) y el incremento de la biomasa total y desovante 2019/20 permiten la recuperación de anchoveta centro-sur para los tres últimos años de la serie.  La mortalidad por pesca 2021/2022 actualizada en la asesoría actual es un 26% menor al supuesto utilizado en la asesoría previa (marzo 2022) en torno al $F_{RMS}=0,45$.
+Los mayores niveles de mortalidad por pesca se registraron durante el período de baja abundancia (F \> Fmediana) debido a los bajos rendimientos. A partir del año 2015/16, se observa el inicio de un nuevo ciclo con tendencia positiva generada por la fuerza de la clase anual reclutada que se incorpora a la población y a los bajos niveles de mortalidad por pesca (F \< Fmediana). El incremento de los reclutamientos 2018/19 y 2019/20, la disminución de la mortalidad por pesca 2/3 por debajo de M (M=0,7 año^-1^) y el incremento de la biomasa total y desovante 2019/20 permiten la recuperación de anchoveta centro-sur para los tres últimos años de la serie.  La mortalidad por pesca 2021/2022 actualizada en la asesoría actual es un **26%** menor al supuesto utilizado en la asesoría previa (marzo 2022) en torno al $F_{RMS}=0,45$.
 
-La selectividad de la flota indica que anchoveta es próximo a su completo reclutamiento a la pesquería a la edad de 2 años cuya retención es del orden del 97%, mientras que los individuos de edad 0 y 1 son vulnerados en un 10% y 67% respectivamente. Respecto a la selectividad de los cruceros acústicos, en enero el arte de pesca selecciona el 60% de peces de edad 0  y en mayo se selecciona un 82% de peces de edad 0 y 100% de peces de edad 1 (\textbf{Figura \ref{Fig31}}).
+La selectividad de la flota indica que anchoveta es próximo a su completo reclutamiento a la pesquería a la edad de 2 años cuya retención es del orden del **97%**, mientras que los individuos de edad 0 y 1 son vulnerados en un **10%** y **67%** respectivamente. Respecto a la selectividad de los cruceros acústicos, en enero el arte de pesca selecciona el **60%** de peces de edad 0  y en mayo se selecciona un **82%** de peces de edad 0 y **100%** de peces de edad 1 (\textbf{Figura \ref{Fig31}}).
 
 ## Puntos Biológicos de Referencia (PBRs) y Estatus
 
@@ -818,154 +820,45 @@ pd_sept<-pnorm(0.5,rprSEPT,rprSEPTstd,lower.tail = TRUE,log.p = F)
 pe_sept<-1-pnorm(1.1,FrprSEPT,FrprSEPTstd,lower.tail = TRUE,log.p = F)
 ```
 
-```{r Estatus_marzo, echo=F,message=FALSE, warning=FALSE, include=T}
-
-years2<-rep2$years
-nyears2<-length(years2)
-
-#para serie histórica indicadores del estatus
-Rpr2     <- subset(std2,name=="RPRequ3")$value; 
-Rpr2std  <- subset(std2,name=="RPRequ3")$std
-Frpr2    <- subset(std2,name=="Frpr")$value; 
-Frpr2std <- subset(std2,name=="Frpr")$std
-
-EstatusMar<- data.frame(x=years2, Rpr2=Rpr2,Frpr2=Frpr2,
-         lowerRpr2  = (Rpr2 - 1.96*Rpr2std ), upperRpr2   = (Rpr2 +1.96*Rpr2std ),
-         lowerFrpr2 = (Frpr2 -1.96*Frpr2std), upperFrpr2 = (Frpr2+1.96*Frpr2std))
-
-#Para densidad de probabilidad
-rprMARZO     <-subset(std2,name=="RPRequ3")$value[nyears2]
-rprMARZOstd  <-subset(std2,name=="RPRequ3")$std[nyears2]
-FrprMARZO    <-subset(std2,name=="Frpr")$value[nyears2]
-FrprMARZOstd <-subset(std2,name=="Frpr")$std[nyears2]
-# biomasa desovante vs BDrms - densidad de probabilidad
-xbm1 <-rnorm(1000, mean = rprMARZO, sd = rprMARZOstd)
-xbm  <-seq(min(xbm1),max(xbm1),0.005)
-ybm  <-dnorm(xbm, mean = rprMARZO, sd =rprMARZOstd)
-icbm <-qnorm(c(0.05,0.95,0.5),rprMARZO,rprMARZOstd)
-# mortalidad por pesca vs Frms - densidad de probabilidad
-xfm1 <- rnorm(1000, mean = FrprMARZO, sd = FrprMARZOstd)
-xfm  <-seq(min(xfm1),max(xfm1),0.005)
-yfm  <-dnorm(xfm, mean = FrprMARZO, sd =FrprMARZOstd)
-icfm <-qnorm(c(0.05,0.95,0.5),FrprMARZO,FrprMARZOstd)
-#distribución probabilidad
-xxbm      <- c(xbm[xbm>=icbm[1]&xbm<=icbm[2]],rev(xbm[xbm>=icbm[1]&xbm<=icbm[2]]))
-yybm      <- c(ybm[xbm>=icbm[1]&xbm<=icbm[2]],rep(0,length(ybm[xbm>=icbm[1]&xbm<=icbm[2]])))
-xxfm      <- c(xfm[xfm>=icfm[1]&xfm<=icfm[2]],rev(xfm[xfm>=icfm[1]&xfm<=icfm[2]]))
-yyfm      <- c(yfm[xfm>=icfm[1]&xfm<=icfm[2]],rep(0,length(yfm[xfm>=icfm[1]&xfm<=icfm[2]])))
-
-densb_bm  <- data.frame(x=xxbm, y=yybm , t=rep('a', length(xxbm)), r=seq(1,length(xxbm),1))
-densb_fm  <- data.frame(x=xxfm, y=yyfm , t=rep('a', length(xxfm)), r=seq(1,length(xxfm),1))
-
-
-### *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) 
-pa_mar<-pnorm(0.9,rprMARZO,rprMARZOstd,lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)
-pb_mar<-1-pnorm(1.1,FrprMARZO,FrprMARZOstd,lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms) 
-#pc_mar<-pnorm(0.9,rprMARZO,rprMARZOstd,lower.tail = TRUE,log.p = F)
-pc_mar<-pnorm(0.9,rprMARZO,rprMARZOstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,rprMARZO,rprMARZOstd,lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) 
-pd_mar<-pnorm(0.5,rprMARZO,rprMARZOstd,lower.tail = TRUE,log.p = F)
-### *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)
-pe_mar<-1-pnorm(1.1,FrprMARZO,FrprMARZOstd,lower.tail = TRUE,log.p = F)
-
-```
-
-
-```{r Estatus_julio, echo=F,message=FALSE, warning=FALSE, include=T}
-
-years3  <-rep3$years
-nyears3 <-length(years3)
-
-#para serie histórica indicadores del estatus
-Rpr3     <- subset(std3,name=="RPRequ3")$value; 
-Rpr3std  <- subset(std3,name=="RPRequ3")$std
-Frpr3    <- subset(std3,name=="Frpr")$value; 
-Frpr3std <- subset(std3,name=="Frpr")$std
-
-EstatusJul<- data.frame(x=years3, 
-                        Rpr3=Rpr3,
-                        Frpr3=Frpr3,
-         lowerRpr3  = (Rpr3  - 1.96*Rpr3std ),
-         upperRpr3  = (Rpr3  + 1.96*Rpr3std ),
-         lowerFrpr3 = (Frpr3 - 1.96*Frpr3std), 
-         upperFrpr3 = (Frpr3 + 1.96*Frpr3std))
-
-#Para densidad de probabilidad
-rprJULIO     <-subset(std3,name=="RPRequ3")$value[nyears3]
-rprJULIOstd  <-subset(std3,name=="RPRequ3")$std[nyears3]
-FrprJULIO    <-subset(std3,name=="Frpr")$value[nyears3]
-FrprJULIOstd <-subset(std3,name=="Frpr")$std[nyears3]
-# biomasa desovante vs BDrms - densidad de probabilidad
-xbj1 <-rnorm(1000, mean = rprJULIO, sd = rprJULIOstd)
-xbj  <-seq(min(xbj1),max(xbj1),0.005)
-ybj  <-dnorm(xbj, mean = rprJULIO, sd =rprJULIOstd)
-icbj <-qnorm(c(0.05,0.95,0.5),rprJULIO,rprJULIOstd)
-# mortalidad por pesca vs Frms - densidad de probabilidad
-xfj1 <- rnorm(1000, mean = FrprJULIO, sd = FrprJULIOstd)
-xfj  <-seq(min(xfj1),max(xfj1),0.005)
-yfj  <-dnorm(xfj, mean = FrprJULIO, sd =FrprJULIOstd)
-icfj <-qnorm(c(0.05,0.95,0.5),FrprJULIO,FrprJULIOstd)
-#distribución probabilidad
-xxbj      <- c(xbj[xbj>=icbj[1]&xbj<=icbj[2]],rev(xbj[xbj>=icbj[1]&xbj<=icbj[2]]))
-yybj      <- c(ybj[xbj>=icbj[1]&xbj<=icbj[2]],rep(0,length(ybj[xbj>=icbj[1]&xbj<=icbj[2]])))
-xxfj      <- c(xfj[xfj>=icfj[1]&xfj<=icfj[2]],rev(xfj[xfj>=icfj[1]&xfj<=icfj[2]]))
-yyfj      <- c(yfj[xfj>=icfj[1]&xfj<=icfj[2]],rep(0,length(yfj[xfj>=icfj[1]&xfj<=icfj[2]])))
-
-densb_bj  <- data.frame(x=xxbj, y=yybj , t=rep('a', length(xxbj)), r=seq(1,length(xxbj),1))
-densb_fj  <- data.frame(x=xxfj, y=yyfj , t=rep('a', length(xxfj)), r=seq(1,length(xxfj),1))
-
-
-### *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) 
-pa_jul<-pnorm(0.9,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)
-pb_jul<-1-pnorm(1.1,FrprJULIO,FrprJULIOstd,lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de sobreexplotacion* #Asesoría #P(BD<BDrms) 
-#pc_jul<-pnorm(0.9,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)
-pc_jul<-pnorm(0.9,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de colapso* #Asesoría #P(BD<BDrms) 
-pd_jul<-pnorm(0.5,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)
-### *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)
-pe_jul<-1-pnorm(1.1,FrprJULIO,FrprJULIOstd,lower.tail = TRUE,log.p = F)
-
-```
-
-En la \textbf{Tabla \ref{Tab18}} y \textbf{Figura \ref{Fig32}} se presentan los valores calculados de F~RMS~, BD~RMS~ y BD~LIM~ recomendados por el Comité Científico Técnicos de  Pequeños Pelágicos (Informe Técnico CCT-PP N°01/2015) de acuerdo con la metodología discutida durante el segundo taller (Abril, 2014) y tercer taller (Agosto, 2014) de PBRs  [@Paya2014]. En relación al cálculo de BD~0~, en la sesión de agosto 2020 del CCT-PP se revisó los datos utilizados en la estimación de los Puntos Biológicos de Referencia (PBR) dado que el cambio del modelo de año calendario a año biológico provoca un acortamiento en la serie utilizada para la estimación de BD~0~ de 19 a 12 años y considerando que la anchoveta cierra su ciclo decreciente iniciado el 2009, el cual en su oportunidad determinó su exclusión del cálculo de BD~0~ a la hora de aplicar la metodología descrita en el taller de PBR  [@Paya2014], considerándose un caso excepcional. Conforme a lo anterior, el CCT-PP establece que para efectos de la determinación del estatus y CBA, se utilice la serie completa de datos para el cálculo de BD~0~. De esta manera se aplica íntegramente la metodología recomendada y se estandariza con lo aplicado en sardina común (Acta Sesión N° 5 20-21/08/2020 [^8]).
+En la \textbf{Tabla \ref{Tab18}} y \textbf{Figura \ref{Fig32}} se presentan los valores calculados de $F_{RMS}$, $BD_{RMS}$ y $BD_{LIM}$ recomendados por el Comité Científico Técnicos de  Pequeños Pelágicos (Informe Técnico CCT-PP N°01/2015) de acuerdo con la metodología discutida durante el segundo taller (Abril, 2014) y tercer taller (Agosto, 2014) de PBRs  [@Paya2014]. En relación al cálculo de $BD_0$, en la sesión de agosto 2020 del CCT-PP se revisó los datos utilizados en la estimación de los Puntos Biológicos de Referencia (PBR) dado que el cambio del modelo de año calendario a año biológico provoca un acortamiento en la serie utilizada para la estimación de $BD_0$ de 19 a 12 años y considerando que la anchoveta cierra su ciclo decreciente iniciado el 2009, el cual en su oportunidad determinó su exclusión del cálculo de BD~0~ a la hora de aplicar la metodología descrita en el taller de PBR  [@Paya2014], considerándose un caso excepcional. Conforme a lo anterior, el CCT-PP establece que para efectos de la determinación del estatus y CBA, se utilice la serie completa de datos para el cálculo de $BD_0$. De esta manera se aplica íntegramente la metodología recomendada y se estandariza con lo aplicado en sardina común (Acta Sesión N° 5 20-21/08/2020 [^8]).
 
 [^8]: <http://www.subpesca.cl/portal/616/articles-108563_documento.pdf>
 
-Los pasos para el cálculo de BD~0~, BD~RMS~y BD~LIM~ se describe en la \textbf{Tabla \ref{Tab18}}. Este procedimiento busca encontrar un balance entre la serie histórica de las BD y de F a partir del cálculo de BDpromedio y Fmh. Al respecto, la \textbf{Figura \ref{Fig32}} muestra las series de Biomasa desovante y mortalidad por pesca junto a los PBRs calculados, donde se observa que en el período de menores niveles de BD se registraron los mayores niveles de F. Cuando los niveles de BD incrementan las Fs son bajas. Según Patterson (1992), para que el valor de F~mh~ fuera sostenible las biomasas deberían ser estables o crecientes y el nivel de F encontrarse bajo 2/3 de M. Respecto a la mortalidad por pesca al RMS, el CCT-PP recomendó considerar un F~RMS~ precautorio (F60%BDPR, \textbf{Figura \ref{Fig33}}) debido a su condición de pesquería mixta junto a sardina común y por su rol ecosistémico, considerado clave para otros eslabones de la trama trófica.
+Los pasos para el cálculo de $BD_0$, $BD_{RMS}$ y $BD_{LIM}$ se describe en la \textbf{Tabla \ref{Tab18}}. Este procedimiento busca encontrar un balance entre la serie histórica de las BD y de F a partir del cálculo de $BD_{promedio}$ y $F_{mh}$. Al respecto, la \textbf{Figura \ref{Fig32}} muestra las series de Biomasa desovante y mortalidad por pesca junto a los PBRs calculados, donde se observa que en el período de menores niveles de BD se registraron los mayores niveles de F. Cuando los niveles de BD incrementan las Fs son bajas. Según Patterson (1992), para que el valor de F~mh~ fuera sostenible las biomasas deberían ser estables o crecientes y el nivel de F encontrarse bajo 2/3 de M. Respecto a la mortalidad por pesca al RMS, el CCT-PP recomendó considerar un $F_{RMS}$ precautorio ($F60\%_{BDPR}$, \textbf{Figura \ref{Fig33}}) debido a su condición de pesquería mixta junto a sardina común y por su rol ecosistémico, considerado clave para otros eslabones de la trama trófica.
 
 
 
-Los resultados de este estudio muestran que entre los años 1996/97 y 2000/01 el stock de anchoveta centro-sur se encontraba sobre-explotado con biomasas por debajo del objetivo de manejo (BD \< BD~RMS~). A partir del 2001/02 se incrementan los niveles de biomasa desovante, permitiendo que el stock transite y se mantenga en una condición de plena-explotación hasta el 2007/08. No obstante, los niveles de reclutamiento para el año 2008 se reducen drásticamente generando niveles de biomasa desovante por debajo del promedio histórico para el 2008/09. Debido a la falla en los reclutamientos, desde el año 2009/10 la anchoveta de la zona centro-sur cambia drásticamente su estatus a una condición de agotamiento y/o colapso, manteniéndose en esa condición durante 8 años (2009/10 al 2016/17). A partir del año 2017/18 se manifiesta una recuperación del stock, transitando de la zona de colapso a la zona de sobre-explotación los años 2017/18 y 2018/19 y de plena-explotación los años 2019/20, 2020/21 y 2021/2022. En términos de los niveles de mortalidad por pesca (Ft año^-1^), en general, se ha mantenido históricamente por sobre el nivel objetivo de referencia F~RMS~, no obstante, a partir del año 2016/17, los niveles de Ft estuvieron bajo el objetivo de manejo. Con respecto a la razón entre $F_{2021/2022}$ y $F_{RMS}$  en la asesoría previa (marzo 2022) se asumió un valor en torno a $F_{RMS}$ para el año actual ($F/F_{RMS}=1$), a la espera de actualizar el valor de captura 2021/2022 en esta asesoría (julio 2022). Al respecto, se registraron capturas por debajo del RMS y por lo tanto, la mortalidad por pesca estimada con información actualizada es un 26% menor al supuesto utilizado en la asesoría previa, por lo tanto, la razón entre $F_{2021/2022}$ y $F_{RMS}$ disminuye a 0,73  (\textbf{Figura \ref{Fig34}} y \textbf{Tabla \ref{Tab19}}).
+Los resultados de este estudio muestran que entre los años 1996/97 y 2000/01 el stock de anchoveta centro-sur se encontraba sobre-explotado con biomasas por debajo del objetivo de manejo ($BD < BD_{RMS}$). A partir del 2001/02 se incrementan los niveles de biomasa desovante, permitiendo que el stock transite y se mantenga en una condición de plena-explotación hasta el 2007/08. No obstante, los niveles de reclutamiento para el año 2008 se reducen drásticamente generando niveles de biomasa desovante por debajo del promedio histórico para el 2008/09. Debido a la falla en los reclutamientos, desde el año 2009/10 la anchoveta de la zona centro-sur cambia drásticamente su estatus a una condición de agotamiento y/o colapso, manteniéndose en esa condición durante 8 años (2009/10 al 2016/17). A partir del año 2017/18 se manifiesta una recuperación del stock, transitando de la zona de colapso a la zona de sobre-explotación los años 2017/18 y 2018/19 y de plena-explotación los años 2019/20, 2020/21 y 2021/2022. En términos de los niveles de mortalidad por pesca (Ft año^-1^), en general, se ha mantenido históricamente por sobre el nivel objetivo de referencia F~RMS~, no obstante, a partir del año 2016/17, los niveles de Ft estuvieron bajo el objetivo de manejo. Con respecto a la razón entre $F_{2021/2022}$ y $F_{RMS}$  en la asesoría previa (marzo 2022) se asumió un valor en torno a $F_{RMS}$ para el año actual ($F/F_{RMS}=1$), a la espera de actualizar el valor de captura 2021/2022 en esta asesoría (julio 2022). Al respecto, se registraron capturas por debajo del RMS y por lo tanto, la mortalidad por pesca estimada con información actualizada es un 26% menor al supuesto utilizado en la asesoría previa, por lo tanto, la razón entre $F_{2021/2022}$ y $F_{RMS}$ disminuye a **0,73**  (\textbf{Figura \ref{Fig34}} y \textbf{Tabla \ref{Tab19}}).
 
-Respecto a la condición actual de anchoveta centro-sur, los resultados actualizados con información completa de este estudio indican una recuperación del estatus generada por el incremento de los reclutamientos 2018/19 y 2019/20, la disminución de la mortalidad por pesca por debajo del objetivo de manejo (F\<F~RMS~) y 2/3 por debajo de M (M=0,7 año^-1^) y el incremento de la biomasa total y desovante de los años 2019/20, 2020/21 y 2021/2022. Por lo tanto, anchoveta centro-sur se encuentra en una condición de plena-explotación sin probabilidad de sobre-explotación (0%) (\textbf{Figura \ref{Fig35}} y \textbf{Tabla \ref{Tab21}}).
+Respecto a la condición actual de anchoveta centro-sur, los resultados actualizados con información completa de este estudio indican una recuperación del estatus generada por el incremento de los reclutamientos 2018/19 y 2019/20, la disminución de la mortalidad por pesca por debajo del objetivo de manejo ($F<F_{RMS}$) y 2/3 por debajo de M (M=0,7 año^-1^) y el incremento de la biomasa total y desovante de los años 2019/20, 2020/21 y 2021/2022. Por lo tanto, anchoveta centro-sur se encuentra en una condición de plena-explotación sin probabilidad de sobre-explotación (**0%**) (\textbf{Figura \ref{Fig35}} y \textbf{Tabla \ref{Tab21}}).
 
 ## Proyección del stock años 2022/2023 y 2023/2024 
 
-La  proyección de la población se realizó 2 años biológicos hacia el futuro (julio 2021-junio 2022 y julio 2022-junio 2023) en base a tres escenarios de reclutamiento: a) un escenario favorable que consiste en el reclutamiento promedio del período 1997-2009 (59 mil millones de ind.), b) un escenario que representa el reclutamiento promedio histórico (43 mil millones de ind.) y un escenario que representa el período reciente entre el 2010-2021 (25 mil millones de ind.) (\textbf{Figura \ref{Fig44a}}), con una mortalidad por pesca en torno al $F_{RMS}$ y pesos medios igual al promedio de los últimos 5 años. 
+La  proyección de la población se realizó 2 años biológicos hacia el futuro (julio 2021-junio 2022 y julio 2022-junio 2023) en base a tres escenarios de reclutamiento: a) un escenario favorable que consiste en el reclutamiento promedio del período 1997-2009 (**59** mil millones de ind.), b) un escenario que representa el reclutamiento promedio histórico (**43** mil millones de ind.) y un escenario que representa el período reciente entre el 2010-2021 (**25** mil millones de ind.) (\textbf{Figura \ref{Fig44a}}), con una mortalidad por pesca en torno al $F_{RMS}$ y pesos medios igual al promedio de los últimos 5 años. 
 
-Las \textbf{Figuras \ref{Fig44a}} y \textbf{Tabla \ref{Tab25}} indican que independiente del escenario de reclutamiento, en términos de biomasa desovante proyectada al 2021/2022 (554 mil t) se observa una disminución del 12% respecto al año previo 2020/2021 (631 mil t), de este modo la probabilidad de sobreexplotación aumenta a un 13% para el año biológico 2021/2022. Mientras que la biomasa desovante proyectada hacia el 2022/2023 depende del reclutamiento proyectado hacia el 2022 y 2023, de este modo, la probabilidad de sobreexplotación puede aumentar hasta un 60% si los reclutamientos futuros retornan a los niveles promedios 2010-2021, o pueden disminuir a un 0% si los reclutamientos se encuentran en torno al promedio de los años 1997-2009 (\textbf{Tabla \ref{Tab25}} y \textbf{Figura \ref{Fig44b}}).
+Las \textbf{Figuras \ref{Fig44a}} y \textbf{Tabla \ref{Tab25}} indican que independiente del escenario de reclutamiento, en términos de biomasa desovante proyectada al 2021/2022 (**554** mil t) se observa una disminución del **12%** respecto al año previo 2020/2021 (**631** mil t), de este modo la probabilidad de sobreexplotación aumenta a un **13%** para el año biológico 2021/2022. Mientras que la biomasa desovante proyectada hacia el 2022/2023 depende del reclutamiento proyectado hacia el 2022 y 2023, de este modo, la probabilidad de sobreexplotación puede aumentar hasta un **60%** si los reclutamientos futuros retornan a los niveles promedios 2010-2021, o pueden disminuir a un **0%** si los reclutamientos se encuentran en torno al promedio de los años 1997-2009 (\textbf{Tabla \ref{Tab25}} y \textbf{Figura \ref{Fig44b}}).
 
-La \textbf{Tabla \ref{Tab26}} muestra la  captura proyectada para los años biológicos 2021/2022 y 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos. El cálculo de la Captura al RMS ($C_{RMS}$) para el año calendario 2022 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre ($C_{1erSem2022}$) y 30% para el segundo semestre ($C_{2doSem2022}$). De este modo, la captura al RMS para el año biológico 2021/2022 ($C_{2021/2022}$) puede variar según el escenario de reclutamiento entre 192 mil t a 201 mil t. Si el 70% de la captura 2021/2022 se realiza durante el primer semestre 2022, la captura puede variar entre 135 mil t a 141 mil t, dependiendo del reclutamiento 2022, considerando un resguardo del 2% por causa del descarte. 
+La \textbf{Tabla \ref{Tab26}} muestra la  captura proyectada para los años biológicos 2021/2022 y 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos. El cálculo de la Captura al RMS ($C_{RMS}$) para el año calendario 2022 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre ($C_{1erSem2022}$) y 30% para el segundo semestre ($C_{2doSem2022}$). De este modo, la captura al RMS para el año biológico 2021/2022 ($C_{2021/2022}$) puede variar según el escenario de reclutamiento entre **192** mil t a **201** mil t. Si el 70% de la captura 2021/2022 se realiza durante el primer semestre 2022, la captura puede variar entre **135** mil t a **141** mil t, dependiendo del reclutamiento 2022, considerando un resguardo del 2% por causa del descarte. 
  
-El aporte del reclutamiento en la estimación de captura 2021/2022 es de un 8% para un escenario de reclutamiento alto (R_1997-2009), de un 6% para un escenario de reclutamientos promedio histórico y de un 3,6% para un escenario de reclutamiento bajos (R_2010-2021) (\textbf{Figura \ref{Fig44c}}). En el caso de la captura proyectada para el año 2022/2023, los escenarios de reclutamientos tienen un efecto en el grupo de edad 1, un 51,5% para un escenario de reclutamiento alto (R_1997-2009), de un 44,6% para un escenario de reclutamientos promedio histórico y de un 33,3% para un escenario de reclutamiento bajos (R_2010-2021) (\textbf{Figura \ref{Fig44c}}), por lo tanto, es una estimación con mayor incertidumbre (\textbf{Figura \ref{Fig44c}}). 
+El aporte del reclutamiento en la estimación de captura 2021/2022 es de un **8%** para un escenario de reclutamiento alto ($R_{1997-2009}$), de un **6%** para un escenario de reclutamientos promedio histórico y de un **3,6%** para un escenario de reclutamiento bajos ($R_{2010-2021}$) (\textbf{Figura \ref{Fig44c}}). En el caso de la captura proyectada para el año 2022/2023, los escenarios de reclutamientos tienen un efecto en el grupo de edad 1, un **51,5%** para un escenario de reclutamiento alto ($R_{1997-2009}$), de un **44,6%** para un escenario de reclutamientos promedio histórico y de un **33,3%** para un escenario de reclutamiento bajos ($R_{2010-2021}$) (\textbf{Figura \ref{Fig44c}}), por lo tanto, es una estimación con mayor incertidumbre (\textbf{Figura \ref{Fig44c}}). 
 
 
 ## Captura Biológicamente Aceptable año 2023 inicial 
 
-El cálculo de la CBA inicial para el año calendario 2022 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre y 30% para el segundo semestre, bajo un criterio de explotación de F60%SPR, sujeto a percentiles de probabilidad entre el 10% y 50%. La \textbf{Tabla \ref{Tab26b}} y \textbf{Figura \ref{Fig44d}} muestran los rangos de capturas para el año 2022 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre 161 mil t y 211 mil t; bajo un escenario de $R_{histórico}$ entre 147 mil t y 197 mil t y, bajo un escenario de $R_{2010-2021}$ entre 132 mil t y 182 mil t. Considerando el descuento del 2% de descarte 2022, los rangos de capturas para el año 2022 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre 158 mil t y 207 mil t; bajo un escenario de $R_{histórico}$ entre 144 mil t y 194 mil t y, bajo un escenario de $R_{2010-2021}$ entre 129 mil t y 179 mil t. Para evaluar el efecto que tiene la decisión de la CBA en base a los percentiles (10%-50%) que en general son menores a la captura al RMS (percentil del 50%), se calculó el resguardo a lo cual equivale cada percentil (\textbf{Tabla \ref{Tab27}}). Esos niveles variaron entre un 5% para un percentil del 40% hasta un 26% para un percentil de probabilidad del 10%, considerando tres escenarios de reclutamiento.
+El cálculo de la CBA inicial para el año calendario 2023 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre y 30% para el segundo semestre, bajo un criterio de explotación de F60%SPR, sujeto a percentiles de probabilidad entre el 10% y 50%. La \textbf{Tabla \ref{Tab26b}} y \textbf{Figura \ref{Fig44d}} muestran los rangos de capturas para el año 2023 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre **161** mil t y **211** mil t; bajo un escenario de $R_{histórico}$ entre **147** mil t y **197** mil t y, bajo un escenario de $R_{2010-2021}$ entre **132** mil t y **182** mil t. Considerando el descuento del 2% de descarte 2022, los rangos de capturas para el año 2023 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre **158** mil t y **207** mil t; bajo un escenario de $R_{histórico}$ entre **144** mil t y **194** mil t y, bajo un escenario de $R_{2010-2021}$ entre **129** mil t y **179** mil t. Para evaluar el efecto que tiene la decisión de la CBA en base a los percentiles (10%-50%) que en general son menores a la captura al RMS (percentil del 50%), se calculó el resguardo a lo cual equivale cada percentil (\textbf{Tabla \ref{Tab27}}). Esos niveles variaron entre un **5%** para un percentil del 40% hasta un **26%** para un percentil de probabilidad del 10%, considerando tres escenarios de reclutamiento.
+
+\pagebreak
 
 # FIGURAS
 
-```{r Fig17, warning=F, include=T, message=F, echo=FALSE,fig.height=8,fig.width=5,fig.align="center",fig.path=dir.Fig,dev=fig}
+<!--- DESCRIPCIÓN DE LOS DATOS DE ENTRADA  -->
+
+```{r Fig17, warning=F, include=T, message=F, echo=FALSE,fig.height=8,fig.width=5,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig17}Serie de desembarques y biomasas estimadas por la evaluación hidroacústica de verano y otoño utilizadas como datos de entrada al modelo de evaluación de stock de anchoveta de las Regiones de Valparaíso a Los Lagos."}
  
-des_obs <- data.frame(rep3$desembarqueobs)
-bc_obs  <- data.frame(rep3$reclasobs)
-bp_obs  <- data.frame(rep3$pelacesobs)
-yearc   <- rep3$years 
+des_obs <- data.frame(rep1$desembarqueobs)
+bc_obs  <- data.frame(rep1$reclasobs)
+bp_obs  <- data.frame(rep1$pelacesobs)
+yearc   <- rep1$years 
 nyearc  <-length(yearc)  
 
  obsC  <- as.data.frame(bc_obs) %>% 
@@ -995,15 +888,15 @@ p
 ```
 
 
-```{r Fig18, warning=F, include=T, message=F,eval=T, echo=FALSE,fig.height=4,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig}
+```{r Fig18, warning=F, include=T, message=F,eval=T, echo=FALSE,fig.height=4,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig18}Variabilidad interanual de la proporción de la captura de la flota (panel izquierdo) y pesos medios (panel derecho) de cada grupo de edad (edad 0 a 4) de anchoveta de las Regiones de Valparaíso a Los Lagos."}
 
-years    <- rep3$years 
+years    <- rep1$years 
 nyears   <- length(years)
 age      <- seq(0,4,1)                                            
 nage     <- length(age)
-WmedF    <- dat3$Wmed                                             
-WiniF    <- dat3$Wini    
-pobsF    <- rep3$pf_obs                                              
+WmedF    <- dat1$Wmed                                             
+WiniF    <- dat1$Wini    
+pobsF    <- rep1$pf_obs                                              
 
 WmedF <- as.data.frame(WmedF) %>% 
                        mutate(years=years) %>% 
@@ -1042,14 +935,15 @@ f1 + f2
 
 
 
-```{r Fig19,warning=F, include=T, message=F, echo=FALSE,fig.height=6,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig}
-pobsF    <- rep3$pf_obs      
+```{r Fig19,warning=F, include=T, message=F, echo=FALSE,fig.height=6,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig19}Composición de edad de la captura de la flota (panel izquierdo) y pesos medios (panel derecho) utilizados en la evaluación de stock de anchoveta de las Regiones de Valparaíso a Los Lagos."}
+
+pobsF    <- rep1$pf_obs      
 pF       <- c(pobsF); pF[pF==0]  <-NA
-WmedF    <- dat3$Wmed    
+WmedF    <- dat1$Wmed    
 Wm       <- c(WmedF); Wm[Wm==0]  <-NA     
 
-years    <- rep3$years 
-nyears   <- dat3$nanos
+years    <- rep1$years 
+nyears   <- dat1$nanos
 age      <- seq(0,4,1)                                            
 nage     <- length(age)
 
@@ -1080,14 +974,14 @@ g1 + g2
 ```
 
 
-```{r Fig20, warning=F, include=T, message=F, echo=FALSE,fig.height=4,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig}
+```{r Fig20, warning=F, include=T, message=F, echo=FALSE,fig.height=4,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig20}Variabilidad interanual de la proporción de la captura del crucero de verano (panel izquierdo) y crucero de otoño (panel derecho) de cada grupo de edad (edad 0 a 4). "}
 
-years    <- rep3$years 
-nyears   <- dat3$nanos
+years    <- rep1$years 
+nyears   <- dat1$nanos
 age      <- seq(0,4,1)                                            
 nage     <- length(age)
-pobsR    <- rep3$pobs_RECLAS                                               
-pobsP    <- rep3$pobs_PELACES 
+pobsR    <- rep1$pobs_RECLAS                                               
+pobsP    <- rep1$pobs_PELACES 
 
 
 pobsR <- as.data.frame(pobsR) %>% 
@@ -1126,14 +1020,15 @@ f1 + f2
 ```
 
 
-```{r Fig21,warning=F, include=T, message=F, echo=FALSE,fig.height=6,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig}
-pobsR    <- rep3$pobs_RECLAS        
+```{r Fig21,warning=F, include=T, message=F, echo=FALSE,fig.height=6,fig.width=9,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig21}Composición de edad de la captura de los cruceros de verano (panel izquierdo) y otoño (panel derecho) utilizados en la evaluación de stock."}
+
+pobsR    <- rep1$pobs_RECLAS        
 pR       <- c(pobsR); pR[pR==0]  <-NA
-pobsP    <- rep3$pobs_PELACES      
+pobsP    <- rep1$pobs_PELACES      
 pP       <- c(pobsP); pP[pP==0]  <-NA 
 
-years    <- rep3$years 
-nyears   <- dat3$nanos
+years    <- rep1$years 
+nyears   <- dat1$nanos
 age      <- seq(0,4,1)                                            
 nage     <- length(age)
 
@@ -1164,15 +1059,15 @@ g1 + g2
 ```
 
 
+<!--- METODOLOGÍA - pesos medios utilizados para proyección -->
+```{r Fig13,warning=F, include=T, message=F,eval=F, echo=FALSE,fig.height=4,fig.width=10,fig.align="center",fig.path=dir.Fig,dev=fig}
 
-```{r Fig13,warning=F, include=T, message=F,eval=T, echo=FALSE,fig.height=4,fig.width=10,fig.align="center",fig.path=dir.Fig,dev=fig}
-
-years    <- rep3$years 
+years    <- rep1$years 
 nyears   <- length(years)
 age      <- seq(0,4,1)                                            
 nage     <- length(age)
-WmedF    <- dat3$Wmed                                             
-WiniF    <- dat3$Wini    
+WmedF    <- dat1$Wmed                                             
+WiniF    <- dat1$Wini    
 WmedFHist<- colMeans(WmedF)
 WmedF5year<-colMeans(WmedF[(nyears-5):nyears,])
 
@@ -1206,8 +1101,8 @@ f1 + f2
 
 ```
 
-
-```{r Fig14, warning=F, include=T, message=F, echo=FALSE,fig.height=4,fig.width=6,fig.align="center",fig.path=dir.Fig,dev=fig}
+<!--- METODOLOGÍA - análisis de quiebres de la serie de desembarques semestrales -->
+```{r Fig14, eval=F,warning=F, include=T, message=F, echo=FALSE,fig.height=4,fig.width=6,fig.align="center",fig.path=dir.Fig,dev=fig}
 
 years              <- seq(1990,2019,1)
 nyears             <- length(years) 
@@ -1296,17 +1191,17 @@ ind               <- data.frame(ind_obs) %>%
                                 melt(id.var=c('yrs', 'Asesoria'))  
 
 sept               <- data.frame(ind_sept) %>% 
-                                 mutate (Asesoria='septiembre_2021') %>%
+                                 mutate (Asesoria='septiembre_2022') %>%
                                  mutate (yrs= yrs)  %>% 
                                  melt(id.var=c('yrs', 'Asesoria'))
 
 marzo              <- data.frame(ind_marzo) %>% 
-                                 mutate (Asesoria='marzo_2022') %>% 
+                                 mutate (Asesoria='marzo_2023') %>% 
                                  mutate (yrs= yrs)  %>% 
                                  melt(id.var=c('yrs', 'Asesoria'))
 
 julio              <- data.frame(ind_julio) %>% 
-                                 mutate (Asesoria='julio_2022') %>% 
+                                 mutate (Asesoria='julio_2023') %>% 
                                  mutate (yrs= yrs)  %>% 
                                  melt(id.var=c('yrs', 'Asesoria'))
 
@@ -1763,13 +1658,14 @@ box()
 
 
 
-```{r Fig32_data, eval=F, warning=F, include=T, message=F, echo=F,fig.height=7,fig.width=4,fig.align="center",fig.path=dir.Fig,dev=fig}
+```{r Fig32_data, eval=T, warning=F, include=T, message=F, echo=F,fig.height=7,fig.width=4,fig.align="center",fig.path=dir.Fig,dev=fig}
 
+dir<-paste(dir.0,"/rep_AsesoriasPrevias",sep="")
 
-sept20 <-paste(dir.1,"/MAE0920b.rep",sep="")
-mar21  <-paste(dir.1,"/MAE0321b.rep",sep="")
-jul21  <-paste(dir.1,"/MAE0721b.rep",sep="")
-sept21 <-paste(dir.1,"/MAE0921b.rep",sep="")
+sept20 <-paste(dir,"/MAE0920b.rep",sep="")
+mar21  <-paste(dir,"/MAE0321b.rep",sep="")
+jul21  <-paste(dir,"/MAE0721b.rep",sep="")
+sept21 <-paste(dir,"/MAE0921b.rep",sep="")
 mar22  <-paste(dir.1,"/MAE322.rep",sep="")
 jul22  <-paste(dir.1,"/MAE722.rep",sep="")
 sept22 <-paste(dir.1,"/MAE922.rep",sep="")
@@ -1819,7 +1715,7 @@ x2 <-c(years[1]-1,years[nyears]+1) #xlim
 
 
 
-```{r Fig32_comparaAsesorias, echo=F, message=FALSE, warning=FALSE, include=T,eval=F, fig.align="center", fig.height=7, fig.width=7,fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig28a}Comparación con asesorías anteriores del reclutamiento, biomasa desovante y mortalidad por pesca ($F año^{-1}$) de la anchoveta centro-sur. Los años en el eje x corresponden a año biológico."}
+```{r Fig32_comparaAsesorias, echo=F, message=FALSE, warning=FALSE, include=T,eval=T, fig.align="center", fig.height=7, fig.width=7,fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig28a}Comparación con asesorías anteriores del reclutamiento, biomasa desovante y mortalidad por pesca ($F año^{-1}$) de la anchoveta centro-sur. Los años en el eje x corresponden a año biológico."}
 
 year_retros <- c('2022_sept','2022_julio','2022_marzo','2021_sept',"2021_julio","2021_marzo","2020_sept")
 nretros <-7
@@ -1827,7 +1723,7 @@ nretros <-7
 
 #Retrospectivo tradicional
 Rt <- ggplot(Rtcomp) + 
-    geom_ribbon(data=VarPob,aes(ymin=lowerRt1, ymax=upperRt1, x=x, fill = "IC"), alpha = 0.2)+
+    geom_ribbon(data=VarPobSep,aes(ymin=lowerRt1, ymax=upperRt1, x=x, fill = "IC"), alpha = 0.2)+
     geom_line(aes(y=Rt_sept20, x=x, colour = year_retros[nretros]), size=0.5)+
     geom_line(aes(y=Rt_mar21, x=x, colour = year_retros[nretros-1]), size=0.5)+
     geom_line(aes(y=Rt_jul21, x=x, colour = year_retros[nretros-2]), size=0.5)+
@@ -1844,7 +1740,7 @@ Rt <- ggplot(Rtcomp) +
      theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 BD <- ggplot(SSBtcomp) + 
-     geom_ribbon(data=VarPob,aes(ymin=lowerBD1, ymax=upperBD1, x=x, fill = "IC"), alpha = 0.2)+
+     geom_ribbon(data=VarPobSep,aes(ymin=lowerBD1, ymax=upperBD1, x=x, fill = "IC"), alpha = 0.2)+
     geom_line(aes(y=SSBt_sept20, x=x, colour = year_retros[nretros]), size=0.5)+
     geom_line(aes(y=SSBt_mar21, x=x, colour = year_retros[nretros-1]), size=0.5)+
     geom_line(aes(y=SSBt_jul21, x=x, colour = year_retros[nretros-2]), size=0.5)+
@@ -1861,7 +1757,7 @@ BD <- ggplot(SSBtcomp) +
      theme(plot.title = element_text(hjust = 0.5))
 
 Ft <- ggplot(Ftcomp) + 
-    geom_ribbon(data=VarPob,aes(ymin=lowerFt1, ymax=upperFt1, x=x, fill = "IC"), alpha = 0.2)+
+    geom_ribbon(data=VarPobSep,aes(ymin=lowerFt1, ymax=upperFt1, x=x, fill = "IC"), alpha = 0.2)+
     geom_line(aes(y=Ft_sept20, x=x, colour = year_retros[nretros]), size=0.5)+
     geom_line(aes(y=Ft_mar21, x=x, colour = year_retros[nretros-1]), size=0.5)+
     geom_line(aes(y=Ft_jul21, x=x, colour = year_retros[nretros-2]), size=0.5)+
@@ -1886,7 +1782,10 @@ Rt/BD/Ft
 
 
 
-```{r Fig28, echo=FALSE, message=FALSE, warning=FALSE, include=T, fig.align="center", fig.height=9,eval=F, fig.width=8,fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig28}Patrón retrospectivo estándar (panel izquierdo) y relativo (panel derecho) de los reclutamientos, biomasa desovante y de la mortalidad por pesca de anchoveta centro-sur para el modelo base actual."}
+```{r Fig28, echo=FALSE, message=FALSE, warning=FALSE, include=T, fig.align="center", fig.height=9,eval=T, fig.width=8,fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig28}Patrón retrospectivo estándar (panel izquierdo) y relativo (panel derecho) de los reclutamientos, biomasa desovante y de la mortalidad por pesca de anchoveta centro-sur para el modelo base actual."}
+
+year_retros <- c('2017','2018','2019','2020','2021','2022')
+nretros <- length(year_retros)
 
 #Retrospectivo tradicional
 Rt <- ggplot(Rt_retro) + 
@@ -1985,7 +1884,7 @@ Rt/BD/Ft |Rtrel/BDrel/Ftrel
 ```
 
 
-```{r Fig29_Vesorimilitud_anchZCS,warning=F, include=T, message=F,eval=F, echo=F,fig.height=5,fig.width=7,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig29}Perfiles de verosimilitud donde la línea horizontal representa el nivel crítico para el test $\\chi^2$."}
+```{r Fig29_Vesorimilitud_anchZCS,warning=F, include=T, message=F,eval=T, echo=F,fig.height=5,fig.width=7,fig.align="center",fig.path=dir.Fig,dev=fig,fig.cap="\\label{Fig29}Perfiles de verosimilitud donde la línea horizontal representa el nivel crítico para el test $\\chi^2$."}
 
 dir<-paste(dir.0,"/Verosimilitud_sept",sep="")
 setwd(dir)
@@ -2320,7 +2219,7 @@ BD_BDrms <- ggplot() +
 F_Frms <- ggplot() + 
     #geom_line(data=EstatusJul,aes(y=Frpr3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
     #geom_line(data=EstatusMar,aes(y=Frpr2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-    geom_line(data=EstatusSep,aes(y=Frpr1, x=x, colour = "sept 2022"),linetype ="solid", size=0.5)+
+    geom_line(data=EstatusSep,aes(y=Frpr1, x=x, colour = "septiembre 2022"),linetype ="solid", size=0.5)+
     #geom_ribbon(data=EstatusJul,aes(ymin=lowerFrpr3, ymax=upperFrpr3, x=x, fill = "IC"), alpha = 0.2)+
     #geom_ribbon(data=EstatusMar,aes(ymin=lowerFrpr2, ymax=upperFrpr2, x=x, fill = "IC"), alpha = 0.2)+
     geom_ribbon(data=EstatusSep,aes(ymin=lowerFrpr1, ymax=upperFrpr1, x=x, fill = "IC"), alpha = 0.2)+
@@ -2345,7 +2244,7 @@ fig_desnb<- ggplot() + lims(y=c(0,3)) +
      #geom_line(aes(xbj,ybj), size=0.3,color="blue",linetype ="solid")+
      #geom_line(aes(xbm,ybm), size=0.3,color="red",linetype ="dashed")+
      geom_line(aes(xbs,ybs), size=0.3,color="black",linetype ="solid")+
-     annotate("text", x=c(1.3), y=c(2.95),colour = c('black'), size = 2.5,
+     annotate("text", x=c(1.4), y=c(2.95),colour = c('black'), size = 2.5,
               label=c(paste("IC95%_sept2022 = [",round(icbs[1],3),"-",round(icbs[2],3),"]",sep=" "))) +
      labs(x = expression("BD"[last]*"/BD"[RMS]), y = 'Densidad de probabilidad',tag="b)")  +
      theme_bw(base_size=11) + 
@@ -2358,7 +2257,7 @@ fig_desnf<- ggplot() + lims(y=c(0,3))+
      #geom_line(aes(xfj,yfj), size=0.3,color="blue",linetype ="solid")+
      #geom_line(aes(xfm,yfm), size=0.3,color="red",linetype ="dashed")+
      geom_line(aes(xfs,yfs), size=0.3,color="black",linetype ="solid")+
-     annotate("text", x=c(1), y=c(2.95),colour = c('black'), size = 2.5,
+     annotate("text", x=c(0.6), y=c(2.95),colour = c('black'), size = 2.5,
               label=c(paste("IC95%_sept2022= [",round(icfs[1],3),"-",round(icfs[2],3),"]",sep=" "))) +
      labs(x = expression("F"[last]*"/F"[RMS]), y = 'Densidad de probabilidad',tag="d)")  +
      theme_bw(base_size=11) + 
@@ -2484,184 +2383,10 @@ text(c(SpB3[1]/BRMS3,
 
 \pagebreak
 
-```{r Tabla26, echo=FALSE}
-
-Tabla4.1<-rbind("Año biológico"=c("2021/22"),
-                "$F_{RMS}$"=c(round(FRMS1,2)),
-                "$BD_{RMS}$"=c(round(BRMS1/10^3,0)),
-                "$BD_{LIM}$"=c(round(BLIM1/10^3,0)),
-                "$p(BD_{last}<BD_{RMS})$"=round(c(pa_sept),2),
-                "$p(F_{last}>F_{RMS})$"=round(c(pb_sept),2),
-                "$p(sobre-explotación)$"=round(c(pc_sept),2),
-                "$p(agotado/colapsado)$"=round(c(pd_sept),2),
-                "$p(sobrepesca)$"=round(c(pe_sept),2))
-colnames(Tabla4.1)<-c("Septiembre 2022")
-kable(Tabla4.1,align='c')
-
-
-```
-
-\pagebreak
 
 
 
-
-```{r proyecciona,warning=F, include=T, message=F,eval=F, echo=F}
-
-dira<-paste(dir.0,"/CBA_sept/",sep="")
-setwd(dira)
-reps1a     <- reptoRlist("MAE92211.rep")  
-reps2a     <- reptoRlist("MAE92212.rep") 
-reps3a     <- reptoRlist("MAE92213.rep") 
-
-carpeta<-"/CBA_sept/"
-stds1     <- read.table(paste(dir.0,carpeta,"MAE92211.std", sep=''),header=T,sep="",na="NA",fill=T) 
-stds2     <- read.table(paste(dir.0,carpeta,"MAE92212.std", sep=''),header=T,sep="",na="NA",fill=T) 
-stds3     <- read.table(paste(dir.0,carpeta,"MAE92213.std", sep=''),header=T,sep="",na="NA",fill=T) 
-
-bds1     <- subset(stds1,name=="BD_p0")$value ; 
-bds1std  <- subset(stds1,name=="BD_p0")$std #reclutamiento medios
-bds2     <- subset(stds2,name=="BD_p0")$value ; 
-bds2std  <- subset(stds2,name=="BD_p0")$std #reclutamiento 2018
-bds3     <- subset(stds3,name=="BD_p0")$value ; 
-bds3std  <- subset(stds3,name=="BD_p0")$std #reclutamiento 2012
-
-RpRps1     <- subset(stds1,name=="RPR_p0")$value ; 
-RpRps1std  <- subset(stds1,name=="RPR_p0")$std #reclutamiento medios
-RpRps2     <- subset(stds2,name=="RPR_p0")$value ; 
-RpRps2std  <- subset(stds2,name=="RPR_p0")$std #reclutamiento 2018
-RpRps3     <- subset(stds3,name=="RPR_p0")$value ; 
-RpRps3std  <- subset(stds3,name=="RPR_p0")$std #reclutamiento 2012
-
-cs1     <- subset(stds1,name=="YTP_p0")$value ; 
-cs1std  <- subset(stds1,name=="YTP_p0")$std #reclutamiento medios
-cs2     <- subset(stds2,name=="YTP_p0")$value ; 
-cs2std  <- subset(stds2,name=="YTP_p0")$std #reclutamiento 2018
-cs3     <- subset(stds3,name=="YTP_p0")$value ; 
-cs3std  <- subset(stds3,name=="YTP_p0")$std #reclutamiento 2012
-
-
-```
-
-
-
-
-```{r estatusproyectado,warning=F, include=T, message=F, echo=F,eval=F}
-
-# PRIMER AÑO PROYECTADO
-#######################################################################################
-### *Probabilidad de estar bajo BRMS* 
-#######################################################################################
-pa1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
-pa2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
-pa3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
-#######################################################################################
-### *Probabilidad de estar en zona de sobreexplotacion*
-#######################################################################################
-#pc_jul<-pnorm(0.9,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)
-pc1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
-pc2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
-pc3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
-#######################################################################################
-### *Probabilidad de estar en zona de colapso*
-#######################################################################################
-pd1<-pnorm(0.5,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
-pd2<-pnorm(0.5,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
-pd3<-pnorm(0.5,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
-
-#######################################################################################
-probEstatus<-round(rbind("BD~RMS~ (mil t)"=c(BRMS1)/1000,
-                   'BD~2022~ (mil t)'=round(c(bds1[1],
-                                              bds2[1],
-                                              bds3[1])/1000,0),
-                   'C~2022~ (mil t)'=round(c(cs1[1],
-                                             cs2[1],
-                                             cs3[1])/1000,0),
-                   'C~1erS2022~ ( mil t)'=round(c((cs1[1])*0.7,
-                                                  (cs2[1])*0.7,
-                                                  (cs3[1])*0.7)/1000,0),
-                   'C~2022~ (-descarte mil t)'=round(c(cs1[1]*0.98,
-                                                       cs2[1]*0.98,
-                                                       cs3[1]*0.98)/1000,0),
-                   'C~1erS2022~ (-descarte mil t)'=round(c((cs1[1]*0.98)*0.7,
-                                                           (cs2[1]*0.98)*0.7,
-                                                           (cs3[1]*0.98)*0.7)/1000,0),
-                   'BD~2022~/BD~RMS~'=round(c(RpRps1[1],
-                                              RpRps2[1],
-                                              RpRps3[1]),2),
-                   "*p(BD~2022~<BD~RMS~)*"=round(c(pa1,
-                                                   pa2,
-                                                   pa3),2),
-                  "*p(sobreexplotación)*"=round(c(pc1,
-                                                  pc2,
-                                                  pc3),2),
-                  "*p(agotado/colapsado)*"=round(c(pd1,
-                                                   pd2,
-                                                   pd3),2)),2)
-
-colnames(probEstatus)<-c("R1",'R2','R3')
-kable(probEstatus)
-#######################################################################################
-
-# SEGUNDO AÑO PROYECTADO
-
-#######################################################################################
-### *Probabilidad de estar bajo BRMS* 
-#######################################################################################
-pa12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
-pa22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
-pa32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
-#######################################################################################
-### *Probabilidad de estar en zona de sobreexplotacion*
-#######################################################################################
-pc12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
-pc22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
-pc32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
-#######################################################################################
-### *Probabilidad de estar en zona de colapso*
-#######################################################################################
-pd12<-pnorm(0.5,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
-pd22<-pnorm(0.5,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
-pd32<-pnorm(0.5,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
-
-#######################################################################################
-probEstatus2y<-round(rbind("BD~RMS~ (mil t)"=c(BRMS1)/1000,
-                   'BD~2023~ (mil t)'=round(c(bds1[2],
-                                              bds2[2],
-                                              bds3[2])/1000,0),
-                    'C~2023~ (mil t)'=round(c(cs1[2],
-                                              cs2[2],
-                                              cs3[2])/1000,0),
-                   'C~2doS2022~ ( mil t)'=round(c((cs1[2])*0.3,
-                                                  (cs2[2])*0.3,
-                                                  (cs3[2])*0.3)/1000,0),
-                   'C~2023~ (-descarte mil t)'=round(c(cs1[2]*0.98,
-                                                       cs2[2]*0.98,
-                                                       cs3[2]*0.98)/1000,0),
-                   'C~2doS2022~ (-descarte mil t)'=round(c((cs1[2]*0.98)*0.3,
-                                                           (cs2[2]*0.98)*0.3,
-                                                           (cs3[2]*0.98)*0.3)/1000,0),
-                   'BD~2023~/BD~RMS~'=round(c(RpRps1[2],
-                                              RpRps2[2],
-                                              RpRps3[2]),2),
-                   "*p(BD~2023~<BD~RMS~)*"=round(c(pa12,
-                                                   pa22,
-                                                   pa32),2),
-                  "*p(sobreexplotación)*"=round(c(pc12,
-                                                  pc22,
-                                                  pc32),2),
-                  "*p(agotado/colapsado)*"=round(c(pd12,
-                                                   pd22,
-                                                   pd32),2)),2)
-
-colnames(probEstatus2y)<-c("R1",'R2','R3')
-kable(probEstatus2y)
-#######################################################################################
-
-
-```
-
-
+<!-- Proyección del stock (Asesoría de septiembre) -->
 
 ```{r Fig34a, warning=F, include=T, message=F,eval=F, echo=F,fig.height=7,fig.width=9,fig.align="center",fig.path="Figuras/",dev=fig}
 par(mfrow=c(2,2),mar=c(4,4,1,1)+0.5)
@@ -3306,6 +3031,46 @@ kable(t(data.frame(pC1Recl1,pC1Recl2,pC1Recl3,
 # TABLAS
 
 
+```{r kbl_t1, echo=FALSE,eval=T,warning=F, include=T, message=F}
+#-----------
+# TABLA 
+#-----------
+kbl(dataInd, booktabs = T,format = "latex",position="h!",escape = F,align="c",
+    format.args=list(big.mark = '.'),
+    col.names = linebreak(c("Año\ncalendario ",
+                            "Biomasa crucero\nde verano\n(toneladas)",
+                            "Biomasa crucero\nde otoño\n(toneladas)",
+                            "Biomasa desovante\nMPDH\n(toneladas)"),align="c"),
+caption = "\\label{t1} Estimaciones de biomasas utilizadas en la evaluación de stock de sardina común provenientes de los cruceros de Verano (RECLAS), Otoño (PELACES) y crucero de huevos (MPDH).") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)
+
+```
+
+\pagebreak
+
+
+```{r kbl_t2 desembarques y descarte, echo=FALSE,eval=T,warning=F, include=T, message=F}
+#-----------
+# TABLA 
+#-----------
+kbl(dataDes_y_descar, booktabs = T,format = "latex",position="h!",align="c",
+    format.args=list(big.mark = '.'),escape=F,
+col.names = linebreak(c("Año\nbiológico ",
+                        "Desembarques\n(toneladas)",
+                        "Porcentaje\nDescarte",
+                        "Captura\ndescartada\n(toneladas)",
+                        "Captura\ntotal\n(toneladas)"),align="c"),   
+caption = "\\label{t2} Desembarques en toneladas, porcentaje de descarte supuesto,
+captura descartada (toneladas) y captura total (toneladas) estimadas en año biológico para sardina común de las Regiones de Valparaíso a Los Lagos.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)
+
+```
+
+\pagebreak
+
+
 ```{r Tabla_28, echo=FALSE,warning=FALSE}
 
 VarPobl1<- cbind('Año biológico'=yearsb,
@@ -3346,6 +3111,7 @@ caption = "\\label{Tab19}Índices de reducción de F respecto de $F_{RMS}$ ($F/F
 ```
 
 
+
 ```{r Tabla_17 PBRs, echo=FALSE,eval=T,warning=F, include=T, message=F,}
 Tabla3.1<-rbind( "BDpromedio"=c(round(Bmed1/10^3,0)),
                  "Fmh"=c(round(Fmedian1,2)), 
@@ -3364,6 +3130,182 @@ kbl(Tabla3.1, booktabs = T,format = "latex",position="h!",align="c",format.args=
 caption = "\\label{Tab18}Puntos biológicos de referencia de biomasa (miles t) estimados en la evaluación de stock de septiembre 2021, marzo 2022 y julio 2022 para anchoveta de las regiones de Valparaíso a Los Lagos, calculados siguiendo los pasos descritos en la metodología de este informe.") %>% 
   kable_styling(latex_options = c("striped", "condensed"),
                 full_width = FALSE,font_size=8)
+
+```
+
+
+```{r Tabla26, echo=FALSE}
+
+Tabla4.1<-rbind("Año biológico"=c("2021/22"),
+                "$F_{RMS}$"=c(round(FRMS1,2)),
+                "$BD_{RMS}$"=c(round(BRMS1/10^3,0)),
+                "$BD_{LIM}$"=c(round(BLIM1/10^3,0)),
+                "$p(BD_{last}<BD_{RMS})$"=round(c(pa_sept),2),
+                "$p(F_{last}>F_{RMS})$"=round(c(pb_sept),2),
+                "$p(sobre-explotación)$"=round(c(pc_sept),2),
+                "$p(agotado/colapsado)$"=round(c(pd_sept),2),
+                "$p(sobrepesca)$"=round(c(pe_sept),2))
+colnames(Tabla4.1)<-c("Septiembre 2022")
+kable(Tabla4.1,align='c')
+
+
+```
+
+
+
+
+```{r proyecciona,warning=F, include=T, message=F,eval=F, echo=F}
+
+dira<-paste(dir.0,"/CBA_sept/",sep="")
+setwd(dira)
+reps1a     <- reptoRlist("MAE92211.rep")  
+reps2a     <- reptoRlist("MAE92212.rep") 
+reps3a     <- reptoRlist("MAE92213.rep") 
+
+carpeta<-"/CBA_sept/"
+stds1     <- read.table(paste(dir.0,carpeta,"MAE92211.std", sep=''),header=T,sep="",na="NA",fill=T) 
+stds2     <- read.table(paste(dir.0,carpeta,"MAE92212.std", sep=''),header=T,sep="",na="NA",fill=T) 
+stds3     <- read.table(paste(dir.0,carpeta,"MAE92213.std", sep=''),header=T,sep="",na="NA",fill=T) 
+
+bds1     <- subset(stds1,name=="BD_p0")$value ; 
+bds1std  <- subset(stds1,name=="BD_p0")$std #reclutamiento medios
+bds2     <- subset(stds2,name=="BD_p0")$value ; 
+bds2std  <- subset(stds2,name=="BD_p0")$std #reclutamiento 2018
+bds3     <- subset(stds3,name=="BD_p0")$value ; 
+bds3std  <- subset(stds3,name=="BD_p0")$std #reclutamiento 2012
+
+RpRps1     <- subset(stds1,name=="RPR_p0")$value ; 
+RpRps1std  <- subset(stds1,name=="RPR_p0")$std #reclutamiento medios
+RpRps2     <- subset(stds2,name=="RPR_p0")$value ; 
+RpRps2std  <- subset(stds2,name=="RPR_p0")$std #reclutamiento 2018
+RpRps3     <- subset(stds3,name=="RPR_p0")$value ; 
+RpRps3std  <- subset(stds3,name=="RPR_p0")$std #reclutamiento 2012
+
+cs1     <- subset(stds1,name=="YTP_p0")$value ; 
+cs1std  <- subset(stds1,name=="YTP_p0")$std #reclutamiento medios
+cs2     <- subset(stds2,name=="YTP_p0")$value ; 
+cs2std  <- subset(stds2,name=="YTP_p0")$std #reclutamiento 2018
+cs3     <- subset(stds3,name=="YTP_p0")$value ; 
+cs3std  <- subset(stds3,name=="YTP_p0")$std #reclutamiento 2012
+
+
+```
+
+
+
+
+```{r estatusproyectado,warning=F, include=T, message=F, echo=F,eval=F}
+
+# PRIMER AÑO PROYECTADO
+#######################################################################################
+### *Probabilidad de estar bajo BRMS* 
+#######################################################################################
+pa1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
+pa2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
+pa3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
+#######################################################################################
+### *Probabilidad de estar en zona de sobreexplotacion*
+#######################################################################################
+#pc_jul<-pnorm(0.9,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,rprJULIO,rprJULIOstd,lower.tail = TRUE,log.p = F)
+pc1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
+pc2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
+pc3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
+#######################################################################################
+### *Probabilidad de estar en zona de colapso*
+#######################################################################################
+pd1<-pnorm(0.5,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
+pd2<-pnorm(0.5,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
+pd3<-pnorm(0.5,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
+
+#######################################################################################
+probEstatus<-round(rbind("BD~RMS~ (mil t)"=c(BRMS1)/1000,
+                   'BD~2022~ (mil t)'=round(c(bds1[1],
+                                              bds2[1],
+                                              bds3[1])/1000,0),
+                   'C~2022~ (mil t)'=round(c(cs1[1],
+                                             cs2[1],
+                                             cs3[1])/1000,0),
+                   'C~1erS2022~ ( mil t)'=round(c((cs1[1])*0.7,
+                                                  (cs2[1])*0.7,
+                                                  (cs3[1])*0.7)/1000,0),
+                   'C~2022~ (-descarte mil t)'=round(c(cs1[1]*0.98,
+                                                       cs2[1]*0.98,
+                                                       cs3[1]*0.98)/1000,0),
+                   'C~1erS2022~ (-descarte mil t)'=round(c((cs1[1]*0.98)*0.7,
+                                                           (cs2[1]*0.98)*0.7,
+                                                           (cs3[1]*0.98)*0.7)/1000,0),
+                   'BD~2022~/BD~RMS~'=round(c(RpRps1[1],
+                                              RpRps2[1],
+                                              RpRps3[1]),2),
+                   "*p(BD~2022~<BD~RMS~)*"=round(c(pa1,
+                                                   pa2,
+                                                   pa3),2),
+                  "*p(sobreexplotación)*"=round(c(pc1,
+                                                  pc2,
+                                                  pc3),2),
+                  "*p(agotado/colapsado)*"=round(c(pd1,
+                                                   pd2,
+                                                   pd3),2)),2)
+
+colnames(probEstatus)<-c("R1",'R2','R3')
+kable(probEstatus)
+#######################################################################################
+
+# SEGUNDO AÑO PROYECTADO
+
+#######################################################################################
+### *Probabilidad de estar bajo BRMS* 
+#######################################################################################
+pa12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
+pa22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
+pa32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
+#######################################################################################
+### *Probabilidad de estar en zona de sobreexplotacion*
+#######################################################################################
+pc12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
+pc22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
+pc32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
+#######################################################################################
+### *Probabilidad de estar en zona de colapso*
+#######################################################################################
+pd12<-pnorm(0.5,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
+pd22<-pnorm(0.5,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
+pd32<-pnorm(0.5,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
+
+#######################################################################################
+probEstatus2y<-round(rbind("BD~RMS~ (mil t)"=c(BRMS1)/1000,
+                   'BD~2023~ (mil t)'=round(c(bds1[2],
+                                              bds2[2],
+                                              bds3[2])/1000,0),
+                    'C~2023~ (mil t)'=round(c(cs1[2],
+                                              cs2[2],
+                                              cs3[2])/1000,0),
+                   'C~2doS2022~ ( mil t)'=round(c((cs1[2])*0.3,
+                                                  (cs2[2])*0.3,
+                                                  (cs3[2])*0.3)/1000,0),
+                   'C~2023~ (-descarte mil t)'=round(c(cs1[2]*0.98,
+                                                       cs2[2]*0.98,
+                                                       cs3[2]*0.98)/1000,0),
+                   'C~2doS2022~ (-descarte mil t)'=round(c((cs1[2]*0.98)*0.3,
+                                                           (cs2[2]*0.98)*0.3,
+                                                           (cs3[2]*0.98)*0.3)/1000,0),
+                   'BD~2023~/BD~RMS~'=round(c(RpRps1[2],
+                                              RpRps2[2],
+                                              RpRps3[2]),2),
+                   "*p(BD~2023~<BD~RMS~)*"=round(c(pa12,
+                                                   pa22,
+                                                   pa32),2),
+                  "*p(sobreexplotación)*"=round(c(pc12,
+                                                  pc22,
+                                                  pc32),2),
+                  "*p(agotado/colapsado)*"=round(c(pd12,
+                                                   pd22,
+                                                   pd32),2)),2)
+
+colnames(probEstatus2y)<-c("R1",'R2','R3')
+kable(probEstatus2y)
+#######################################################################################
+
 
 ```
 
