@@ -3,7 +3,7 @@ title: "RESULTADOS PARA PRIMER INFORME"
 subtitle: "Estatus y Posibilidades de Explotación Biológicamente Sustentables de anchoveta,  Región de Valparaíso a la Región de Los Lagos, año 2023"
 author: María José Zúñiga
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
-abstract: Este reporte contiene los principales resultados de los objetivos 1, 2 y 3, utilizados para generar el Primer informe de Estatus 2021/2022 y CBA 2023 de anchoveta de las regiones de Valparaíso a Los Lagos. Los códigos utilizados para generar este reporte se puede encontrar en el repositorio de [github Anchoveta](). El código que genera este reporte es [FigyTab_PrimerInforme.Rmd]().
+abstract: Este reporte contiene los principales resultados de los objetivos 1, 2 y 3, utilizados para generar el Primer informe de Estatus 2021/2022 y CBA 2023 de anchoveta de las regiones de Valparaíso a Los Lagos. Los códigos utilizados para generar este reporte se puede encontrar en el repositorio de [github Anchoveta](https://github.com/mariazuba/ESTATUS_Y_CBA_2023_ANCHOVETA_ZCS). El código que genera este reporte es [FigyTab_PrimerInforme.Rmd](https://github.com/mariazuba/ESTATUS_Y_CBA_2023_ANCHOVETA_ZCS/blob/main/FigyTab_PrimerInforme_Anch.Rmd).
 
 output: 
     pdf_document:
