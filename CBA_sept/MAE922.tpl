@@ -930,13 +930,13 @@ FUNCTION  Eval_CTP
       CBA_c0d = (prop(1)*YTP_r0d) + (prop(2)*YTP_p0d(1)); //  proporción 70/30 con descuento del descarte
       CBA_c0dD = YTP_r0d1ersem + (prop(2)*YTP_p0d(1)); //  ccon descuento del desembarque 2do semestre y con descuento del descarte
       CBA_c0dR = YTP_r0d1ersemR + (prop(2)*YTP_p0d(1)); //   con descuento del desembarque 2do semestre y con descuento del remanente 1er semestre y con descuento del descarte
-      
-      
-      //CBA_c1=prop(1)*YTP_r1+prop(2)*YTP_p1(1); // regla mixta (0 = Fconst, 1 = regla mixta, r = mismo a?o, p=proyectado)
     }
     
-    if(opProy==2){CBA_c0=(prop(1)*YTP_p0(1))+(prop(2)*YTP_p0(2)); } // Opci?n 2: CBA inicial (proyecci?n de un a?o calendario)
-    if(opProy==2){CBA_c0d=(prop(1)*YTP_p0d(1))+(prop(2)*YTP_p0d(2)); } 
+    if(opProy==2)
+      {
+      CBA_c0=(prop(1)*YTP_p0(1))+(prop(2)*YTP_p0(2));  // Opcion 2: CBA inicial (proyeccion de un ano calendario)
+      CBA_c0d=(prop(1)*YTP_p0d(1))+(prop(2)*YTP_p0d(2)); 
+      } 
 
 //##############################################################################
 
