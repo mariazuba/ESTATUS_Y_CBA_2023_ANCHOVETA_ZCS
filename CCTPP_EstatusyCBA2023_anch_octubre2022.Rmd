@@ -1,0 +1,263 @@
+---
+title: Estatus y  Captura Biológicamente Aceptable 2023 para la anchoveta de las Regiones de Valparaíso a Los Lagos.
+author: "Grupo Pelágicos DER"
+date: 'Sesión N°6: 12-14 de octubre 2022'
+output:
+   beamer_presentation:
+    colortheme: rose
+    theme: Antibes
+subtitle: Comité Científico de Pesquerías de Pequeños Pelágicos
+institute: INSTITUTO DE FOMENTO PESQUERO
+---
+
+# \small Procedimiento de manejo de anchoveta centro-sur
+
+```{=tex}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figuras/Fig11.png}
+\end{center}
+```
+
+#  \small Antecedentes - Alternancia sardina común y anchoveta
+
+```{=tex}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{Figuras/CCTPP_alternanciaEstatus-1.pdf}
+\end{center}
+```
+
+
+# \small Antecedentes - CBAs recomendadas por hito
+
+```{=tex}
+\begin{center}
+\includegraphics[width=0.45\textwidth]{Figuras/CCTPP_alternaciaCBA-1.pdf}
+\includegraphics[width=0.45\textwidth]{Figuras/CCTPP_alternaciaCBA1eraRevision-1.pdf}
+\includegraphics[width=0.45\textwidth]{Figuras/CCTPP_alternaciaCBA2daRevision-1.pdf}
+\end{center}
+```
+
+
+# \small Antecedentes - CBAs recomendadas y desembarques de anchoveta centro-sur
+
+
+```{=tex}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{FigurasCCTPP_Octubre/CCTPP_CBAporHito-1.pdf}
+\end{center}
+```
+
+* Desembarque 2022 acumulado al mes de junio (188 mil t)
+
+
+# \small Evaluación de stock - Ajustes del modelo a los datos - anchoveta centro-sur
+
+```{=tex}
+
+\begin{figure}
+\includegraphics[width=0.75\textwidth]{Figuras/Fig22-1.pdf}
+\end{figure}
+
+```
+
+# \small Evaluación de stock - Ajuste Flota de anchoveta centro-sur
+
+```{=tex}
+
+\begin{figure}
+\includegraphics[width=0.75\textwidth]{Figuras/Fig24-1.pdf}
+\end{figure}
+
+```
+# \small Evaluación de stock - Ajuste Crucero de verano de anchoveta centro-sur
+
+```{=tex}
+
+\begin{figure}
+\includegraphics[width=0.75\textwidth]{Figuras/Fig25-1.pdf}
+\end{figure}
+
+```
+# \small Evaluación de stock - Ajuste Crucero de otoño de anchoveta centro-sur
+
+```{=tex}
+
+\begin{figure}
+\includegraphics[width=0.75\textwidth]{Figuras/Fig26-1.pdf}
+\end{figure}
+
+```
+
+# \small Evaluación de stock - Indicadores poblacionales de anchoveta centro-sur
+
+```{=tex}
+
+\begin{figure}
+\includegraphics[width=0.75\textwidth]{Figuras/Fig30-1.pdf}
+\end{figure}
+
+```
+
+
+# \small Evaluación de stock - Estatus  2021/22 de anchoveta centro-sur
+
+
+```{=tex}
+\begin{columns}
+\column{0.6\textwidth}
+\begin{figure}
+\includegraphics[width=0.95\textwidth]{Figuras/Fig34-1.pdf}
+\end{figure}
+
+\column{0.5\textwidth}
+\begin{figure}
+\includegraphics[width=1\textwidth]{Figuras/Fig35a-1.pdf}
+\end{figure}
+\end{columns}
+
+```
+
+La condición 2021/2022 estimada con información completa indica que anchoveta centro-sur se encuentra en plena-explotación sin probabilidades de sobre-explotación (0%)
+
+# \small Proyección del stock dos años biológicos 2022/23 y  2023/24 
+
+
+
+```{=tex}
+
+\begin{figure}[h!]
+\includegraphics[width=0.85\textwidth]{Figuras/Fig34a-1.pdf}
+\end{figure}
+
+```
+
+
+
+# \small Estatus proyectado año biológico 2022/23 y 2023/24 de anchoveta centro-sur
+
+
+```{=tex}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.32\textwidth]{Figuras/Fig46-1.pdf}
+\includegraphics[width=0.32\textwidth]{Figuras/Fig47-1.pdf}
+\includegraphics[width=0.32\textwidth]{Figuras/Fig48-1.pdf}
+\end{figure}
+```
+  \tiny
+  
+La condición proyectada hacia el año 2022/2023 indica que exite un 13,1%  probabilidad de sobreexplotación. 
+
+# \small Análisis retrospectivo
+
+
+```{=tex}
+
+\begin{figure}[h!]
+\includegraphics[width=0.7\textwidth]{Figuras/Fig28-1.pdf}
+\end{figure}
+
+```
+
+
+
+
+
+# \small Rango de CBA  2023 de anchoveta centro-sur
+
+## CBA 
+
+
+```{=tex}
+\begin{table}[h!]
+ \small
+    \centering
+    \resizebox{11cm}{!} {
+    \begin{tabular}{c|ccc|ccc}
+    \hline 
+  Percentiles   & \multicolumn{3}{c}{$CBA_{2023}$}                     & \multicolumn{3}{c}{$CBA_{2023}-2\%descarte$}  \\
+  de            & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}}    & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}}  \\ 
+   $C_{RMS}$    & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$ & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$\\ \hline 
+  mean   &  219.450  & 204.080  & 193.890 & 215.060 & 200.000 & 190.020  \\ 
+  sd     &   41.713  &  41.492  & 41.204  & 40.878  &  40.662 & 40.380 \\ \hline 
+  10\%   &  165.993  & 150.906  & 141.085 & 162.673 & 147.890 & 138.271 \\ 
+  20\%   &  184.343  & 169.159  & 159.212 & 180.656 & 165.778 & 156.035 \\
+  30\%   &  197.576  & 182.322  & 172.283 & 193.624 & 178.677 & 168.845 \\ 
+  40\%   &  208.882  & 193.568  & 183.451 & 204.704 & 189.698 & 179.790 \\
+  50\%   &  219.450  & 204.080  & 193.890 & 215.060 & 200.000 & 190.020   \\ \hline
+  \end{tabular}}
+        \end{table}
+```
+
+
+# CBAs  por hito de revisión de anchoveta centro-sur
+
+##
+
+
+```{=tex}
+\begin{table}[h!]
+ \small
+    \centering
+    \resizebox{10cm}{!} {
+    \begin{tabular}{|c|c|c|c|c|l|}
+    \hline 
+AÑO  & CBA inicial  & 1era revisión CBA  & 2da revisión CBA  & Desembarques  & Diferencia entre   \\ 
+     & (t)          & (t)                & (t)               & (t)           &  desembarque y CBA \\ \hline
+2014 & 42.200     & 42.200           & -               & 56.842   & 1,3 veces la CBA \\ 
+2015 & 34.400     & 34.400           & 34.400          & 63.168   & 1,84 veces la CBA \\
+2016 & 34.400     & 39.900           & 39.900          & 71.985   & 1,80 veces la CBA \\ 
+2017 & 58.400     & 58.400           & 58.400          & 55.709   & 0,95 veces la CBA \\
+2018 & 49.440     & 49.440           & 59.500          & 61.176   & 1,03 veces la CBA \\ 
+2019 & 81.347     & 120.500          & 127.150         & 160.968  & 1,27 veces la CBA \\
+2020 & 162.876    & 162.876          & 162.876         & 166.031  & 1,02 veces la CBA \\  
+2021 & 210.167    & 210.167          & 210.167         & 170.072  & 0,81 veces la CBA \\ 
+2022 & 173.315    & 236.223          & -               & 188.248* & 0,79 veces la CBA**  \\  \hline
+  \end{tabular}}
+        \end{table}
+```
+
+\footnotesize
+
+* \*Desembarque acumulado a junio 2022
+
+
+#
+
+Gracias por su atención
+
+# CBAs  por hito de revisión de anchoveta centro-sur
+
+```{r CCTPP_CBAporHito,include=T, message=F,warning=F,eval=F, echo=FALSE,fig.height=3,fig.width=6,fig.align="center",fig.path="FigurasCCTPP_Octubre/", dev=c('pdf', 'bmp')}
+library(stringr)
+library(lattice)
+library(ggplot2)
+library(reshape)
+library(dplyr)
+library(ggthemes)
+library(stringr)
+library(knitr)
+
+year<-    c(2014,2015,2016,2017,2018,2019,2020,2021,2022)
+CBAhito1<-c(42200,34400,34400,58400,49440,81347,162876,210167,173315)
+CBAhito2<-c(42200,34400,39900,58400,49440,120500,162876,210167,236223)
+CBAhito3<-c(NA,34400,39900,58400,59500,127150,162876,210167,236223)
+Desembarques <- c(56842,63168,71985,55709,61176,160968,166031,155982,NA)
+
+
+ind           <- cbind(CBAhito1,CBAhito2,CBAhito3,Desembarques) 
+data          <- data.frame(ind) %>% mutate (Asesoria='data')%>% mutate (yrs= year)%>%melt(id.var=c('yrs', 'Asesoria'))
+
+f1 <- ggplot(data, aes(yrs,value,colour=variable))+ geom_line()+ geom_point( size=2, shape=21, fill="white") + 
+      labs(x = 'Años', y = 'CBA y desembarques  (toneladas)')  +
+      scale_colour_manual(values=c(4,3,2,1))+
+      theme_bw(base_size=9) + 
+      ggtitle('')+
+      theme(plot.title = element_text(hjust = 0.5))
+f1
+
+```
+
+
+
+
