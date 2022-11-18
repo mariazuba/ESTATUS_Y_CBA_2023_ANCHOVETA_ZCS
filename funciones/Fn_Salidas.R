@@ -262,7 +262,7 @@ sept20 <-paste(dir,"/MAE0920b.rep",sep="")
 mar21  <-paste(dir,"/MAE0321b.rep",sep="")
 jul21  <-paste(dir,"/MAE0721b.rep",sep="")
 sept21 <-paste(dir,"/MAE0921b.rep",sep="")
-mar22  <-paste(dir.1,"/MAE322.rep",sep="")
+mar22  <-paste(dir,"/MAE322.rep",sep="")
 jul22  <-paste(dir.1,"/MAE722.rep",sep="")
 sept22 <-paste(dir.1,"/MAE922.rep",sep="")
 #=============================================================================
