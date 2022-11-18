@@ -2598,12 +2598,6 @@ Los mayores niveles de mortalidad por pesca se registraron durante el período d
 La selectividad de la flota indica que anchoveta es próximo a su completo reclutamiento a la pesquería a la edad de 2 años cuya retención es del orden del `r formatC(round(rep1$S_f[26,3]*100,1),decimal.mark = ",")`% , mientras que los individuos de edad 0 y 1 son vulnerados en un `r formatC(round(rep1$S_f[26,1]*100,1),decimal.mark = ",")`%  y `r formatC(round(rep1$S_f[26,2]*100,1),decimal.mark = ",")`%  respectivamente. Respecto a la selectividad de los cruceros acústicos, en enero el arte de pesca selecciona el `r formatC(round(rep1$Scru_reclas[26,1]*100,1),decimal.mark = ",")`% de peces de edad 0  y en mayo se selecciona un `r formatC(round(rep1$Scru_pelaces[26,1]*100,1),decimal.mark = ",")`% de peces de edad 0 y `r formatC(round(rep1$Scru_pelaces[26,2]*100,1),decimal.mark = ",")`% de peces de edad 1 (\textbf{Figura \ref{Fig31}}).
 
 
-**La \textbf{Figura \ref{Fig30}} y la \textbf{Tabla \ref{Tab17}} muestran los cambios que ha experimentado anchoveta en sus tendencias poblacionales en un período de 26 años (1996/97 - 2021/22). El análisis respecto a la media histórica de los indicadores de estado y flujo (Rpromedio = 43 mil millones de peces, BTpromedio = 775 mil t, BDpromedio = 404 mil t, Fmediana = 0,68) permite identificar claramente dos ciclos con altos y bajos niveles de abundancia de una duración de 10 años aprox. El período de altos niveles de abundancia de anchoveta se registra desde el año 2002/03 hasta el año 2008/09 con valores sobre el promedio histórico (R\_alto = 75 mil millones de peces, BT\_alto = 1,42 millones de t, BD\_alto = 716 mil t). Los niveles bajo el promedio histórico se registran desde el año 2009/10 hasta el 2017/18 (R\_bajo = 18 mil millones de peces, BT\_bajo = 275 mil t., BD\_bajo = 143 mil t). Respecto a la asesoría previa (marzo 2022) los reclutamientos incrementan un 34%, la biomasa total incrementa un 4% y la biomasa desovante disminuye un 1%).**
-
-
-**Los mayores niveles de mortalidad por pesca se registraron durante el período de baja abundancia (F \> Fmediana) debido a los bajos rendimientos. A partir del año 2015/16, se observa el inicio de un nuevo ciclo con tendencia positiva generada por la fuerza de la clase anual reclutada que se incorpora a la población y a los bajos niveles de mortalidad por pesca (F \< Fmediana). El incremento de los reclutamientos 2018/19 y 2019/20, la disminución de la mortalidad por pesca 2/3 por debajo de M (M=0,7 año^-1^) y el incremento de la biomasa total y desovante 2019/20 permiten la recuperación de anchoveta centro-sur para los tres últimos años de la serie.  La mortalidad por pesca 2021/2022 actualizada en la asesoría actual es un 26% menor al supuesto utilizado en la asesoría previa (marzo 2022) en torno al $F_{RMS}=0,45$.**
-
-**La selectividad de la flota indica que anchoveta es próximo a su completo reclutamiento a la pesquería a la edad de 2 años cuya retención es del orden del 97%, mientras que los individuos de edad 0 y 1 son vulnerados en un 10% y 67% respectivamente. Respecto a la selectividad de los cruceros acústicos, en enero el arte de pesca selecciona el 60% de peces de edad 0  y en mayo se selecciona un 82% de peces de edad 0 y 100% de peces de edad 1 (\textbf{Figura \ref{Fig31}}).**
 
 \pagebreak
 
@@ -2742,74 +2736,33 @@ g1
 
 
 VarPobl1<- cbind(yearsb,
-                 format(round(c(BD1),0),nsmall=0, big.mark="."),
-                 format(round(c(BT1),0),nsmall=0, big.mark="."),
-                 format(round(c(Rt1),0),nsmall=0, big.mark="."),
-                 formatC(c(round(exp(Ft1),3)),decimal.mark = ",",digits = 3))
+                 format(round(BD1,0),nsmall=0, big.mark="."),
+                 format(round(BD2,0),nsmall=0, big.mark="."),
+                 format(round(BT1,0),nsmall=0, big.mark="."),
+                 format(round(BT2,0),nsmall=0, big.mark="."),
+                 format(round(Rt1,0),nsmall=0, big.mark="."),
+                 format(round(Rt2,0),nsmall=0, big.mark="."),
+                 formatC(round(exp(Ft1),3),decimal.mark = ",",digits = 3),
+                 formatC(round(exp(Ft2),3),decimal.mark = ",",digits = 3))
 
 #-----------
 # TABLA 
 #-----------
 VarPobl1 %>%
 kbl(booktabs = T,format = "latex",position="h!",escape = F,align="c",
-    col.names = linebreak(c('Año\nbiológico',
-                            "Biomasa\ndesovante",
-                            "Biomasa\ntotal",
-                            "Reclutamientos",
-                            "Mortalidad\npor pesca"),align="c"),
+    col.names = linebreak(c("",
+                            "Hito 1","Hito 2","Hito 1","Hito 2","Hito 1","Hito 2","Hito 1","Hito 2"),align="c"),
 caption = "\\label{Tab17}Estimaciones medias de las biomasa desovante (t) , biomasa total (t), reclutamientos (\\#) y  mortalidad por pesca (año-1)  estimadas en la asesoría de septiembre 2022 de anchoveta de las regiones de Valparaíso a Los Lagos.") %>% 
   kable_styling(latex_options = c("striped", "condensed"),
-                full_width = FALSE,font_size=8)
+                full_width = FALSE,font_size=8)%>%
+  add_header_above(c('Año\nbiológico'=1,
+                      "Biomasa\ndesovante"=2,
+                      "Biomasa total"=2,
+                      "Reclutamientos"=2,
+                      "Mortalidad\npor pesca"=2))
 
 
 ```
-
-
-
-```{=tex}
-
-\begin{table}[h!]
-\caption{Estimaciones medias de las biomasa desovante (t) , biomasa total (t), reclutamientos (\#) y  mortalidad por pesca (año-1)  estimadas en la asesoría de septiembre 2021, marzo 2022 y julio 2022 de anchoveta de las regiones de Valparaíso a Los Lagos.}
- \label{Tab17}
- \small
-    \centering
-    \resizebox{17cm}{!} {
-    \begin{tabular}{ccccccccccccc}
-    \hline \rowcolor{Gray3}
-Año     & \multicolumn{3}{c}{Biomasa desovante}&\multicolumn{3}{c}{Biomasa total}&\multicolumn{3}{c}{Reclutamientos}&\multicolumn{3}{c}{Mortalidad por Pesca}\\ 
-        \rowcolor{Gray3}
-biológico & $septiembre$ & $marzo$ & $julio$ & $septiembre$ & $marzo$ & $julio$ & $septiembre$ & $marzo$ &  $julio$ & $septiembre$ & $marzo$ &  $julio$ \\ 
-\hline  \rowcolor{Gray4}
-1996/97	& 446.310	& 439.990 & 438.707 & 1.536.600	& 1.529.000 & 1.525.880 & 36.162	  & 36.128 & 36.062 & 0,975 & 1,015 & 1,021 \\
-1997/98	& 244.750	& 241.800 & 240.936 & 373.710	  &   370.590 &   369.512 & 43.906	  & 43.878 & 43.774 & 0,894 & 0,926 & 0,933 \\ \rowcolor{Gray4}
-1998/99	& 270.970	& 268.000 & 266.701 & 649.390	  &   638.730 &   635.853 & 22.502	  & 21.892 & 21.770 & 1,55  & 1,600 & 1,614 \\
-1999/00	& 261.880	& 254.790 & 252.722 & 479.180	  &   461.440 &   458.011 & 33.972	  & 32.033 & 31.813 & 0,332 & 0,348 & 0,352 \\ \rowcolor{Gray4}
-2000/01	& 306.350	& 291.880 & 289.531 & 625.390	  &   594.660 &   590.462 & 60.820	  & 57.659 & 57.320 & 0,057 & 0,061 & 0,062 \\
-2001/02	& 522.520	& 493.560 & 489.878 & 736.610	  &   700.420 &   695.724 & 42.634	  & 40.988 & 40.743 & 0,539 & 0,583 & 0,589 \\ \rowcolor{Gray4}
-2002/03	& 742.540	& 701.000 & 695.278 & 1.783.000	& 1.734.300 & 1.724.940 & 77.583	  & 77.384 & 77.134 & 0,342 & 0,370 & 0,374 \\
-2003/04	& 919.090	& 885.670 & 879.697 & 1.634.700	& 1.587.600 & 1.579.810 & 75.495	  & 73.996 & 73.822 & 0,673 & 0,715 & 0,722 \\ \rowcolor{Gray4}
-2004/05	& 790.960	& 764.640 & 760.360 & 1.706.900	& 1.671.500 & 1.666.600 & 98.882	  & 97.993 & 97.961 & 0,761 & 0,806 & 0,814 \\
-2005/06	& 848.470	& 826.760 & 824.093 & 1.653.700	& 1.626.700 & 1.625.440 & 116.880	  & 116.310 & 116.622 & 0,561 & 0,589 & 0,593  \\ \rowcolor{Gray4}
-2006/07	& 891.020	& 872.810 & 871.725 & 1.531.900	& 1.506.300 & 1.499.640 & 66.686 	  & 65.630 & 64.682 & 1,038 & 1,082  & 1,086 \\
-2007/08	& 627.730	& 609.940 & 604.961 & 1.069.600	& 1.047.800 & 1.042.030 & 46.078	  & 45.639 & 45.564 & 0,911 & 0,956  & 0,966 \\ \rowcolor{Gray4}
-2008/09	& 395.000	& 380.850 & 376.944 & 786.840	  &   775.670 &   773.551 & 45.950	  & 46.552 & 46.903 & 1,455 & 1,548  & 1,574 \\
-2009/10	& 205.460	& 198.730 & 197.394 & 430.210	  &   426.440 &   425.189 & 24.867	  & 25.384 & 25.369 & 2,868 & 3,063  & 3,103 \\ \rowcolor{Gray4}
-2010/11	& 87.765	&  86.536 &  85.730 & 227.340	  &   226.720 &   226.067 & 14.463	  & 14.533 & 14.548 & 3,3   & 3,448  & 3,502 \\
-2011/12	& 70.217	&  70.046 &  69.714 & 144.490	  &   143.420 &   143.575 & 13.306	  & 13.058 & 13.191 & 1,401 & 1,442  & 1,456 \\ \rowcolor{Gray4}
-2012/13	& 78.720	&  77.483 &  77.790 & 161.880	  &   159.950 &   159.810 & 10.078	  &  9.970 &  9.894 & 1,029 & 1,072  & 1,07 \\
-2013/14	& 103.590	& 101.640 & 101.371 & 205.310	  &   202.310 &   200.795 & 11.574	  & 11.444 & 11.261 & 0,706 & 0,735  & 0,739 \\ \rowcolor{Gray4}
-2014/15	& 129.640	& 127.120 & 125.672 & 212.760	  &   208.960 &   207.599 & 12.448	  & 12.222 & 12.271 & 0,569 & 0,592  & 0,6 \\
-2015/16	& 147.040	& 143.630 & 142.788 & 287.730	  &   282.300 &   281.627 & 19.921	  & 19.612 & 19.662 & 0,599 & 0,626  & 0,631 \\ \rowcolor{Gray4}
-2016/17	& 221.370	& 216.940 & 216.590 & 441.450	  &   436.810 &   434.972 & 26.048	  & 26.089 & 25.886 & 0,277 & 0,288  & 0,289 \\
-2017/18	& 272.390	& 269.550 & 268.144 & 403.680	  &   399.930 &   396.856 & 32.831	  & 32.595 & 32.008 & 0,339 & 0,348  & 0,350 \\ \rowcolor{Gray4}
-2018/19	& 334.890	& 332.910 & 330.773 & 552.200	  &   556.680 &   569.522 & 51.775	  & 53.962 & 52.884 & 0,411 & 0,420  & 0,427 \\
-2019/20	& 466.470	& 486.430 & 472.002 & 816.150	  &   917.140 &   863.819 & 61.395	  & 79.644 & 74.003 & 0,414 & 0,400  & 0,413 \\ \rowcolor{Gray4}
-2020/21	& 630.820	& 762.160 & 710.310 & 928.130	  & 1.167.500 & 1.034.270 & 26.675	  & 39.984 & 32.006 & 0,376 & 0,313  & 0,336 \\ 
-2021/22	&       	& 727.810 & 718.547 &        	  &   993.590 & 1.029.960 &     	    & 27.987 & 37.387 &       & 0,452  & 0,334 \\ \hline 
-  \end{tabular}}
-        \end{table}
-```
-
 
 
 \pagebreak
@@ -2825,18 +2778,10 @@ En la \textbf{Tabla \ref{Tab18}} y \textbf{Figura \ref{Fig32}} se presentan los 
 Los pasos para el cálculo de $BD_0$, $BD_{RMS}$ y $BD_{LIM}$ se describe en la \textbf{Tabla \ref{Tab18}}. Este procedimiento busca encontrar un balance entre la serie histórica de las BD y de F a partir del cálculo de $BD_{promedio}$ y $F_{mh}$. Al respecto, la \textbf{Figura \ref{Fig32}} muestra las series de Biomasa desovante y mortalidad por pesca junto a los PBRs calculados, donde se observa que en el período de menores niveles de BD se registraron los mayores niveles de F. Cuando los niveles de BD incrementan las Fs son bajas. Según Patterson (1992), para que el valor de F~mh~ fuera sostenible las biomasas deberían ser estables o crecientes y el nivel de F encontrarse bajo 2/3 de M. Respecto a la mortalidad por pesca al RMS, el CCT-PP recomendó considerar un $F_{RMS}$ precautorio ($F60\%_{BDPR}$, \textbf{Figura \ref{Fig33}}) debido a su condición de pesquería mixta junto a sardina común y por su rol ecosistémico, considerado clave para otros eslabones de la trama trófica. Los resultados de este estudio muestran que entre los años 1996/97 y 2000/01 el stock de anchoveta centro-sur se encontraba sobre-explotado con biomasas por debajo del objetivo de manejo ($BD < BD_{RMS}$). A partir del 2001/02 se incrementan los niveles de biomasa desovante, permitiendo que el stock transite y se mantenga en una condición de plena-explotación hasta el 2007/08. No obstante, los niveles de reclutamiento para el año 2008 se reducen drásticamente generando niveles de biomasa desovante por debajo del promedio histórico para el 2008/09. Debido a la falla en los reclutamientos, desde el año 2009/10 la anchoveta de la zona centro-sur cambia drásticamente su estatus a una condición de agotamiento y/o colapso, manteniéndose en esa condición durante 8 años (2009/10 al 2016/17). A partir del año 2017/18 se manifiesta una recuperación del stock, transitando de la zona de colapso a la zona de sobre-explotación los años 2017/18 y 2018/19 y de plena-explotación los años 2019/20, 2020/21 y 2021/2022. En términos de los niveles de mortalidad por pesca (Ft año^-1^), en general, se ha mantenido históricamente por sobre el nivel objetivo de referencia $F_{RMS}$, no obstante, a partir del año 2016/17, los niveles de Ft estuvieron bajo el objetivo de manejo (\textbf{Figura \ref{Fig34}} y \textbf{Tabla \ref{Tab19}}). Respecto a la condición actual de anchoveta centro-sur, los resultados indican una recuperación del estatus generada por el incremento de los reclutamientos 2018/19 y 2019/20, la disminución de la mortalidad por pesca por debajo del objetivo de manejo ($F<F_{RMS}$) y 2/3 por debajo de M (M=0,7 año^-1^) y el incremento de la biomasa total y desovante de los años 2019/20, 2020/21 y 2021/2022. Por lo tanto, anchoveta centro-sur se encuentra en una condición de plena-explotación sin probabilidad de sobre-explotación (`r formatC(round(pc_sept*100,0),decimal.mark = ",")`% ) (\textbf{Figura \ref{Fig35}} y \textbf{Tabla \ref{Tab21}}).
 
 
-**En la \textbf{Tabla \ref{Tab18}} y \textbf{Figura \ref{Fig32}} se presentan los valores calculados de F~RMS~, BD~RMS~ y BD~LIM~ recomendados por el Comité Científico Técnicos de  Pequeños Pelágicos (Informe Técnico CCT-PP N°01/2015) de acuerdo con la metodología discutida durante el segundo taller (Abril, 2014) y tercer taller (Agosto, 2014) de PBRs  [@Paya2014]. En relación al cálculo de BD~0~, en la sesión de agosto 2020 del CCT-PP se revisó los datos utilizados en la estimación de los Puntos Biológicos de Referencia (PBR) dado que el cambio del modelo de año calendario a año biológico provoca un acortamiento en la serie utilizada para la estimación de BD~0~ de 19 a 12 años y considerando que la anchoveta cierra su ciclo decreciente iniciado el 2009, el cual en su oportunidad determinó su exclusión del cálculo de BD~0~ a la hora de aplicar la metodología descrita en el taller de PBR  [@Paya2014], considerándose un caso excepcional. Conforme a lo anterior, el CCT-PP establece que para efectos de la determinación del estatus y CBA, se utilice la serie completa de datos para el cálculo de BD~0~. De esta manera se aplica íntegramente la metodología recomendada y se estandariza con lo aplicado en sardina común (Acta Sesión N° 5 20-21/08/2020 [^8]).**
-
-**[^8]: <http://www.subpesca.cl/portal/616/articles-108563_documento.pdf>**
-
-**Los pasos para el cálculo de BD~0~, BD~RMS~y BD~LIM~ se describe en la \textbf{Tabla \ref{Tab18}}. Este procedimiento busca encontrar un balance entre la serie histórica de las BD y de F a partir del cálculo de BDpromedio y Fmh. Al respecto, la \textbf{Figura \ref{Fig32}} muestra las series de Biomasa desovante y mortalidad por pesca junto a los PBRs calculados, donde se observa que en el período de menores niveles de BD se registraron los mayores niveles de F. Cuando los niveles de BD incrementan las Fs son bajas. Según Patterson (1992), para que el valor de F~mh~ fuera sostenible las biomasas deberían ser estables o crecientes y el nivel de F encontrarse bajo 2/3 de M. Respecto a la mortalidad por pesca al RMS, el CCT-PP recomendó considerar un F~RMS~ precautorio (F60%BDPR, \textbf{Figura \ref{Fig33}}) debido a su condición de pesquería mixta junto a sardina común y por su rol ecosistémico, considerado clave para otros eslabones de la trama trófica.**
-
-
 \pagebreak
 
 
 ```{r}
-
 
 etapas<-c("Paso 1", "Paso 1", "Paso 2","Paso 2","Paso 3", "Paso 3", "Paso 4", "Paso 5", "Paso 6")
 
@@ -2860,7 +2805,7 @@ calculo<-c("Promedio de la serie histórica entre 1991-2022",
            "$BD_{LIM}=BD_{0}*\\%BD_{F_{LIM}}$")
 
 
-Valores<-c(round(Bmed1/10^3,0),
+Hito1<-c(round(Bmed1/10^3,0),
                  formatC(round(Fmedian1,2), decimal.mark = ","), 
                  formatC(pSPR_Fmh1*100, decimal.mark = ","), 
                  formatC(60, decimal.mark = ","),
@@ -2870,49 +2815,31 @@ Valores<-c(round(Bmed1/10^3,0),
                  round(BRMS1/10^3,0),
                  round(BLIM1/10^3,0))
 
-tablapbrs<-data.frame("Etapas"=etapas,"Cálculo"=calculo,"Aproximación"=pbrs,"Valores"=Valores)
+Hito2<-c(round(Bmed2/10^3,0),
+                 formatC(round(Fmedian2,2), decimal.mark = ","), 
+                 formatC(pSPR_Fmh2*100, decimal.mark = ","), 
+                 formatC(60, decimal.mark = ","),
+                 formatC(pB_Fmh2*100, decimal.mark = ","),
+                 formatC(55, decimal.mark = ","),
+                 round(Bo2/10^3,0),
+                 round(BRMS2/10^3,0),
+                 round(BLIM2/10^3,0))
+
+
+tablapbrs<-data.frame(etapas,calculo,pbrs,Hito1,Hito2)
 
 #-----------
 # TABLA 
 #-----------
 kbl(tablapbrs, booktabs = T,format = "latex",position="h!",align="cllc",escape = FALSE,
+     col.names = linebreak(c('Etapas','Cálculo','Aproximación','Hito 1','Hito 2'),align="c"),
 caption = "\\label{Tab18}Procedimiento de cálculo de los puntos biológicos de referencia de biomasa (miles de t) estimados en la evaluación de stock de septiembre 2022 para anchoveta de las regiones de Valparaíso a Los Lagos, calculados siguiendo los pasos descritos en la metodología de este informe.")%>%
   collapse_rows(columns = 1:2,latex_hline = "major", valign = "middle")%>% 
   kable_styling(latex_options = c("striped", "condensed"),
-                full_width = FALSE,font_size=8)
+                full_width = FALSE,font_size=8)%>% 
+add_header_above(c(" " = 3,"Asesorías" = 2))
 
 ```
-
-
-
-```{=tex}
-
-\begin{table}[h!]
-\caption{Puntos biológicos de referencia de biomasa (miles t) estimados en la evaluación de stock de septiembre 2021, marzo 2022 y julio 2022 para anchoveta de las regiones de Valparaíso a Los Lagos, calculados siguiendo los pasos descritos en la metodología de este informe.}
- \label{Tab18}
- \small
-    \centering
-    \resizebox{16cm}{!} {
-    \begin{tabular}{c|l|l|c|c|c}
-    \hline \rowcolor{Gray3}
- Etapas & Cálculo                               & Aproximación       & \multicolumn{3}{c}{Asesoría} \\ \rowcolor{Gray3}
-        &                                       &                    & Septiembre    & Marzo & Julio \\ \hline 
-\multirow{4}{1cm}{Paso 1} & Promedio de la serie histórica entre  & $BD_{promedio}$ & 401 mil t      & 409 mil t & 404 mil t \\
-       & 1997-2022 de la evaluación de stock           &                            &                &           &       \\
-       & Mediana de la serie histórica entre           & $F_{mh}$                   & 0,67           & 0,67      & 0,68  \\ 
-       & 1997-2022 de la evaluación de stock           &                            &                &           &        \\ \hline                
-\multirow{3}{1cm}{Paso 2} & Cálculo de la curva de biomasa  & $\%BDPR (F_{mh})$     & 50,4\%         & 50,9\%    & 50,8\%  \\
-       & por recluta (BDPR)                            &                            &                &           &          \\
-       &                                               & $\%BDPR (F_{RMS})$         & 60\%           & 60\%      &  60\%    \\ \hline
-\multirow{2}{1cm}{Paso 3} & $\%BDPR (F_{mh}) - 5\%$    & $\%BD (F_{mh})$            & 45,4\%         & 45,9\%    & 45,8\%    \\
-       & $\%BDPR (F_{RMS}) - 5\%$                      & $\%BD (F_{RMS})$           & 55\%           & 55\%      & 55\%      \\ \hline
-Paso 4 & $BD_0=BD_{promedio} / \%BD_{Fmh}$             & $BD_0$                     & 878 mil t      & 892 mil t & 885 mil t \\ \hline
-Paso 5 & $BD_{RMS} = BD_0*\%BD(F_{RMS})$               & $BD_{55\%}$                & 483 mil t      & 491 mil t & 487 mil t \\ \hline
-Paso 6 & $BD_{LIM} = BD_0 * \%BD(F_{LIM})$             & $BD_{27,5\%}$              & 241 mil t      & 245 mil t & 243 mil t \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
 
 
 
@@ -2927,47 +2854,37 @@ lfmedian<- median(VarPobSep$Ft1)
 
 
 BD <- ggplot() + 
-     #geom_line(data=VarPobJul,aes(y=BD3, x=x, colour = "julio 2022"),linetype ="solid",  size=0.5)+
-     #geom_line(data=VarPobMar,aes(y=BD2, x=x, colour = "marzo 2022"), linetype ="dashed", size=0.5)+
-     geom_line(data=VarPobSep,aes(y=BD1, x=x, colour = "septiembre 2022"),linetype ="solid",  size=0.5)+
-     #geom_ribbon(data=VarPobJul,aes(ymin=lowerBD3, ymax=upperBD3, x=x, fill = "IC"), alpha = 0.2)+
-     #geom_ribbon(data=VarPobMar,aes(ymin=lowerBD2, ymax=upperBD2, x=x, fill = "IC"), alpha = 0.2)+
+     geom_line(data=VarPobSep,aes(y=BD1, x=x, colour = "Hito 1",linetype ="Hito 1"),  size=0.5)+
+     geom_line(data=VarPobMar,aes(y=BD2, x=x, colour = "Hito 2",linetype ="Hito 2"),  size=0.5)+
+     scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
+     scale_linetype_manual("",values=c('Hito 1'="solid",'Hito 2'='dashed'))+
      geom_ribbon(data=VarPobSep,aes(ymin=lowerBD1, ymax=upperBD1, x=x, fill = "IC"), alpha = 0.2)+
+     geom_ribbon(data=VarPobMar,aes(ymin=lowerBD2, ymax=upperBD2, x=x, fill = "IC"), alpha = 0.2)+
      geom_hline(yintercept = c(lbrms,lblim,lbo,lbmed),colour=c('green3','red','blue','black'))+
      annotate("text", x=c(rep(2012,3),2005), y=c(lbrms,lblim,lbo,lbmed)+30000,
               label=c(expression("BD"[RMS]),expression("BD"[LIM]),expression("BD"[0]),expression("BD"[promedio]))) +
      labs(x = '', y = 'Biomasa desovante (t)',colour='Asesorías')  +
     scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    #scale_colour_manual("",values=c('blue','red','black'))+
-    #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-    #scale_fill_manual("",values=c("grey80","grey70",'gray60'))+
-    scale_colour_manual("",values=c('black'))+
-    scale_linetype_manual(values=c("solid"))+
-    scale_fill_manual("",values=c('gray60'))+
+    scale_fill_manual("",values=c('gray50','gray60'))+
     theme_bw(base_size=11) +
      ggtitle('')+
      theme(plot.title = element_text(hjust = 0.5),legend.position="top")
 
 Ft <- ggplot() + 
-    #geom_line(data=VarPobJul,aes(y=Ft3, x=x, colour = "julio 2022"),linetype ="solid",  size=0.5)+
-    #geom_line(data=VarPobMar,aes(y=Ft2, x=x, colour = "marzo 2022"),linetype ="dashed",  size=0.5)+
-    geom_line(data=VarPobSep,aes(y=Ft1, x=x, colour = "septiembre 2022"), linetype ="solid", size=0.5)+
-    #geom_ribbon(data=VarPobJul,aes(ymin=lowerFt3, ymax=upperFt3, x=x, fill = "IC"), alpha = 0.2)+
-    #geom_ribbon(data=VarPobMar,aes(ymin=lowerFt2, ymax=upperFt2, x=x, fill = "IC"), alpha = 0.2)+
-    geom_ribbon(data=VarPobSep,aes(ymin=lowerFt1, ymax=upperFt1, x=x, fill = "IC"), alpha = 0.2)+
-     geom_hline(yintercept = c(lfrms,lfmedian),colour=c('green3','black')) +
-     annotate("text", x=c(2011,2001), y=c(lfrms,lfmedian)+0.15,label=c(expression("F"[RMS]),expression("F"[mh]))) +
-    labs(x = '', y = 'Mortalidad por pesca (F)',colour='Asesorías')  +
-    scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    #scale_colour_manual("",values=c('blue','red','black'))+
-    #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-    #scale_fill_manual("",values=c("grey80","grey70",'gray60'))+
-    scale_colour_manual("",values=c('black'))+
-    scale_linetype_manual(values=c("solid"))+
-    scale_fill_manual("",values=c('gray60'))+
-    theme_bw(base_size=11) +
-     ggtitle('')+
-     theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+      geom_line(data=VarPobSep,aes(y=Ft1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+      geom_line(data=VarPobMar,aes(y=Ft2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+      scale_colour_manual("",values=c("Hito 1"='black','Hito 2'='red'))+
+      scale_linetype_manual("",values=c('Hito 1'='solid', "Hito 2"='dashed'))+
+      geom_ribbon(data=VarPobSep,aes(ymin=lowerFt1, ymax=upperFt1, x=x, fill = "IC"), alpha = 0.2)+
+      geom_ribbon(data=VarPobMar,aes(ymin=lowerFt2, ymax=upperFt2, x=x, fill = "IC"), alpha = 0.2)+
+      geom_hline(yintercept = c(lfrms,lfmedian),colour=c('green3','black')) +
+      annotate("text", x=c(2011,2001), y=c(lfrms,lfmedian)+0.15,label=c(expression("F"[RMS]),expression("F"[mh]))) +
+      labs(x = '', y = 'Mortalidad por pesca (F)',colour='Asesorías')  +
+      scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
+      scale_fill_manual("",values=c('gray50','gray60'))+
+      theme_bw(base_size=11) +
+      ggtitle('')+
+      theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 BD + Ft
 
@@ -3026,77 +2943,64 @@ Los resultados de este estudio muestran que entre los años 1996/97 y 2000/01 el
 
 \pagebreak
 
-```{r Fig34,fig.cap="\\label{Fig34}a) Razón $BD/BD_{RMS}$, b) la distribución de probabilidad de $BD_{last}/BD_{RMS}$, c) razón $F/F_{RMS}$ y d) la distribución de probabilidad $F_{last}/F_{RMS}$",fig.height=6.5,fig.width=8}
+```{r Fig34,fig.cap="\\label{Fig34}a) Razón $BD/BD_{RMS}$, b) la distribución de probabilidad de $BD_{last}/BD_{RMS}$, c) razón $F/F_{RMS}$ y d) la distribución de probabilidad $F_{last}/F_{RMS}$. el area sombreada corresponde al intervalo de confianza (IC)",fig.height=6.5,fig.width=8}
 
 BD_BDrms <- ggplot() + 
-     #geom_line(data=EstatusJul,aes(y=Rpr3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
-     #geom_line(data=EstatusMar,aes(y=Rpr2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-     geom_line(data=EstatusSep,aes(y=Rpr1, x=x, colour = "sept 2022"),linetype ="solid", size=0.5)+
-     #geom_ribbon(data=EstatusJul,aes(ymin=lowerRpr3, ymax=upperRpr3, x=x, fill = "IC"), alpha = 0.2)+
-     #geom_ribbon(data=EstatusMar,aes(ymin=lowerRpr2, ymax=upperRpr2, x=x, fill = "IC"), alpha = 0.2)+
-     geom_ribbon(data=EstatusSep,aes(ymin=lowerRpr1, ymax=upperRpr1, x=x, fill = "IC"), alpha = 0.2)+
-     geom_hline(yintercept = c(1,0.5),colour=c('green3','red'))+
-     annotate("text", x=c(2012,2012), y=c(1,0.5)+0.06,
-              label=c(expression("BD"[RMS]),expression("BD"[LIM]))) +
-     labs(x = '', y = expression("BD/BD"[RMS]),colour='Asesorías',tag="a)")  +
-     scale_x_continuous(breaks = seq(from = 1960, to = 2062, by = 4)) +
-     #scale_colour_manual("",values=c('blue','red','black'))+
-    #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-    #scale_fill_manual("",values=c("grey80","grey70",'gray60'))+
-    scale_colour_manual("",values=c('black'))+
-    scale_linetype_manual(values=c("solid"))+
-    scale_fill_manual("",values=c('gray60'))+
-    theme_bw(base_size=11) +
-     ggtitle('')+
-     theme(plot.title = element_text(hjust = 0.5),legend.position="top")
+            geom_line(data=EstatusSep,aes(y=Rpr1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+            geom_line(data=EstatusMar,aes(y=Rpr2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+            scale_colour_manual("",values=c("Hito 1"='black',"Hito 2"='red'))+
+            scale_linetype_manual("",values=c("Hito 1"="solid","Hito 2"="dashed"))+
+            geom_ribbon(data=EstatusSep,aes(ymin=lowerRpr1, ymax=upperRpr1, x=x, fill = "IC"), alpha = 0.2)+
+            geom_ribbon(data=EstatusMar,aes(ymin=lowerRpr2, ymax=upperRpr2, x=x, fill = "IC"), alpha = 0.2)+
+            geom_hline(yintercept = c(1,0.5),colour=c('green3','red'))+
+            annotate("text", x=c(2012,2012), y=c(1,0.5)+0.06,
+            label=c(expression("BD"[RMS]),expression("BD"[LIM]))) +
+            labs(x = '', y = expression("BD/BD"[RMS]),colour='Asesorías',tag="a)")  +
+            scale_x_continuous(breaks = seq(from = 1960, to = 2062, by = 4)) +
+            scale_fill_manual("",values=c("grey50",'gray60'))+
+            theme_bw(base_size=11) +
+            ggtitle('')+
+            theme(plot.title = element_text(hjust = 0.5),legend.position="top")
 
 F_Frms <- ggplot() + 
-    #geom_line(data=EstatusJul,aes(y=Frpr3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
-    #geom_line(data=EstatusMar,aes(y=Frpr2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-    geom_line(data=EstatusSep,aes(y=Frpr1, x=x, colour = "septiembre 2022"),linetype ="solid", size=0.5)+
-    #geom_ribbon(data=EstatusJul,aes(ymin=lowerFrpr3, ymax=upperFrpr3, x=x, fill = "IC"), alpha = 0.2)+
-    #geom_ribbon(data=EstatusMar,aes(ymin=lowerFrpr2, ymax=upperFrpr2, x=x, fill = "IC"), alpha = 0.2)+
-    geom_ribbon(data=EstatusSep,aes(ymin=lowerFrpr1, ymax=upperFrpr1, x=x, fill = "IC"), alpha = 0.2)+
-     geom_hline(yintercept = 1,colour=c('green3')) +
-     annotate("text", x=2012, y=1+0.25,label=c(expression("F"[RMS]))) +
-    labs(x = '', y = expression("F/F"[RMS]),colour='Asesorías',tag="c)")  +
-    scale_x_continuous(breaks = seq(from = 1960, to = 2062, by = 4)) +
-    #scale_colour_manual("",values=c('blue','red','black'))+
-    #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-    #scale_fill_manual("",values=c("grey80","grey70",'gray60'))+
-    scale_colour_manual("",values=c('black'))+
-    scale_linetype_manual(values=c("solid"))+
-    scale_fill_manual("",values=c('gray60'))+
-    theme_bw(base_size=11) +
-     ggtitle('')+
-     theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+          geom_line(data=EstatusSep,aes(y=Frpr1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+          geom_line(data=EstatusMar,aes(y=Frpr2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+          geom_ribbon(data=EstatusSep,aes(ymin=lowerFrpr1, ymax=upperFrpr1, x=x, fill = "IC"), alpha = 0.2)+
+          geom_ribbon(data=EstatusMar,aes(ymin=lowerFrpr2, ymax=upperFrpr2, x=x, fill = "IC"), alpha = 0.2)+
+          geom_hline(yintercept = 1,colour=c('green3')) +
+          annotate("text", x=2012, y=1+0.25,label=c(expression("F"[RMS]))) +
+          labs(x = '', y = expression("F/F"[RMS]),colour='Asesorías',tag="c)")  +
+          scale_x_continuous(breaks = seq(from = 1960, to = 2062, by = 4)) +
+          scale_colour_manual("",values=c("Hito 1"='black',"Hito 2"='red'))+
+          scale_linetype_manual("",values=c("Hito 1"="solid","Hito 2"="dashed"))+
+          scale_fill_manual("",values=c("grey50",'gray60'))+
+          theme_bw(base_size=11) +
+          ggtitle('')+
+          theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 fig_desnb<- ggplot() + lims(y=c(0,3)) +
-     #geom_polygon(data=densb_bj,aes(x=x, y=y, group=t,alpha=0.9),fill="gray70")+
-     #geom_polygon(data=densb_bm,aes(x=x, y=y, group=t,alpha=0.9),fill="gray50")+
-     geom_polygon(data=densb_bs,aes(x=x, y=y, group=t,alpha=0.9),fill="gray60")+
-     #geom_line(aes(xbj,ybj), size=0.3,color="blue",linetype ="solid")+
-     #geom_line(aes(xbm,ybm), size=0.3,color="red",linetype ="dashed")+
-     geom_line(aes(xbs,ybs), size=0.3,color="black",linetype ="solid")+
-     annotate("text", x=c(1.4), y=c(2.95),colour = c('black'), size = 2.5,
-              label=c(paste("IC95%_sept2022 = [",round(icbs[1],3),"-",round(icbs[2],3),"]",sep=" "))) +
-     labs(x = expression("BD"[last]*"/BD"[RMS]), y = 'Densidad de probabilidad',tag="b)")  +
-     theme_bw(base_size=11) + 
-     theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+            geom_polygon(data=densb_bm,aes(x=x, y=y, group=t,alpha=0.9),fill="gray50")+
+            geom_polygon(data=densb_bs,aes(x=x, y=y, group=t,alpha=0.9),fill="gray60")+
+            geom_line(aes(xbm,ybm), size=0.3,color="red",linetype ="dashed")+
+            geom_line(aes(xbs,ybs), size=0.3,color="black",linetype ="solid")+
+            annotate("text", x=c(1.4,1.4), y=c(2.95,2.75),colour = c('black',"red"), size = 2.5,
+            label=c(paste("IC95%_Hito_1 = [",round(icbs[1],3),"-",round(icbs[2],3),"]",sep=" "),
+            paste("IC95%_Hito_2 = [",round(icbm[1],3),"-",round(icbm[2],3),"]",sep=" "))) +
+            labs(x = expression("BD"[last]*"/BD"[RMS]), y = 'Densidad de probabilidad',tag="b)")  +
+            theme_bw(base_size=11) + 
+            theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 fig_desnf<- ggplot() + lims(y=c(0,3))+
-     #geom_polygon(data=densb_fj,aes(x=x, y=y, group=t,alpha=0.9),fill="gray70")+
-     #geom_polygon(data=densb_fm,aes(x=x, y=y, group=t,alpha=0.9),fill="gray50")+
-     geom_polygon(data=densb_fs,aes(x=x, y=y, group=t,alpha=0.9),fill="gray60")+
-     #geom_line(aes(xfj,yfj), size=0.3,color="blue",linetype ="solid")+
-     #geom_line(aes(xfm,yfm), size=0.3,color="red",linetype ="dashed")+
-     geom_line(aes(xfs,yfs), size=0.3,color="black",linetype ="solid")+
-     annotate("text", x=c(0.6), y=c(2.95),colour = c('black'), size = 2.5,
-              label=c(paste("IC95%_sept2022= [",round(icfs[1],3),"-",round(icfs[2],3),"]",sep=" "))) +
-     labs(x = expression("F"[last]*"/F"[RMS]), y = 'Densidad de probabilidad',tag="d)")  +
-     theme_bw(base_size=11) + 
-     theme(plot.title = element_text(hjust = 0.5),legend.position="none")
-
+            geom_polygon(data=densb_fm,aes(x=x, y=y, group=t,alpha=0.9),fill="gray50")+
+            geom_polygon(data=densb_fs,aes(x=x, y=y, group=t,alpha=0.9),fill="gray60")+
+            geom_line(aes(xfm,yfm), size=0.3,color="red",linetype ="dashed")+
+            geom_line(aes(xfs,yfs), size=0.3,color="black",linetype ="solid")+
+            annotate("text", x=c(0.62,0.62), y=c(2.95,2.75),colour = c('black',"red"), size = 2.5,
+            label=c(paste("IC95%_Hito_1= [",round(icfs[1],3),"-",round(icfs[2],3),"]",sep=" "),
+                    paste("IC95%_Hito_2= [",round(icfm[1],3),"-",round(icfm[2],3),"]",sep=" "))) +
+            labs(x = expression("F"[last]*"/F"[RMS]), y = 'Densidad de probabilidad',tag="d)")  +
+            theme_bw(base_size=11) + 
+            theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
  {(BD_BDrms / F_Frms)   | (fig_desnb/fig_desnf)} +  plot_layout(ncol=2,widths=c(2,1))
 
@@ -3108,68 +3012,30 @@ fig_desnf<- ggplot() + lims(y=c(0,3))+
 
 ```{r}
 
-VarPobl2<- data.frame('Años'=yearsb,
-                 "F_FRMS"=formatC(c(round(exp(Ft1)/FRMS1,3)), decimal.mark = ","),
-                 "BD_BDRMS"=formatC(c(round(BD1/BRMS1,3)), decimal.mark = ","),
-                 "Y_BT"=formatC(c(round(rep1$desembarquepred/BT1,3)), decimal.mark = ","),
-                 "C_N"=formatC(c(round(rowSums(rep1$pred_Ctot)/rowSums(rep1$N),3)), decimal.mark = ","))
-
-kbl(VarPobl2, booktabs = T,format = "latex",position="h!",escape = F,align="c",
-    col.names = linebreak(c('Año\nbiológico',
-                            '$F/F_{RMS}$',
-                            '$BD/BD_{RMS}$',
-                            '$Y/BT$',
-                            '$C\\#/N\\#$'),align="c"),
-caption = "\\label{Tab19}Índices de reducción de F respecto de $F_{RMS}$ ($F/F_{RMS}$), BD respecto de $BD_{RMS}$ ($BD/BD_{RMS}$), tasas de explotación anual referidos a la biomasa ($Y/BT$) y a la abundancia estimada ($C\\#/N\\#$), estimadas en la evaluación de septiembre 2022 de anchoveta de las regiones de Valparaíso a Los Lagos.") %>% 
-  kable_styling(latex_options = c("striped", "condensed"),
-                full_width = FALSE,font_size=8)
+Estatus2<- data.frame('Años'=yearsb,
+                 "F_FRMS_h1"=formatC(round(exp(Ft1)/FRMS1,3), decimal.mark = ","),
+                 "F_FRMS_h2"=formatC(round(exp(Ft2)/FRMS2,3), decimal.mark = ","),
+                 "BD_BDRMS_h1"=formatC(round(BD1/BRMS1,3), decimal.mark = ","),
+                 "BD_BDRMS_h2"=formatC(round(BD2/BRMS2,3), decimal.mark = ","),
+                 "Y_BT_h1"=formatC(round(rep1$desembarquepred/BT1,3), decimal.mark = ","),
+                 "Y_BT_h2"=formatC(round(rep2$desembarquepred/BT2,3), decimal.mark = ","),
+                 "C_N_h1"=formatC(round(rowSums(rep1$pred_Ctot)/rowSums(rep1$N),3), decimal.mark = ","),
+                 "C_N_h2"=formatC(round(rowSums(rep2$pred_Ctot)/rowSums(rep2$N),3), decimal.mark = ","))
 
 
 
+kbl(Estatus2, booktabs = T,format = "latex",position="h!",align="c",escape = F,
+    col.names = linebreak(c('','Hito 1','Hito 2','Hito 1','Hito 2','Hito 1','Hito 2','Hito 1','Hito 2'),align="c"),
+caption = "\\label{Tab19}Índices de reducción de F respecto de $F_{RMS}$ ($F/F_{RMS}$), BD respecto de $BD_{RMS}$ ($BD/BD_{RMS}$), tasas de explotación anual referidos a la biomasa ($Y/BT$) y a la abundancia estimada ($C\\#/N\\#$), estimadas en las asesorías de septiembre (Hito 1) y marzo (Hito 2) para el stock de anchoveta de las regiones de Valparaíso a Los Lagos.") %>% 
+  kable_styling(latex_options = c("striped"),
+                full_width = FALSE,font_size=8) %>%
+  add_header_above(c("Año\nbiológico " = 1,
+                     'F/F_RMS'=2,
+                     'BD/BD_RMS'=2,
+                             'Y/BT'=2,
+                             'C#/N#'=2))
 ```
 
-
-```{=tex}
-
-\begin{table}[h!]
-\caption{Índices de reducción de F respecto de $F_{RMS}$ ($F/F_{RMS}$), BD respecto de $BD_{RMS}$ ($BD/BD_{RMS}$), tasas de explotación anual referidos a la biomasa ($Y/BT$) y a la abundancia estimada ($C\#/N\#$), estimadas en la evaluación de septiembre 2021, marzo 2022 y julio 2022 de anchoveta de las Regiones de Valparaíso a Los Lagos.}
- \label{Tab19}
- \small
-    \centering
-    \resizebox{17cm}{!} {
-    \begin{tabular}{ccccccccccccc}
-    \hline \rowcolor{Gray3}
-        & \multicolumn{3}{c}{$F/F_{RMS}$}&\multicolumn{3}{c}{$BD/BD_{RMS}$}&\multicolumn{3}{c}{ $Y/BT$}&\multicolumn{3}{c}{$C\#/N\#$} \\  \rowcolor{Gray3}
-Año     & $septiembre$ &$marzo$ & $julio$ & $septiembre$ & $marzo$ & $julio$ & $septiembre$ & $marzo$ & $julio$ & $septiembre$  & $marzo$ & $julio$ \\ \hline  \rowcolor{Gray4}
-1996/97	& 2,183	& 2,242 & 2,242 & 0,925	& 0,896 & 0,901 & 0,228	& 0,229 & 0,230 & 0,164 & 0,164 & 0,164 \\
-1997/98	& 2,003	& 2,046 & 2,047 & 0,507	& 0,493 & 0,495 & 0,208	& 0,210 & 0,210 & 0,156 & 0,156 & 0,157 \\ \rowcolor{Gray4}
-1998/99	& 3,47	& 3,535 & 3,542 & 0,561	& 0,546 & 0,548 & 0,681	& 0,692 & 0,695 & 0,326 & 0,330 & 0,332 \\
-1999/00	& 0,743	& 0,769 & 0,772 & 0,543	& 0,519 & 0,519 & 0,118	& 0,122 & 0,123 & 0,064 & 0,067 & 0,067 \\ \rowcolor{Gray4}
-2000/01	& 0,129	& 0,135 & 0,136 & 0,635	& 0,595 & 0,595 & 0,023	& 0,024 & 0,025 & 0,011 & 0,012 & 0,012 \\
-2001/02	& 1,207	& 1,288 & 1,293 & 1,083	& 1,006 & 1,006 & 0,32	& 0,336 & 0,338 & 0,14  & 0,147 & 0,148 \\ \rowcolor{Gray4}
-2002/03	& 0,765	& 0,818 & 0,822 & 1,538	& 1,428 & 1,428 & 0,151	& 0,156 & 0,157 & 0,07  & 0,072 & 0,072 \\
-2003/04	& 1,507	& 1,580 & 1,585 & 1,904	& 1,804 & 1,807 & 0,22	& 0,227 & 0,228 & 0,147 & 0,151 & 0,152 \\ \rowcolor{Gray4}
-2004/05	& 1,704	& 1,781 & 1,786 & 1,639	& 1,558 & 1,562 & 0,253	& 0,258 & 0,259 & 0,147 & 0,150 & 0,150 \\
-2005/06	& 1,256	& 1,302 & 1,301 & 1,758	& 1,684 & 1,693 & 0,199	& 0,202 & 0,202 & 0,113 & 0,114 & 0,114 \\ \rowcolor{Gray4}
-2006/07	& 2,323	& 2,390 & 2,384 & 1,846	& 1,778 & 1,790 & 0,417	& 0,424 & 0,426 & 0,251 & 0,254 & 0,256 \\
-2007/08	& 2,04	& 2,112 & 2,120 & 1,3	  & 1,243 & 1,243 & 0,385	& 0,393 & 0,395 & 0,225 & 0,229 & 0,230 \\ \rowcolor{Gray4}
-2008/09	& 3,257	& 3,422 & 3,454 & 0,818	& 0,776 & 0,774 & 0,461	& 0,468 & 0,469 & 0,274 & 0,277 & 0,277 \\
-2009/10	& 6,422	& 6,768 & 6,811 & 0,426	& 0,405 & 0,405 & 0,724	& 0,731 & 0,733 & 0,447 & 0,450 & 0,452 \\ \rowcolor{Gray4}
-2010/11	& 7,388	& 7,620 & 7,685 & 0,182	& 0,176 & 0,176 & 0,737	& 0,739 & 0,741 & 0,436 & 0,436 & 0,438 \\
-2011/12	& 3,138	& 3,187 & 3,195 & 0,145	& 0,143 & 0,143 & 0,461	& 0,465 & 0,464 & 0,211 & 0,212 & 0,212 \\ \rowcolor{Gray4}
-2012/13	& 2,305	& 2,368 & 2,348 & 0,163	& 0,158 & 0,160 & 0,372	& 0,377 & 0,377 & 0,203 & 0,205 & 0,205 \\
-2013/14	& 1,581	& 1,625 & 1,622 & 0,215	& 0,207 & 0,208 & 0,286	& 0,291 & 0,293 & 0,14  & 0,141 & 0,142 \\ \rowcolor{Gray4}
-2014/15	& 1,274	& 1,307 & 1,317 & 0,269	& 0,259 & 0,258 & 0,268	& 0,273 & 0,275 & 0,12  & 0,122 & 0,122 \\
-2015/16	& 1,342	& 1,383 & 1,386 & 0,305	& 0,293 & 0,293 & 0,254	& 0,259 & 0,260 & 0,11  & 0,111 & 0,111 \\ \rowcolor{Gray4}
-2016/17	& 0,62	& 0,636 & 0,635 & 0,459	& 0,442 & 0,445 & 0,115	& 0,117 & 0,117 & 0,057 & 0,057 & 0,057 \\
-2017/18	& 0,758	& 0,768 & 0,769 & 0,564	& 0,549 & 0,551 & 0,168	& 0,169 & 0,171 & 0,074 & 0,074 & 0,075 \\ \rowcolor{Gray4}
-2018/19	& 0,921	& 0,928 & 0,938 & 0,694	& 0,678 & 0,679 & 0,251	& 0,249 & 0,243 & 0,081 & 0,079 & 0,081 \\
-2019/20	& 0,927	& 0,884 & 0,907 & 0,966	& 0,991 & 0,969 & 0,197	& 0,175 & 0,186 & 0,089 & 0,076 & 0,080 \\ \rowcolor{Gray4}
-2020/21	& 0,842	& 0,691 & 0,737 & 1,307	& 1,553 & 1,459 & 0,226	& 0,179 & 0,203 & 0,123 & 0,095 & 0,106 \\ 
-2021/22	&     	& 1,00  & 0,732 &     	& 1,483 & 1,476 &     	& 0,265 & 0,197 &       & 0,147 & 0,097 \\ \hline
-  \end{tabular}}
-        \end{table}
-```
 
 \normalsize
 
@@ -3181,10 +3047,10 @@ Respecto a la condición actual de anchoveta centro-sur, los resultados actualiz
 \pagebreak
 
 
-```{r Fig35a,fig.cap="\\label{Fig35}Diagrama de fases de explotación de la biomasa desovante respecto de la mortalidad por pesca de la asesoría de septiembre 2022. Los ejes están estandarizados a los valores que generan el RMS proxy. Cruz azul corresponde a los intervalos de confianza de la razón $BD/BD_{RMS}$ y $F/F_{RMS}$. El año con cruz continua corresponde a  \\textit{Estatus completo}.",fig.height=4,fig.width=4}
+```{r Fig35a,fig.height=4,fig.width=4}
 
 source(paste(dir.fun,"Fn_DiagramaFase2.R",sep=""))
-name1<-"Asesoría de Septiembre 2022"
+name1<-"Hito 1: Septiembre 2022"
 years1<-rep1$years
 nyears1<-length(years1)
 
@@ -3219,6 +3085,42 @@ text(c(SpB1[1]/BRMS1,
 ```
 
 
+```{r Fig35b,fig.cap="\\label{Fig35}Diagrama de fases de explotación de la biomasa desovante respecto de la mortalidad por pesca de la asesoría de septiembre 2022. Los ejes están estandarizados a los valores que generan el RMS proxy. Cruz azul corresponde a los intervalos de confianza de la razón $BD/BD_{RMS}$ y $F/F_{RMS}$. El año con cruz continua corresponde a  \\textit{Estatus completo}, el año con cruz discontinua corresponde a \\textit{Estatus preliminar}.", fig.height=4,fig.width=4}
+source(paste(dir.fun,"Fn_DiagramaFase2.R",sep=""))
+name2<-"Hito 2: Marzo 2023"
+years2<-rep2$years
+nyears2<-length(years2)
+
+DiagramaFase2(name2,
+             years2[1:nyears2-1],
+             SpB2[1:nyears2-1],
+             SpBSE2[1:nyears2-1],
+             ln_Fyr2[1:nyears2-1],
+             ln_FSE2[1:nyears2-1],
+             SpB2[nyears2],
+             SpBSE2[nyears2],
+             ln_Fyr2[nyears2],
+             ln_FSE2[nyears2],
+             FRMS2,
+             BRMS2,
+             BLIM2,
+             FLIM2,
+             color=F,
+             dir.1,
+             etiqueta=F,
+             preliminar=T,
+             completo=F)
+
+text(c(SpB2[1]/BRMS2,
+       SpB2[nyears2]/BRMS2,
+       SpB2[nyears2-1]/BRMS2),
+     c(exp(ln_Fyr2[1])/FRMS2-0.05,
+       exp(ln_Fyr2[nyears2])/FRMS2-0.05,
+       exp(ln_Fyr2[nyears2-1])/FRMS2+0.05), 
+     c("1990/91","2022/23","2021/22"),cex=1.2)
+
+```
+
 
 \normalsize
 
@@ -3249,52 +3151,14 @@ footnote<-c("Probabilidad que $BD$ del año más reciente sea menor a $BD_{RMS}$
 # TABLA 
 #-----------
 kbl(Tabla4.1, booktabs = T,format = "latex",position="h!",align="c",escape = FALSE,
-caption = "\\label{Tab21}Puntos Biológicos de referencia (PBRs) y probabilidades de estar bajo $BD_{RMS}$ y sobre $F_{RMS}$ y en sobreexplotación, colapsado o sobrepesca.") %>% 
+caption = "\\label{Tab21}Puntos Biológicos de referencia (PBRs) y probabilidades de estar bajo $BD_{RMS}$ y sobre $F_{RMS}$ y en sobreexplotación, colapsado o sobrepesca. Estimaciones realizadas en asesorías de septiembre (Hito 1) y marzo (Hito 2)") %>% 
   kable_styling(latex_options = c("striped"),
-                full_width = FALSE,font_size=10) %>%
+                full_width = FALSE,font_size=9) %>%
 footnote(number = footnote,threeparttable = T,escape = FALSE,fixed_small_size = TRUE) %>%
-column_spec(1, width = "30em") %>% 
+column_spec(1, width = "25em") %>% 
 add_header_above(c(" " = 1,"Asesorías" = 2))
 
 ```
-
-
-```{=tex}
-
-\begin{table}[h!]
-\caption{Puntos Biológicos de referencia (PBRs) y probabilidades de estar bajo $BD_{RMS}$ y sobre $F_{RMS}$ y en sobreexplotación, colapsado o sobrepesca.}
- \label{Tab21}
- \small
-    \centering
-    \resizebox{9cm}{!} {
-    \begin{tabular}{l|c|c|c|c|c}
-    \hline \rowcolor{Gray3}
-                              & \multicolumn{3}{c}{Asesorías} \\ \rowcolor{Gray3}
-                              & Septiembre 2021 & Marzo 2022 & Julio 2022 \\ \hline
-Año biológico           & 2020/21         &  2021/2022    & 2021/2022 \\ \rowcolor{Gray4}
-$F_{RMS}$               & 0,45 $año^1$    &  0,45 $año^1$ & 0,46 $año^1$   \\
-$BD_{RMS}$              & 483 mil t       &  491 mil t    & 487 mil t \\ \rowcolor{Gray4}
-$BD_{LIM}$              & 241 mil t       &  245 mil t    & 243 mil t \\ \hline
-$p(BD_{last}/BD_{RMS} < 0,9)$ & 0,03      & 0             & 0 \\ \rowcolor{Gray4}
-$p(F_{last}/F_{RMS} > 1,1)$   & 0,09      & 0,33          & 0,01 \\ \hline
-$p(sobre-explotación)$  & 0,03            & 0             & 0 \\ \rowcolor{Gray4}
-$p(agotado/colapsado)$  & 0               & 0             & 0 \\
-$p(sobrepesca)$         & 0,09            & 0,33          & 0,01 \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
-
-```{=tex}
-\vspace{-0.3cm}
-\scriptsize
-```
-
--   $p(BD_{last}/BD_{RMS}<0,9)$ = Probabilidad de que BD del año más reciente ($BD_{last}$) sea menor a $BD_{RMS}$ según el diagrama de fases
--   $p(F_{last}/F_{RMS}> 1,1)$ = Probabilidad que la Ft del año más reciente ($F_{last}$)sea menor a $F_{RMS}$ según el diagrama de fases
--   Probabilidad de estar en sobreexplotación = $p(0,5 < BD_{last}/BD_{RMS} < 0,9)$
--   Probabilidad de estar en colapso = $p(BD_{last}/BD_{RMS} < 0,5)$
--   Probabilidad de estar en sobrepesca = $p(F_{last}/F_{RMS} > 1,1)$
 
 
 \normalsize
