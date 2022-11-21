@@ -595,165 +595,258 @@ A partir de mayo de 2003, se han realizado evaluaciones acústicas de ambos recu
 
 \quad
 
-Entre los años 2009 y 2017 se registraron los niveles más bajos de biomasa acústica de verano con un valor promedio de 101 mil t. Sin embargo, el año 2018 se observó un primer incremento importante hasta 347 mil t y los últimos cuatro años 2019 al 2022 se consolida éste incremento con valores cercanos a las 625 mil toneladas en promedio, registrándose el 2022 un incremento del 90% respecto al año previo. Algo similar se observa en las tendencias de los cruceros de otoño. Sin embargo, en este estudio, la recuperación en la biomasa del stock se apreció a partir del año 2016, observandose una recuperación en la biomasa del stock desde el 2016, registrándose el año 2022 el nivel más alto de los últimos 12 años, en 1,4 millones de t (\textbf{Tabla \ref{Tab15}}). En relación a las capturas de anchoveta de las Regiones de Valparaíso a Los Lagos, su variación es consistente con los cambios en los niveles de biomasa estimados por los cruceros acústicos de verano y otoño. Entre el 2011/12 y 2017/18 se registran desembarques oficiales en torno a 60 mil toneladas en promedio. Para el 2018/19 se incrementan a 136 mil t, para el año 2019/20 a 158 mil t, un 16% mayor al año previo, y para el año 2020/21 se incrementa 205 mil t, un 30% mayor al año previo y 159% mayor al promedio de los últimos 9 años (período 2011/12 - 2019/20). Para el año 2021/22 se registra una disminución del 3% respecto a lo registrado el año previo (\textbf{Tabla \ref{Tab16}} y \textbf{Figura \ref{Fig17}}). La pesquería está sustentada principalmente por la abundancia de los grupos de edad (GE) 1 y 2. A partir del 2017 el GE 0 muestra una tendencia al incremento, sin embargo, para el 2020/21 y 2021/22 su aporte a la abundancia total es inferior al 12%. Respecto a los pesos medios, para el GE 0 se encuentra en torno a los 10-15 grs, para el GE 1 en los 20-25 grs en promedio. Desde el año 2014 se observa un incremento en esta variable en todos los GE, excepto en los ejemplares de edad 0 (\textbf{Figura \ref{Fig18}} y \textbf{ \ref{Fig19}}). En relación a la información proveniente de los cruceros acústicos, la composición de edad registrada por el estudio de verano muestra que el GE 0 representa en torno al 67% de la captura en número, no obstante, para los años 2021 y 2022 su aporte es inferior al 25%, mientras que el crucero de otoño muestra mayor variabilidad y un aporte sobre el 75% del grupo de edad 0 los años 2016, 2017, 2018, 2019 y 2022 (\textbf{Figura \ref{Fig20}} y \textbf{\ref{Fig21}}). 
+Entre los años 2009 y 2017 se registraron los niveles más bajos de biomasa acústica de verano con un valor promedio de `r formatC(round(mean(recl[13:21])/1000,0),decimal.mark = ",")` mil t. Sin embargo, el año 2018 se observó un primer incremento importante hasta `r formatC(round(recl[22]/1000,1),decimal.mark = ",")` mil t y los últimos cuatro años 2019 al 2022 se consolida éste incremento con valores cercanos a las `r formatC(round(mean(recl[23:26])/1000,1),decimal.mark = ",")` mil toneladas en promedio, registrándose el 2022 un incremento del `r formatC(round(-(1-(recl[26]/recl[25]))*100,1),decimal.mark = ",")`% respecto al año previo. Algo similar se observa en las tendencias de los cruceros de otoño. Sin embargo, en este estudio, la recuperación en la biomasa del stock se apreció a partir del año 2016, observandose una recuperación en la biomasa del stock desde el 2016, registrándose el año 2022 el nivel más alto de los últimos 12 años, en  `r formatC(pela[26]/1000000,decimal.mark = ",",digits = 2)` millones de t (\textbf{Tabla \ref{t1}}). En relación a las capturas de anchoveta de las regiones de Valparaíso a Los Lagos, su variación es consistente con los cambios en los niveles de biomasa estimados por los cruceros acústicos de verano y otoño. Entre el 2011/12 y 2017/18 se registran capturas totales en torno a `r formatC(round(mean(CapturaTotal[16:22])/1000,1),decimal.mark = ",")`  mil toneladas en promedio. Para el 2018/19 se incrementan a `r formatC(round(CapturaTotal[23]/1000,1),decimal.mark = ",")` mil t, para el año 2019/20 a `r formatC(round(CapturaTotal[24]/1000,1),decimal.mark = ",")`  mil t, un `r formatC(-(1-(CapturaTotal[24]/CapturaTotal[23]))*100,decimal.mark = ",",digits = 2)`% mayor al año previo, y para el año 2020/21 se incrementa `r formatC(round(CapturaTotal[25]/1000,1),decimal.mark = ",")`  mil t, un `r formatC(-(1-(CapturaTotal[25]/CapturaTotal[24]))*100,decimal.mark = ",",digits = 2)`%  mayor al año previo y `r formatC(-(1-(CapturaTotal[24]/mean(CapturaTotal[16:24])))*100,decimal.mark = ",",digits = 2)`%  mayor al promedio de los últimos 9 años (período 2011/12 - 2019/20). Para el año 2021/22 se registra una disminución del `r formatC((1-(CapturaTotal[26]/CapturaTotal[25]))*100,decimal.mark = ",",digits = 2)`% respecto a lo registrado el año previo (\textbf{Tabla \ref{t2}} y \textbf{Figura \ref{Fig17}}). 
+
+La pesquería está sustentada principalmente por la abundancia de los grupos de edad (GE) 1 y 2. A partir del 2017 el GE 0 muestra una tendencia al incremento, sin embargo, para el 2020/21 y 2021/22 su aporte a la abundancia total  está en torno al `r formatC(mean(rep1$pf_obs[25:26,1])*100,decimal.mark = ",",digits = 2)`% . Respecto a los pesos medios, para el GE 0 se encuentra en torno a los `r formatC(mean(dat1$Wmed[,1]),decimal.mark = ",",digits = 2)`  grs, para el GE 1 en los `r formatC(mean(dat1$Wmed[,2]),decimal.mark = ",",digits = 2)` grs en promedio. Desde el año 2014 se observa un incremento en esta variable en todos los GE, excepto en los ejemplares de edad 0 (\textbf{Figura \ref{Fig19}}). En relación a la información proveniente de los cruceros acústicos, la composición de edad registrada por el estudio de verano muestra que el GE 0 representa en torno al `r formatC(mean(rep1$pobs_RECLAS[5:26,1])*100,decimal.mark = ",",digits = 2)`%   de la captura en número, no obstante, para los años 2021 y 2022 su aporte disminuye  al `r formatC(mean(rep1$pobs_RECLAS[25:26,1])*100,decimal.mark = ",",digits = 2)`% , mientras que el crucero de otoño muestra mayor variabilidad y un aporte del `r formatC(mean(rep1$pobs_PELACES[c(11,13:18,20:26),1])*100,decimal.mark = ",",digits = 2)`% en promedio del grupo de edad 0 (\textbf{Figura \ref{Fig21}}). 
 
 \pagebreak
 
-```{=tex}
-\begin{table}[h!]
-\caption{Índices de abundancia utilizadas en la evaluación de stock de anchoveta centro-sur provenientes de los cruceros de Verano (RECLAS), Otoño (PELACES) y crucero de huevos (MPDH).}
- \label{Tab15}
- \small
-    \centering
-    \resizebox{11cm}{!} {
-    \begin{tabular}{|c|c|c|c|}
-    \hline \rowcolor{Gray3}
-Año          & Biomasa crucero & Biomasa crucero  & Biomasa desovante  \\  \rowcolor{Gray3}
-calendario   & de Verano       & de otoño         & MPDH                 \\ \rowcolor{Gray3}
-             & (toneladas)     & (toneladas)      & (toneladas)         \\ \hline
-1997     &   0                 &   0              & 0                    \\ \rowcolor{Gray4}
-1998     &   0                 &   0               &   0                \\
-1999     &   0                 &   0               &   0                 \\ \rowcolor{Gray4}
-2000     &   370.054           &   0               &   0                 \\
-2001     &   412.103           &   0               &   0                 \\ \rowcolor{Gray4}
-2002     &   1.494.267         &   0               &   112.323           \\
-2003     &   250.295           &   0               &   0                 \\ \rowcolor{Gray4}
-2004     &   1.289.818         &   0               &   153.150          \\
-2005     &   931.140           &   0               &   637.223          \\ \rowcolor{Gray4}
-2006     &   785.840           &   2.062.538       &   0                \\
-2007     &   897.777           &   1.500.000       &   255.016           \\ \rowcolor{Gray4}
-2008     &   1.040.062         &   0               &   313.432            \\
-2009     &   184.774           &   1.874.556       &   73.983             \\ \rowcolor{Gray4}
-2010     &   17.550            &   323.000         &   77.613             \\
-2011     &   25.797            &   250.000         &   109.348            \\ \rowcolor{Gray4}
-2012     &   100.020           &   174.000         &   50.772             \\
-2013     &   73.551            &   83.755          &   0                  \\ \rowcolor{Gray4}
-2014     &   82.996            &   137.374         &   0                  \\
-2015     &   120.727           &   0               &   0                  \\ \rowcolor{Gray4}
-2016     &   218.422           &   501.740         &   0                 \\
-2017     &   84.188            &   490.994         &   0                 \\ \rowcolor{Gray4}
-2018     &   347.160           &   745.055         &   0                  \\
-2019     &   605.670           &   786.931         &   0                 \\  \rowcolor{Gray4}
-2020     &   569.463           &   1.005.239       &   0                  \\
-2021     &   516.374           &   1.338.007       &   0                  \\ \rowcolor{Gray4}
-2022     &   1.084.161         &   1.417.886       &   0                  \\ \hline
-  \end{tabular}}
-    \end{table}
-\normalsize
+```{r}
+kbl(dataInd, booktabs = T,format = "latex",position="h!",escape = F,align="c",
+    format.args=list(big.mark = '.'),
+    col.names = linebreak(c("Año\ncalendario ",
+                            "Biomasa crucero\nde verano\n(toneladas)",
+                            "Biomasa crucero\nde otoño\n(toneladas)",
+                            "Biomasa desovante\nMPDH\n(toneladas)"),align="c"),
+caption = "\\label{t1} Estimaciones de biomasas utilizadas en la evaluación de stock de anchoveta provenientes de los cruceros de Verano (RECLAS), Otoño (PELACES) y crucero de huevos (MPDH).") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)
 ```
+
 
 \pagebreak
 
-```{=tex}
-\begin{table}[h!]
-\caption{Desembarques en toneladas, porcentaje de descarte supuesto, captura descartada (toneladas) y captura total (toneladas) estimadas en año biológico para anchoveta de las Regiones de Valparaíso a Los Lagos.}
- \label{Tab16}
- \small
-    \centering
-    \resizebox{11cm}{!} {
-    \begin{tabular}{|c|c|c|c|c|}
-    \hline \rowcolor{Gray3}
-Año         & Desembarques    & Porcentaje    & Carptura         & Captura    \\  \rowcolor{Gray3}
-biológico   & toneladas       & Descarte      & descartada       & total     \\ \hline
-1996-97     &   350.755        &   0\%        &   0              & 350.755    \\ \rowcolor{Gray4}
-1997-98     &   77.701         &   0\%        &   0              & 77.701      \\
-1998-99     &   442.110        &   0\%        &   0              & 442.110      \\ \rowcolor{Gray4}
-1999-00     &   56.441         &   0\%        &   0              & 56.441      \\ 
-2000-01     &   13.986         &   4\%        &   559            & 14.545      \\ \rowcolor{Gray4}
-2001-02     &   226.307        &   4\%        &   9.052          & 235.359      \\ 
-2002-03     &   259.572        &   4\%        &   10.383         & 269.955      \\ \rowcolor{Gray4}
-2003-04     &   345.847        &   4\%        &   13.834         & 359.681      \\
-2004-05     &   415.290        &   4\%        &   16.612         & 431.902      \\ \rowcolor{Gray4}
-2005-06     &   316.159        &   4\%        &   12.646         & 328.805      \\
-2006-07     &   614.773        &   4\%        &   24.591         & 639.364      \\ \rowcolor{Gray4}
-2007-08     &   395.911        &   4\%        &   15.836         & 411.747      \\
-2008-09     &   348.914        &   4\%        &   13.957         & 362.871      \\ \rowcolor{Gray4}
-2009-10     &   299.548        &   4\%        &   11.982         & 311.530      \\
-2010-11     &   161.306        &   4\%        &   6.452          & 167.758      \\ \rowcolor{Gray4}
-2011-12     &   64.116         &   4\%        &   2.565          & 66.681       \\
-2012-13     &   57.910         &   4\%        &   2.316          & 60.226        \\ \rowcolor{Gray4}
-2013-14     &   56.524         &   4\%        &   2.261          & 58.785         \\
-2014-15     &   54.919         &   4\%        &   2.197          & 57.116         \\ \rowcolor{Gray4}
-2015-16     &   70.367         &   4\%        &   2.815          & 73.181         \\
-2016-17     &   49.016         &   4\%        &   1.961          & 50.977         \\ \rowcolor{Gray4}
-2017-18     &   66.757         &   1,4\%      &   935            & 67.692         \\
-2018-19     &   135.804        &   2,1\%      &   2.852          & 138.656        \\  \rowcolor{Gray4}
-2019-20     &   157.646        &   1,8\%      &   2.838          & 160.484        \\
-2020-21     &   205.398        &   2\%        &   4.108          & 209.506        \\  \rowcolor{Gray4}
-2021-22     &   199.343        &   2\%        &   3.987          & 203.330       \\ \hline
-  \end{tabular}}
-    \end{table}
-\normalsize
+```{r}
+kbl(dataDes_y_descar, booktabs = T,format = "latex",position="h!",align="c",
+    format.args=list(big.mark = '.'),escape=F,
+col.names = linebreak(c("Año\nbiológico ",
+                        "Desembarques\n(toneladas)",
+                        "Porcentaje\nDescarte",
+                        "Captura\ndescartada\n(toneladas)",
+                        "Captura\ntotal\n(toneladas)"),align="c"),   
+caption = "\\label{t2} Desembarques en toneladas, porcentaje de descarte supuesto,
+captura descartada (toneladas) y captura total (toneladas) estimadas en año biológico para anchoveta de las regiones de Valparaíso a Los Lagos.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)
 ```
+
 
 \pagebreak
 
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.8\textwidth]{Figuras/Fig17-1.pdf}
-\caption{Serie de desembarques y biomasas estimadas por la evaluación hidroacústica de verano y otoño utilizadas como datos de entrada al modelo de evaluación de stock de anchoveta de las Regiones de Valparaíso a Los Lagos. }
-\label{Fig17}
-\end{figure}
+```{r Fig17,fig.cap="\\label{Fig17}Serie de desembarques y biomasas estimadas por la evaluación hidroacústica de verano y otoño utilizadas como datos de entrada al modelo de evaluación de stock de anchoveta de las regiones de Valparaíso a Los Lagos.", fig.height=6.5,fig.width=5}
+ 
+des_obs <- data.frame(rep1$desembarqueobs)
+bc_obs  <- data.frame(rep1$reclasobs)
+bp_obs  <- data.frame(rep1$pelacesobs)
+
+ obsC  <- as.data.frame(bc_obs) %>% 
+                        mutate(year=years1) %>% 
+                        melt(id.vars='year') %>% 
+                        mutate(type='2.Cruceros de Verano')
+ obsP  <- as.data.frame(bp_obs) %>% 
+                        mutate(year=years1) %>% 
+                        melt(id.vars='year') %>% 
+                        mutate(type='3.Cruceros de Otoño')
+ obsD  <- as.data.frame(des_obs) %>% 
+                        mutate(year=years1) %>% 
+                        melt(id.vars='year') %>% 
+                        mutate(type='1.Desembarques')
+ Bcru  <-rbind(obsC,obsP,obsD)
+
+p <- ggplot()  +
+           geom_bar(data=Bcru, aes(x=year, y =value), 
+           stat="identity", fill='gray66', color = 'gray28') + 
+           facet_wrap(~type,scale="free",dir = 'v', as.table = TRUE) + 
+           labs(x="Años", y="Toneladas") +  
+           theme(panel.background = element_rect(fill ="gray99")) + 
+           theme(panel.grid=element_line(color="gray66"))
+
+p
+
 ```
 
 
-\vspace{0.3cm}
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=1\textwidth]{Figuras/Fig18-1.pdf}
-\caption{Variabilidad interanual de la proporción de la captura de la flota (panel izquierdo) y pesos medios (panel derecho) de cada grupo de edad (edad 0 a 4) de anchoveta de las Regiones de Valparaíso a Los Lagos.  }
-\label{Fig18}
-\end{figure}
+```{r Fig18,fig.height=4,fig.width=9}
+
+years    <- rep1$years 
+nyears   <- length(years)
+age      <- seq(0,4,1)                                            
+nage     <- length(age)
+WmedF    <- dat1$Wmed                                             
+WiniF    <- dat1$Wini    
+pobsF    <- rep1$pf_obs                                              
+
+WmedF <- as.data.frame(WmedF) %>% 
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='WmedF')
+
+pobsF <- as.data.frame(pobsF) %>% 
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='pobsF')
+
+f1<-ggplot(pobsF, aes(x = years, y = value, group=variable))+
+    geom_line(aes(colour=variable)) +
+    geom_point(aes(colour=variable),size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',fill="") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("FLOTA")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+
+f2<-ggplot(WmedF, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line(aes(colour=variable)) +
+    geom_point(aes(colour=variable), size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Pesos medios (grs)',fill="") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    scale_colour_discrete(name = "Grupos de edad", 
+    labels = c('GE 0','GE 1','GE 2','GE 3','GE 4'))+
+    ggtitle("FLOTA")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+f1 + f2
+
 ```
 
 
-\normalsize
+```{r Fig19,fig.cap="\\label{Fig19}Variabilidad interanual de la proporción de la captura de la flota (panel superior izquierdo) y pesos medios (panel superior derecho) de cada grupo de edad (edad 0 a 4). Composición de edad de la captura de la flota (panel inferior izquierdo) y pesos medios (panel inferior derecho) utilizados en la evaluación de stock de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=6,fig.width=9}
 
-\vspace{-0.5cm}
+pobsF    <- rep1$pf_obs      
+pF       <- c(pobsF); pF[pF==0]  <-NA
+WmedF    <- dat1$Wmed    
+Wm       <- c(WmedF); Wm[Wm==0]  <-NA     
 
+years    <- rep1$years 
+nyears   <- dat1$nanos
+age      <- seq(0,4,1)                                            
+nage     <- length(age)
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=1\textwidth]{Figuras/Fig19-1.pdf}
-\caption{Composición de edad de la captura de la flota (panel izquierdo) y pesos medios (panel derecho) utilizados en la evaluación de stock de anchoveta de las Regiones de Valparaíso a Los Lagos. }
-\label{Fig19}
-\end{figure}
+anos <- rep(years,length(age)) 
+edad <- gl((length(age)),length(years),label=age)   
+
+datosProp=data.frame(x=edad,y=anos,tamanio=pF)
+datosWmed=data.frame(x=edad,y=anos,tamanio=Wm )
+
+g1 <- ggplot (datosProp,aes(x,y)) +
+      geom_point(aes(size=tamanio),color = 'gray25',
+                 shape=21, fill="gray85",alpha = 0.7) +
+      scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Proporción") +
+      ggtitle("Proporción de edad de la Flota")+
+      theme_bw(base_size=9) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g2 <- ggplot (datosWmed,aes(x,y)) + 
+      geom_point(aes(size=tamanio),color = 'gray25',
+                 shape=21, fill="gray85",alpha=0.7) +
+      scale_size_continuous(breaks = seq(15,75,20),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Gramos") +
+      ggtitle("Pesos medios de la Flota")+
+      theme_bw(base_size=9) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g1 + g2
+
 ```
 
-\normalsize
+
+
 \pagebreak
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=1\textwidth]{Figuras/Fig20-1.pdf}
-\caption{Variabilidad interanual de la proporción de la captura del crucero de verano (panel izquierdo) y crucero de otoño (panel derecho) de cada grupo de edad (edad 0 a 4). }
-\label{Fig20}
-\end{figure}
+```{r Fig20,fig.height=4,fig.width=9}
+
+years    <- rep1$years 
+nyears   <- dat1$nanos
+age      <- seq(0,4,1)                                            
+nage     <- length(age)
+pobsR    <- rep1$pobs_RECLAS                                               
+pobsP    <- rep1$pobs_PELACES 
+
+
+pobsR <- as.data.frame(pobsR) %>% 
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='pobsR')
+
+pobsP <- as.data.frame(pobsP) %>%
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='pobsP')
+
+f1<-ggplot(pobsR, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line() +
+    geom_point( size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',
+         fill="",color=" grupos de edad") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("CRUCERO DE VERANO")+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+
+f2<-ggplot(pobsP, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line() +
+    geom_point( size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',
+    fill="",color=" grupos de edad") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("CRUCERO DE OTOÑO")+
+    scale_colour_discrete(name = "Grupos de edad", 
+    labels = c('GE 0','GE 1','GE 2','GE 3','GE 4'))+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+f1 + f2
+
 ```
 
 
- \normalsize
+```{r Fig21,fig.cap="\\label{Fig21}Variabilidad interanual de la proporción de la captura del crucero de verano (panel superior izquierdo) y crucero de otoño (panel superior derecho) de cada grupo de edad (edad 0 a 4). Composición de edad de la captura de los cruceros de verano (panel inferior izquierdo) y otoño (panel inferior derecho) utilizados en la evaluación de stock.",fig.height=6,fig.width=9}
 
+pobsR    <- rep1$pobs_RECLAS        
+pR       <- c(pobsR); pR[pR==0]  <-NA
+pobsP    <- rep1$pobs_PELACES      
+pP       <- c(pobsP); pP[pP==0]  <-NA 
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=1\textwidth]{Figuras/Fig21-1.pdf}
-\caption{Composición de edad de la captura de los cruceros de verano (panel izquierdo) y otoño (panel derecho) utilizados en la evaluación de stock . }
-\label{Fig21}
-\end{figure}
+years    <- rep1$years 
+nyears   <- dat1$nanos
+age      <- seq(0,4,1)                                            
+nage     <- length(age)
+
+anos <- rep(years,length(age)) 
+edad <- gl((length(age)),length(years),label=age)   
+
+datosPropR=data.frame(x=edad,y=anos,tamanio=pR)
+datosPropP=data.frame(x=edad,y=anos,tamanio=pP )
+
+g1 <- ggplot (datosPropR,aes(x,y)) +
+      geom_point(aes(size=tamanio),color = 'gray25',shape=21, fill="gray85",alpha = 0.7) +
+      scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Proporción") +
+      ggtitle("Cruceros de Verano")+
+      theme_bw(base_size=11) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g2 <- ggplot (datosPropP,aes(x,y)) + 
+      geom_point(aes(size=tamanio),color = 'gray25',shape=21, fill="gray85",alpha=0.7) +
+      scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Proporción") +
+      ggtitle("Cruceros de otoño")+
+      theme_bw(base_size=11) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g1 + g2
+
 ```
 
 
-\normalsize
-
-\pagebreak
 
 #### *Parámetros de historia de vida*
 \quad
@@ -1985,7 +2078,6 @@ En relación al ajuste a los datos de composiciones de edades, se observa que el
 
 ```{r Fig22,fig.cap="\\label{Fig22}Ajustes del modelo anual en edades a los valores de biomasas de cruceros de verano, otoño y desembarques. Las barras corresponden al intervalo de confianza asintótico y el círculo al valor del estimador",fig.height=7,fig.width=8}
 
-
 #=================================================================================
 #GRÁFICOS
 #=================================================================================
@@ -1993,10 +2085,8 @@ En relación al ajuste a los datos de composiciones de edades, se observa que el
 BcV <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_verano'), 
        aes(yrs,value/1000000)) + 
        geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
-       #scale_colour_manual(values=c('blue','red ','black')) +
-       #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-       scale_colour_manual(values=c('black')) +
-       scale_linetype_manual(values=c("solid"))+
+       scale_colour_manual(values=c('black','red')) +
+       scale_linetype_manual(values=c("solid",'dashed'))+
        geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_verano'),
        aes(yrs,value/1000000), shape = 19, colour = 'gray30') +
        geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_verano'),
@@ -2010,10 +2100,8 @@ BcV <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_verano'
 BcP <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_otoño'), 
        aes(yrs,value/1000000)) + 
        geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
-       #scale_colour_manual(values=c('blue','red','black'),name="Asesoría") +
-       #scale_linetype_manual(values=c("solid", "longdash","dashed"),name="Asesoría")+
-       scale_colour_manual(values=c('black'),name="Asesoría") +
-       scale_linetype_manual(values=c("solid"),name="Asesoría")+
+       scale_colour_manual(values=c('black','red'),name="Asesoría") +
+       scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
        geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_otoño'),
        aes(yrs,value/1000000), shape = 19, colour = 'gray30') +
        geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_otoño'),
@@ -2027,10 +2115,8 @@ BcP <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_otoño'
 BcH <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_huevos'), 
        aes(yrs,value/1000000)) + 
         geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
-       #scale_colour_manual(values=c('blue','red','black'),name="Asesoría") +
-       #scale_linetype_manual(values=c("solid", "longdash","dashed"),name="Asesoría")+
-       scale_colour_manual(values=c('black'),name="Asesoría") +
-       scale_linetype_manual(values=c("solid"),name="Asesoría")+
+       scale_colour_manual(values=c('black','red'),name="Asesoría") +
+       scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
        geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_huevos'),
        aes(yrs,value/1000000), shape = 19, colour = 'gray30') +
        #geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_huevos'),
@@ -2045,10 +2131,8 @@ BcH <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_huevos'
 d   <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Desembarques'), 
        aes(yrs,value/1000)) +
        geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
-       #scale_colour_manual(values=c('blue','red','black')) +
-       #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-       scale_colour_manual(values=c('black')) +
-       scale_linetype_manual(values=c("solid"))+
+       scale_colour_manual(values=c('black','red')) +
+       scale_linetype_manual(values=c("solid",'dashed'))+
        geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Desembarques'),
        aes(yrs,value/1000), shape = 19, colour = 'gray30') +
        geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Desembarques'),
@@ -2074,7 +2158,6 @@ d   <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Desembarques'),
 
 
 ```{r Fig23,fig.cap="\\label{Fig23}Residuales (escala log) del ajuste del modelo base actual a los datos observados.",fig.height=5.7,fig.width=6.5}
-
 
 r1   <- ggplot(Res, aes(yrs,value)) + 
         geom_bar(aes(fill=Asesoria), stat='identity', position='dodge') +
@@ -2111,7 +2194,7 @@ r1.1  <-ggplot(filter(Res, Asesoria=='base'), aes(yrs,value)) +
         labs(x= 'Año', y = 'Residuales (escala log)') +
         theme_bw(base_size=9)
 
-r2.2  <-ggplot(filter(Res, Asesoria=='base'), aes(predm,value)) + 
+r2.2  <-ggplot(filter(Res2, Asesoria=='base'), aes(predm,value)) + 
         geom_smooth()+
         geom_point(size = 1.5) + 
         geom_hline(yintercept = 0) + 
@@ -2145,16 +2228,13 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig24,fig.cap="\\label{Fig24}Ajuste del modelo base a las composiciones de edades de la flota de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=7,fig.width=8}
 
- 
   figf <- ggplot(filter(matf, type=='obs')) + 
           geom_bar(aes(x = edad, y = value), stat="identity", fill='gray66', color = 'gray28') + 
           facet_wrap(~year, dir = 'v', as.table = TRUE) + 
           labs(x = 'Edad', y = 'Proporción') +
           geom_line(data = matf %>% filter(type != 'obs'), aes(x = edad, y = value, colour=type,linetype =type)) +
-          #scale_colour_manual(values=c('blue','red','black'),name="Asesoría") +
-          #scale_linetype_manual(values=c("solid", "longdash","dashed"),name="Asesoría")+
-          scale_colour_manual(values=c('black'),name="Asesoría") +
-          scale_linetype_manual(values=c("solid"),name="Asesoría")+
+          scale_colour_manual(values=c('black','red'),name="Asesoría") +
+          scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
           theme(panel.background = element_rect(fill ="gray99")) + 
           theme(panel.grid=element_line(color=NA)) +
           ggtitle("FLOTA") + theme(plot.title = element_text(size = 12))
@@ -2168,16 +2248,13 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig25,fig.cap="\\label{Fig25}Ajuste del modelo base a las composiciones de edades de los Cruceros de verano de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=7,fig.width=8}
 
-
   figr <- ggplot(filter(matr, type=='obs')) + 
           geom_bar(aes(x = edad, y = value), stat="identity", fill='gray66', color = 'gray28') + 
           facet_wrap(~year, dir = 'v', as.table = TRUE) + 
           labs(x = 'Edad', y = 'Proporción') +
           geom_line(data = matr %>% filter(type != 'obs'), aes(x = edad, y = value, colour=type,linetype =type)) +
-          #scale_colour_manual(values=c('blue','red','black'),name="Asesoría") +
-          #scale_linetype_manual(values=c("solid", "longdash","dashed"),name="Asesoría")+
-          scale_colour_manual(values=c('black'),name="Asesoría") +
-          scale_linetype_manual(values=c("solid"),name="Asesoría")+
+          scale_colour_manual(values=c('black','red'),name="Asesoría") +
+          scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
           theme(panel.background = element_rect(fill ="gray99")) + theme(panel.grid=element_line(color=NA)) +
           ggtitle("CRUCEROS DE VERANO") + theme(plot.title = element_text(size = 12))
   figr
@@ -2190,15 +2267,12 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig26,fig.cap="\\label{Fig26}Ajuste del modelo base a las composiciones de edades de los Cruceros de otoño de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=7,fig.width=8}
 
- 
   figp <- ggplot(filter(matp, type=='obs')) + 
           geom_bar(aes(x = edad, y = value), stat="identity", fill='gray66', color = 'gray28') + 
           facet_wrap(~year, dir = 'v', as.table = TRUE) + labs(x = 'Edad', y = 'Proporción') +
           geom_line(data = matp %>% filter(type != 'obs'), aes(x = edad, y = value, colour=type,linetype =type)) +
-          #scale_colour_manual(values=c('blue','red','black'),name="Asesoría") +
-          #scale_linetype_manual(values=c("solid", "longdash","dashed"),name="Asesoría")+
-          scale_colour_manual(values=c('black'),name="Asesoría") +
-          scale_linetype_manual(values=c("solid"),name="Asesoría")+
+          scale_colour_manual(values=c('black','red'),name="Asesoría") +
+          scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
           theme(panel.background = element_rect(fill ="gray99")) + theme(panel.grid=element_line(color=NA)) +
           ggtitle("CRUCEROS DE OTOÑO") + theme(plot.title = element_text(size = 12))
   figp
@@ -2215,10 +2289,10 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig27,fig.cap="\\label{Fig27}Residuales del modelo base actual a las composiciones de edades de la flota y cruceros. Subestimaciones (círculos negros) y sobreestimaciones (circulo blanco), donde el tamaño corresponde a la magnitud relativa de error por edad.",fig.height=5,fig.width=10}
 
-ppredF <-rep1$pf_pred 
-anos   <-rep1$years
-obsF   <-rep1$pf_obs
-preF   <-rep1$pf_pred 
+ppredF <-rep2$pf_pred 
+anos   <-rep2$years
+obsF   <-rep2$pf_obs
+preF   <-rep2$pf_pred 
 
 resF <-obsF-preF
 rng  <-range(resF,na.rm=T)
@@ -2246,10 +2320,10 @@ mtext("a)",side=3,line=0.25,adj=-0.15,cex=1.5)
 box()
 
 #============================================================================
-ppredR<-rep1$ppred_RECLAS  
+ppredR<-rep2$ppred_RECLAS  
 anos  <-years1[4:nyears1]
-obsR  <-rep1$pobs_RECLAS[4:nyears1,]
-preR  <-rep1$ppred_RECLAS[4:nyears1,]
+obsR  <-rep2$pobs_RECLAS[4:nyears1,]
+preR  <-rep2$ppred_RECLAS[4:nyears1,]
 resR  <-obsR-preR
 
 rng <-range(resR,na.rm=T)
@@ -2276,10 +2350,10 @@ mtext("b)",side=3,line=0.25,adj=-0.15,cex=1.5)
 box()
 
 #============================================================================
-ppredP <-rep1$ppred_PELACES 
+ppredP <-rep2$ppred_PELACES 
 anos   <-years1[11:nyears1]
-obsP   <-rep1$pobs_PELACES[11:nyears1,]
-preP   <-rep1$ppred_PELACES[11:nyears1,]  
+obsP   <-rep2$pobs_PELACES[11:nyears1,]
+preP   <-rep2$ppred_PELACES[11:nyears1,]  
 resP   <-obsP-preP
 
 rng <-range(resP,na.rm=T)
@@ -2558,34 +2632,34 @@ fig
 ```{r}
 
 # Reclutimientos asesoría julio 2021
-Rprom_2002_2008<-mean(Rt1[7:13])
-Rprom_2009_2017<-mean(Rt1[14:22])
-Rprom_historico<-mean(Rt1)
+Rprom_2002_2008<-mean(Rt2[7:13])
+Rprom_2009_2017<-mean(Rt2[14:22])
+Rprom_historico<-mean(Rt2)
 
 #diferencia del Rúltimo año y los promedios de los tres períodos principales
-Rlast_2002_2008<-1-(Rt1[26]/Rprom_2002_2008)
-Rlast_2009_2017<-1-(Rt1[26]/Rprom_2009_2017)
-Rlast_historico<-1-(Rt1[26]/Rprom_historico)
+Rlast_2002_2008<-1-(Rt2[nyears1]/Rprom_2002_2008)
+Rlast_2009_2017<-1-(Rt2[nyears1]/Rprom_2009_2017)
+Rlast_historico<-1-(Rt2[nyears1]/Rprom_historico)
 
 # Biomasa total (BT) asesoría marzo 2021
-BTprom_2002_2008<-mean(BT1[7:13])
-BTprom_2009_2017<-mean(BT1[14:22])
-BTprom_historico<-mean(BT1)
+BTprom_2002_2008<-mean(BT2[7:13])
+BTprom_2009_2017<-mean(BT2[14:22])
+BTprom_historico<-mean(BT2)
 
 #diferencia del BT último año y los promedios de los tres períodos principales
-BTlast_2002_2008<-1-(BT1[26]/BTprom_2002_2008)
-BTlast_2009_2017<-1-(BT1[26]/BTprom_2009_2017)
-BTlast_historico<-1-(BT1[26]/BTprom_historico)
+BTlast_2002_2008<-1-(BT2[nyears1]/BTprom_2002_2008)
+BTlast_2009_2017<-1-(BT2[nyears1]/BTprom_2009_2017)
+BTlast_historico<-1-(BT2[nyears1]/BTprom_historico)
 
 # Biomasa desovante (BD) asesoría marzo 2021
-BDprom_2002_2008<-mean(BD1[7:13])
-BDprom_2009_2017<-mean(BD1[14:22])
-BDprom_historico<-mean(BD1)
+BDprom_2002_2008<-mean(BD2[7:13])
+BDprom_2009_2017<-mean(BD2[14:22])
+BDprom_historico<-mean(BD2)
 
 #diferencia del BD último año y los promedios de los tres períodos principales
-BDlast_2002_2008<-1-(BD1[26]/BDprom_2002_2008)
-BDlast_2009_2017<-1-(BD1[26]/BDprom_2009_2017)
-BDlast_historico<-1-(BD1[26]/BDprom_historico)
+BDlast_2002_2008<-1-(BD2[nyears1]/BDprom_2002_2008)
+BDlast_2009_2017<-1-(BD2[nyears1]/BDprom_2009_2017)
+BDlast_historico<-1-(BD2[nyears1]/BDprom_historico)
 
 ```
 
@@ -2604,87 +2678,71 @@ La selectividad de la flota indica que anchoveta es próximo a su completo reclu
 
 ```{r Fig30,fig.cap="\\label{Fig30}Estimaciones medias de los reclutamientos, biomasa total, biomasa desovante y mortalidad por pesca y su respectivo Intervalo de Confianza (IC). Las línea segmentada corresponde al promedio y mediana de las series respectiva.", fig.height=8,fig.width=10}
 
+meanRt<-mean(VarPobMar$Rt2)
+meanBT<-mean(VarPobMar$BT2)
+meanBD<-mean(VarPobMar$BD2)
+medianFt<-median(VarPobMar$Ft2)
 
 Rt <- ggplot() + 
-    #geom_line(data=VarPobJul,aes(y=Rt3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
-    #geom_line(data=VarPobMar,aes(y=Rt2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-    geom_line(data=VarPobSep,aes(y=Rt1, x=x, colour = "septiembre 2022"),linetype ="solid", size=0.5)+
-    #geom_ribbon(data=VarPobJul,aes(ymin=lowerRt3, ymax=upperRt3, x=x, fill = "IC"), alpha = 0.2)+
-    #geom_ribbon(data=VarPobMar,aes(ymin=lowerRt2, ymax=upperRt2, x=x, fill = "IC"), alpha = 0.2)+
+    geom_line(data=VarPobMar,aes(y=Rt2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+    geom_line(data=VarPobSep,aes(y=Rt1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+    geom_ribbon(data=VarPobMar,aes(ymin=lowerRt2, ymax=upperRt2, x=x, fill = "IC"), alpha = 0.2)+
     geom_ribbon(data=VarPobSep,aes(ymin=lowerRt1, ymax=upperRt1, x=x, fill = "IC"), alpha = 0.2)+
-    geom_hline(yintercept = mean(VarPobSep$Rt1),colour='black',lty=2) +
-     annotate("text", x=2012, y=mean(VarPobSep$Rt1)+5000,label=expression("R"[promedio])) +
+    geom_hline(yintercept = meanRt,colour='black',lty=2) +
+     annotate("text", x=2012, y=meanRt+5000,label=expression("R"[promedio])) +
     labs(x = '', y = 'Reclutamientos',colour='Asesorías')  +
      scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    #scale_colour_manual("",values=c('blue','red','black'))+
-    #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-    #scale_fill_manual("",values=c("grey80","grey70","grey60"))+
-    scale_colour_manual("",values=c('black'))+
-    scale_linetype_manual(values=c("solid"))+
-    scale_fill_manual("",values=c("grey60"))+
+    scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
+    scale_linetype_manual('',values=c('Hito 1'="solid",'Hito 2'='dashed'))+
+    scale_fill_manual("",values=c("grey50","grey60"))+
     theme_bw(base_size=11) +
      ggtitle('')+
      theme(plot.title = element_text(hjust = 0.5),legend.position="top")
 
 BT <- ggplot() + 
-     #geom_line(data=VarPobJul,aes(y=BT3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
-     #geom_line(data=VarPobMar,aes(y=BT2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-     geom_line(data=VarPobSep,aes(y=BT1, x=x, colour = "septiembre 2022"),linetype ="solid", size=0.5)+
-     #geom_ribbon(data=VarPobJul,aes(ymin=lowerBT3, ymax=upperBT3, x=x, fill = ""), alpha = 0.2)+
-     #geom_ribbon(data=VarPobMar,aes(ymin=lowerBT2, ymax=upperBT2, x=x, fill = "IC"), alpha = 0.2)+
+     geom_line(data=VarPobMar,aes(y=BT2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+     geom_line(data=VarPobSep,aes(y=BT1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+     geom_ribbon(data=VarPobMar,aes(ymin=lowerBT2, ymax=upperBT2, x=x, fill = "IC"), alpha = 0.2)+
      geom_ribbon(data=VarPobSep,aes(ymin=lowerBT1, ymax=upperBT1, x=x, fill = "IC"), alpha = 0.2)+
-     geom_hline(data=VarPobSep,yintercept = mean(BT1),colour='black',lty=2) +
-     annotate("text", x=2012, y=mean(BT1)+25000,label=expression("BT"[promedio])) +
+     geom_hline(yintercept = meanBT,colour='black',lty=2) +
+     annotate("text", x=2012, y=meanBT+25000,label=expression("BT"[promedio])) +
      labs(x = '', y = 'Biomasa total (t)',colour='Asesorías')  +
      scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-     #scale_colour_manual("",values=c('blue','red','black'))+
-     #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-     #scale_fill_manual("",values=c("grey80","grey70","grey60"))+
-     scale_colour_manual("",values=c('black'))+
-     scale_linetype_manual(values=c("solid"))+
-     scale_fill_manual("",values=c("grey60"))+
+     scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
+     scale_linetype_manual(values=c('Hito 1'="solid",'Hito 2'='dashed'))+
+     scale_fill_manual("",values=c("grey50","grey60"))+
      theme_bw(base_size=11) +
      ggtitle('')+
      theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 BD <- ggplot() + 
-     #geom_line(data=VarPobJul,aes(y=BD3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
-     #geom_line(data=VarPobMar,aes(y=BD2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-     geom_line(data=VarPobSep,aes(y=BD1, x=x, colour = "septiembre 2022"), linetype ="solid",size=0.5)+
-     #geom_ribbon(data=VarPobJul,aes(ymin=lowerBD3, ymax=upperBD3, x=x, fill = "IC"), alpha = 0.2)+
-     #geom_ribbon(data=VarPobMar,aes(ymin=lowerBD2, ymax=upperBD2, x=x, fill = "IC"), alpha = 0.2)+
+     geom_line(data=VarPobMar,aes(y=BD2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+     geom_line(data=VarPobSep,aes(y=BD1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+     geom_ribbon(data=VarPobMar,aes(ymin=lowerBD2, ymax=upperBD2, x=x, fill = "IC"), alpha = 0.2)+
      geom_ribbon(data=VarPobSep,aes(ymin=lowerBD1, ymax=upperBD1, x=x, fill = "IC"), alpha = 0.2)+
-     geom_hline(data=VarPobSep,yintercept = mean(BD1),colour='black',lty=2) +
-     annotate("text", x=2012, y=mean(BD1)+25000,label=expression("BD"[promedio])) +
+     geom_hline(yintercept = meanBD,colour='black',lty=2) +
+     annotate("text", x=2012, y=meanBD+25000,label=expression("BD"[promedio])) +
      labs(x = '', y = 'Biomasa desovante (t)',colour='Asesorías')  +
      scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-     #scale_colour_manual("",values=c('blue','red','black'))+
-     #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-     #scale_fill_manual("",values=c("grey80","grey70",'gray60'))+
-     scale_colour_manual("",values=c('black'))+
-     scale_linetype_manual(values=c("solid"))+
-     scale_fill_manual("",values=c('gray60'))+
+     scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
+     scale_linetype_manual(values=c('Hito 1'="solid",'Hito 2'='dashed'))+
+     scale_fill_manual("",values=c("grey50","grey60"))+
      theme_bw(base_size=11) +
      ggtitle('')+
-     theme(plot.title = element_text(hjust = 0.5),legend.position="top")
+     theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 Ft <- ggplot() +
-    #geom_line(data=VarPobJul,aes(y=Ft3, x=x, colour = "julio 2022"),linetype ="solid", size=0.5)+
-    #geom_line(data=VarPobMar,aes(y=Ft2, x=x, colour = "marzo 2022"),linetype ="dashed", size=0.5)+
-    geom_line(data=VarPobSep,aes(y=Ft1, x=x, colour = "septiembre 2022"),linetype ="solid", size=0.5)+
-    #geom_ribbon(data=VarPobJul,aes(ymin=lowerFt3, ymax=upperFt3, x=x, fill = ""), alpha = 0.2)+
-    #geom_ribbon(data=VarPobMar,aes(ymin=lowerFt2, ymax=upperFt2, x=x, fill = "IC"), alpha = 0.2)+
+    geom_line(data=VarPobMar,aes(y=Ft2, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
+    geom_line(data=VarPobSep,aes(y=Ft1, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
+    geom_ribbon(data=VarPobMar,aes(ymin=lowerFt2, ymax=upperFt2, x=x, fill = "IC"), alpha = 0.2)+
     geom_ribbon(data=VarPobSep,aes(ymin=lowerFt1, ymax=upperFt1, x=x, fill = "IC"), alpha = 0.2)+
-     geom_hline(yintercept = median(VarPobSep$Ft1),colour='black',lty=2) +
-     annotate("text", x=2011, y=median(VarPobSep$Ft1)+0.15,label=expression("F"[mediana])) +
+     geom_hline(yintercept = medianFt,colour='black',lty=2) +
+     annotate("text", x=2011, y=medianFt+0.15,label=expression("F"[mediana])) +
     labs(x = '', y = 'Mortalidad por pesca (F)',colour='Asesorías')  +
     scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    #scale_colour_manual("",values=c('blue','red','black'))+
-    #scale_linetype_manual(values=c("solid", "longdash","dashed"))+
-    #scale_fill_manual("",values=c("grey80","grey70",'gray60'))+
-    scale_colour_manual("",values=c('black'))+
-    scale_linetype_manual(values=c("solid"))+
-    scale_fill_manual("",values=c('gray60'))+
+    scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
+    scale_linetype_manual(values=c('Hito 1'="solid",'Hito 2'='dashed'))+
+    scale_fill_manual("",values=c("grey50","grey60"))+
     theme_bw(base_size=11) +
      ggtitle('')+
      theme(plot.title = element_text(hjust = 0.5),legend.position="none")
@@ -2705,9 +2763,9 @@ Rt/BT | (BD/Ft)
 age     <- seq(0,4,1)                                            
 nage    <- length(age)   
 
-sel_Flota<-rep1$S_f[1,]
-sel_CruV <-rep1$Scru_reclas[1,]
-sel_CruO <-rep1$Scru_pelaces[1,]
+sel_Flota<-rep2$S_f[1,]
+sel_CruV <-rep2$Scru_reclas[1,]
+sel_CruO <-rep2$Scru_pelaces[1,]
 
 g1 <- ggplot () +
       lims(y=c(0,1))+
@@ -2734,7 +2792,6 @@ g1
 
 ```{r}
 
-
 VarPobl1<- cbind(yearsb,
                  format(round(BD1,0),nsmall=0, big.mark="."),
                  format(round(BD2,0),nsmall=0, big.mark="."),
@@ -2744,7 +2801,6 @@ VarPobl1<- cbind(yearsb,
                  format(round(Rt2,0),nsmall=0, big.mark="."),
                  formatC(round(exp(Ft1),3),decimal.mark = ",",digits = 3),
                  formatC(round(exp(Ft2),3),decimal.mark = ",",digits = 3))
-
 #-----------
 # TABLA 
 #-----------
@@ -2760,7 +2816,6 @@ caption = "\\label{Tab17}Estimaciones medias de las biomasa desovante (t) , biom
                       "Biomasa total"=2,
                       "Reclutamientos"=2,
                       "Mortalidad\npor pesca"=2))
-
 
 ```
 
@@ -3174,186 +3229,636 @@ add_header_above(c(" " = 1,"Asesorías" = 2))
 
 
 
-### Proyección del stock años 2021/2022 y 2022/2023 (Asesoría de septiembre 2021)
+### Proyección del stock años 2022/2023 y 2023/2024  (Hito 1: septiembre 2022)
 
-\vspace{0.3cm}
 
-La  proyección de la población se realizó 2 años biológicos hacia el futuro (julio 2021-junio 2022 y julio 2022-junio 2023) en base a tres escenarios de reclutamiento: a) un escenario favorable que consiste en el reclutamiento promedio del período 1997-2009 (59 mil millones de ind.), b) un escenario que representa el reclutamiento promedio histórico (43 mil millones de ind.) y un escenario que representa el período reciente entre el 2010-2021 (25 mil millones de ind.) (\textbf{Figura \ref{Fig44a}}), con una mortalidad por pesca en torno al $F_{RMS}$ y pesos medios igual al promedio de los últimos 5 años. 
+La  proyección de la población se realizó 2 años biológicos hacia el futuro (julio 2022-junio 2023 y julio 2023-junio 2024) en base a tres escenarios de reclutamiento: a) un escenario favorable que consiste en el reclutamiento promedio del período 1997-2009 (`r formatC(round(reps1a$Np[1]/1000,1),decimal.mark = ",")` mil millones de ind.), b) un escenario que representa el reclutamiento promedio histórico (`r formatC(round(reps2a$Np[1]/1000,1),decimal.mark = ",")` mil millones de ind.) y un escenario que representa el período reciente entre el 2010-2022 (`r formatC(round(reps3a$Np[1]/1000,1),decimal.mark = ",")` mil millones de ind.) (\textbf{Figura \ref{Fig44a}}), con una mortalidad por pesca en torno al $F_{RMS}$ y pesos medios igual al promedio de los últimos 5 años. Las \textbf{Figuras \ref{Fig44a}} y \textbf{Tabla \ref{Tab25s}} indican que, considerando como referencia el escenario de reclutamiento recientes (2010-2022), en términos de biomasa desovante proyectada al 2022/2023 (`r formatC(round(bds3[1]/1000,1),decimal.mark = ",")`  mil t) se observa una disminución del `r formatC(round((1-bds3[1]/bds0s)*100,1),decimal.mark = ",")`%  respecto al año previo 2021/2022 (`r formatC(round(bds0s/1000,2),decimal.mark = ",")`  mil t), de este modo la probabilidad de sobreexplotación aumenta a un `r formatC(round(pc3*100,1),decimal.mark = ",")`%  para el año biológico 2022/2023. Mientras que la biomasa desovante proyectada hacia el 2023/2024 depende del reclutamiento proyectado hacia el 2023 y 2024, de este modo, la probabilidad de sobreexplotación puede aumentar hasta un `r formatC(round(pc32*100,1),decimal.mark = ",")`% si los reclutamientos futuros retornan a los niveles promedios 2010-2022, o pueden disminuir a un `r formatC(round(pc12*100,1),decimal.mark = ",")`%  si los reclutamientos se encuentran en torno al promedio de los años 1997-2009 (\textbf{Tabla \ref{Tab25s}} y \textbf{Figura \ref{Fig44b}}). La \textbf{Tabla \ref{Tab26s}} muestra la  captura proyectada para los años biológicos 2022/2023 y 2023/2024 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos. El cálculo de la Captura al RMS ($C_{RMS}$) para el año calendario 2023 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre y 30% para el segundo semestre. De este modo, la captura al RMS para el año biológico 2022/2023 puede variar según el escenario de reclutamiento entre `r formatC(round(cs1[1]/1000,0),decimal.mark = ",")` mil t a `r formatC(round(cs3[1]/1000,0),decimal.mark = ",")` mil t. Si el 70% de la captura 2022/2023 se realiza durante el primer semestre 2023, la captura puede variar entre 
+`r formatC(round(cs1[1]*0.7/1000,0),decimal.mark = ",")` mil t a `r formatC(round(cs3[1]*0.7/1000,0),decimal.mark = ",")` mil t, dependiendo del reclutamiento 2023. El aporte del reclutamiento en la estimación de captura 2022/2023 es de un `r formatC(C1eryearR1*100,decimal.mark = ",")`% para un escenario de reclutamiento alto ($R_{1997-2009}$), de un `r formatC(C1eryearR2*100,decimal.mark = ",")`% para un escenario de reclutamientos promedio histórico y de un `r formatC(C1eryearR3*100,decimal.mark = ",")`% para un escenario de reclutamiento bajos ($R_{2010-2022}$) (\textbf{Figura \ref{Fig44c}}). En el caso de la captura proyectada para el año 2023/2024, los escenarios de reclutamientos tienen un efecto en el grupo de edad 1, un `r formatC(C1eryearR12a*100,decimal.mark = ",")`% para un escenario de reclutamiento alto ($R_{1997-2009}$), de un `r formatC(C1eryearR22a*100,decimal.mark = ",")`% para un escenario de reclutamientos promedio histórico y de un `r formatC(C1eryearR32a*100,decimal.mark = ",")`% para un escenario de reclutamiento bajos ($R_{2010-2022}$), por lo tanto, es una estimación con mayor incertidumbre (\textbf{Figura \ref{Fig44c}}). 
 
-Las \textbf{Figuras \ref{Fig44a}} y \textbf{Tabla \ref{Tab25}} indican que independiente del escenario de reclutamiento, en términos de biomasa desovante proyectada al 2021/2022 (554 mil t) se observa una disminución del 12% respecto al año previo 2020/2021 (631 mil t), de este modo la probabilidad de sobreexplotación aumenta a un 13% para el año biológico 2021/2022. Mientras que la biomasa desovante proyectada hacia el 2022/2023 depende del reclutamiento proyectado hacia el 2022 y 2023, de este modo, la probabilidad de sobreexplotación puede aumentar hasta un 60% si los reclutamientos futuros retornan a los niveles promedios 2010-2021, o pueden disminuir a un 0% si los reclutamientos se encuentran en torno al promedio de los años 1997-2009 (\textbf{Tabla \ref{Tab25}} y \textbf{Figura \ref{Fig44b}}).
+\pagebreak
 
-La \textbf{Tabla \ref{Tab26}} muestra la  captura proyectada para los años biológicos 2021/2022 y 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos. El cálculo de la Captura al RMS ($C_{RMS}$) para el año calendario 2022 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre ($C_{1erSem2022}$) y 30% para el segundo semestre ($C_{2doSem2022}$). De este modo, la captura al RMS para el año biológico 2021/2022 ($C_{2021/2022}$) puede variar según el escenario de reclutamiento entre 192 mil t a 201 mil t. Si el 70% de la captura 2021/2022 se realiza durante el primer semestre 2022, la captura puede variar entre 135 mil t a 141 mil t, dependiendo del reclutamiento 2022, considerando un resguardo del 2% por causa del descarte. 
+<!-- Proyección del stock (Asesoría de septiembre) -->
+
+```{r Fig44a,fig.cap="\\label{Fig44a}Proyección de dos años biológicos (2022/2023 y 2023/2024) de la biomasa desovante, razón $BD/BD_{RMS}$ y capturas en base a tres escenarios de reclutamiento proyectado. Asesoría de septiembre 2022.", fig.height=7,fig.width=9}
+
+  source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+
+par(mfrow=c(2,2),mar=c(4,4,1,1)+0.5)
+yearProy<-c(2023,2024)
+
+#=======================================================
+# plot reclutamientos 
+plot(c(reps1a$years,yearProy),c(reps1a$Reclutas,NA,NA),type="o",
+     ylab="Reclutamientos",xlab="Años",main="",
+     cex.axis=1,cex.main=1,cex.lab=1,xlim=c(1997,2025),pch=19)
+
+abline(v=yearProy[1]-1,h=1,lty=2)
+
+lines(c(reps1a$years,yearProy),
+      c(reps1a$Reclutas,
+        reps2a$Np[1],
+        reps2a$Np[1]),type="o",col=3,pch=19)
+
+lines(c(reps1a$years,yearProy),
+      c(reps1a$Reclutas,
+        reps3a$Np[1],
+        reps3a$Np[1]),type="o",col=4,pch=19)
+
+lines(c(reps1a$years,yearProy),
+      c(reps1a$Reclutas,
+        reps1a$Np[1],
+        reps1a$Np[1]),type="o",col=2,pch=19)
+
+lines(c(reps1a$years,yearProy),
+      c(reps1a$Reclutas,
+        NA,
+        NA),type="o",col=1,pch=19)
+
+abline(h=c(reps1a$Np[1],
+           reps2a$Np[1],
+           reps3a$Np[1]),
+       col=c(2,3,4))
+
+text(2025,c(reps1a$Np[1],
+            reps2a$Np[1],
+            reps3a$Np[1])+1500,
+     round(c(reps1a$Np[1]/1000,
+             reps2a$Np[1]/1000,
+             reps3a$Np[1]/1000),0),cex=0.7)
+#text(2024,550000,"a)")
+#=======================================================
+# plot Biomasa desovante
+plot(c(rep1$years,yearProy),
+     c(rep1$SSB,bds3),
+     type="o",ylab="Biomasa desovante (t)",xlab="Años",col=4,
+     xlim=c(1997,2025),ylim=c(0,1300000),pch=19,main="")
+
+lines(c(rep1$years,yearProy),
+      c(rep1$SSB,bds2),
+      type="o",col=3,pch=19)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$SSB,bds1),type="o",col=2,pch=19)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$SSB,c(NA,NA)),type="o",col=1,pch=19)
+
+abline(v=yearProy[1]-1,lty=2)
+legend(2007,1300000,c("Reclprom 1997-2009",
+                     "Reclprom Histórico",
+                     "Reclprom 2010-2022"),pch=19,lwd=1,col=c(2,3,4),bty="n")
+#text(2024,890000,"b)")
+#=======================================================
+# plot bd/BDrms
+plot(c(rep1$years,yearProy),
+     c(rep1$SSB,bds3)/BRMS1,
+     type="o",ylab=expression("BD/BD"[RMS]),col=4,xlab="Años",
+     pch=19,xlim=c(1997,2025),ylim=c(0,2.1))
+
+lines(c(rep1$years,yearProy),
+      c(rep1$SSB,bds2)/BRMS1,
+      type="o",col=3,pch=19)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$SSB,bds1)/BRMS1,
+      type="o",col=2,pch=19)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$SSB,c(NA,NA))/BRMS1,
+      type="o",col=1,pch=19)
+
+abline(v=yearProy[1]-1,h=1,lty=2)
+abline(h=0.5,lty=2,col=2)
+#text(2024,3,"c)")
+
+#=======================================================
+# plot capturas proyectadas
+plot(c(rep1$years,yearProy),
+     c(rep1$desembarquepred,cs3),type="o",
+     ylab="Capturas (t)",col=4,xlab="Años",pch=19,xlim=c(1997,2025),)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$desembarquepred,cs2),
+      type="o",col=3,pch=19)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$desembarquepred,cs1),
+      type="o",col=2,pch=19)
+
+lines(c(rep1$years,yearProy),
+      c(rep1$desembarquepred,c(NA,NA)),
+      type="o",col=1,pch=19)
+
+abline(v=yearProy[1]-1,lty=2)
+#text(2024,820000,"d)")
+
+```
+
+
+\pagebreak
+
+
+
+```{r}
+setwd(paste(dir.0,carpetaCBA_sept,sep=""))
+
+data1        <- lisread(paste(admb_sept,".dat",sep=""))#lee los datos de la ultima evaluacion
+names(data1) <- str_trim(names(data1), side="right")
+dat1         <- data1
+rep1         <- reptoRlist(paste(admb_sept,".rep",sep=""))
+std1         <- read.table(paste(admb_sept,".std",sep=""),header=T,sep="",na="NA",fill=T)  
+
+years      <- dat1$Ind[,1]                                                              
+nyears     <- dat1$nanos   
+Bo         <- rep1$SSBpbr[1]                         # Paso 4: Obtención de Bo
+BRMS       <- rep1$SSBpbr[3]                         # Paso 5: Obtención de Brms = 60%SPRo = 55%Bo
+FRMS       <- rep1$Fs[2]
+BLIM       <- Bo*0.275                              # Paso 6: Obtención de Blim = 20%Bo 
+FLIM       <- rep1$Fs[3]                             # Paso 6: Obtención de Flim = 30%SPRo
+SpB        <- subset(std1,name=="SSB")$value                                # BD serie histórica de evaluación de stock 
+SpBSE      <- subset(std1,name=="SSB")$std                           # desviación estandar BD
+ln_Fyr     <- subset(std1,name=="log_Ft")$value                                # logaritmo de Ft
+ln_FSE     <- subset(std1,name=="log_Ft")$std                                 # logaritmo de la desviación standar de Ft
+Fyr        <- exp(subset(std1,name=="log_Ft")$value)
+
+```
+
+
+```{r Fig46, fig.height=2.3,fig.width=2.2}
+
+source(paste(dir.fun,"Fn_DiagramaFase_proy.R",sep=""))
+source(paste(dir.fun,"Fn_ProbEstatus_proy.R",sep=""))
+
+escR<-c(rep("Reclprom 1997-2009",1), 
+        rep("Reclprom histórico",1),
+        rep("Reclprom 2010-2022",1))
+
+pF<-rep(c("Frms*1",
+          "Frms*0,9",
+          "Frms*1,1"),3)
+n<-1
+nesc<-c(11,21,31)
+mf<-c(1,0.9,1.1)
  
-El aporte del reclutamiento en la estimación de captura 2021/2022 es de un 8% para un escenario de reclutamiento alto (R_1997-2009), de un 6% para un escenario de reclutamientos promedio histórico y de un 3,6% para un escenario de reclutamiento bajos (R_2010-2021) (\textbf{Figura \ref{Fig44c}}). En el caso de la captura proyectada para el año 2022/2023, los escenarios de reclutamientos tienen un efecto en el grupo de edad 1, un 51,5% para un escenario de reclutamiento alto (R_1997-2009), de un 44,6% para un escenario de reclutamientos promedio histórico y de un 33,3% para un escenario de reclutamiento bajos (R_2010-2021) (\textbf{Figura \ref{Fig44c}}), por lo tanto, es una estimación con mayor incertidumbre (\textbf{Figura \ref{Fig44c}}). 
 
+for(i in 1:n){
+name<-escR[1]
+DiagramaFase_proy(name,
+                  years[nyears1-1:nyears1],
+                  SpB[nyears1-1:nyears1],
+                  SpBSE[nyears1-1:nyears1],
+                  ln_Fyr[nyears1-1:nyears1],
+                  ln_FSE[nyears1-1:nyears1],
+                  FRMS,
+                  BRMS,
+                  BLIM,
+                  FLIM,
+                  color=F,
+                  dir.0,
+                  etiqueta=F)
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.85\textwidth]{Figuras/Fig34a-1.pdf}
-\caption{Proyección de dos años biológicos (2021/2022 y 2022/2023) de la biomasa desovante, razón $BD/BD_{RMS}$ y capturas en base a tres escenarios de reclutamiento proyectado. Asesoría de septiembre 2021}
-\label{Fig44a}
-\end{figure}
+setwd(paste(dir.0,carpetaCBA_sept,sep=""))
+rep     <- reptoRlist(paste(admb_sept,nesc[i],".rep",sep=""))
+std     <- read.table(paste(admb_sept,nesc[i],".std",sep=""),header=T,sep="",na="NA",fill=T) 
+SpBp    <- subset(std,name=="BD_p0")$value                              
+SpBSEp  <- subset(std,name=="BD_p0")$std    
+Frmsp    <-c(FRMS*mf[i],FRMS*mf[i])
+
+lines(c(rprSEPT,SpBp/BRMS),
+      c(FrprSEPT,Frmsp/FRMS))
+
+points(c(SpB[nyears1]/BRMS),
+       c(exp(ln_Fyr[nyears1])/FRMS),
+       pch=19,col=c('orange'),cex=c(1))
+
+points(c(SpBp/BRMS),
+       c(Frmsp/FRMS),
+       pch=19,col=c(2,2),cex=c(1,1))
+
+text(c((SpBp[1]/BRMS)-0.05,(SpBp[2]/BRMS)+0.05),
+     c(Frmsp/FRMS+0.07),
+     c('2022/23',"2023/24"),
+     cex=c(0.5,0.5))
+
+text(c(SpB[1]/BRMS,
+       SpB[nyears]/BRMS,
+       SpB[nyears-1]/BRMS),
+     c(Fyr[1]/FRMS+0.05,
+       Fyr[nyears]/FRMS-0.05,
+       Fyr[nyears-1]/FRMS-0.05),
+     c("1990/91","2021/22","2020/21"),cex=0.5)
+text(1.7,1.9,pF[i],cex=0.8,col=1)
+}
+
 ```
 
 
+```{r Fig47, fig.height=2.3,fig.width=2.2}
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.32\textwidth]{Figuras/Fig46-1.pdf}
-\includegraphics[width=0.32\textwidth]{Figuras/Fig47-1.pdf}
-\includegraphics[width=0.32\textwidth]{Figuras/Fig48-1.pdf}
-\caption{Diagramas de fases de explotación de la biomasa desovante respecto de la mortalidad por pesca mostrando el estatus de anchoveta centro-sur para el año previo 2018/19 (punto verde), año actual 2019/20 (punto y cruz naranjo) y años proyectados 2021/22 y 2022/23 (puntos rojos) bajo un escenario de reclutamiento promedio alto [1997-2009], reclutamiento promedio histórico [1997-2021], reclutamiento promedio reciente [2010-2021]. Asesoría de septiembre 2021}
-\label{Fig44b}
-\end{figure}
+source(paste(dir.fun,"Fn_DiagramaFase_proy.R",sep=""))
+source(paste(dir.fun,"Fn_ProbEstatus_proy.R",sep=""))
+
+escR<-c(rep("Reclprom 1997-2009",1), 
+        rep("Reclprom histórico",1),
+        rep("Reclprom 2010-2022",1))
+
+pF<-rep(c("Frms*1",
+          "Frms*0.9",
+          "Frms*1.1"),3)
+
+n<-1
+nesc<-c(12,22,32)
+mf<-c(1,0.9,1.1)
+ 
+for(i in 1:n){
+name<-escR[2]
+DiagramaFase_proy(name,
+                  years[nyears1-1:nyears1],
+                  SpB[nyears1-1:nyears1],
+                  SpBSE[nyears1-1:nyears1],
+                  ln_Fyr[nyears1-1:nyears1],
+                  ln_FSE[nyears1-1:nyears1],
+                  FRMS,
+                  BRMS,
+                  BLIM,
+                  FLIM,
+                  color=F,
+                  dir.0,
+                  etiqueta=F)
+
+setwd(paste(dir.0,carpetaCBA_sept,sep=""))
+rep     <- reptoRlist(paste(admb_sept,nesc[i],".rep",sep=""))
+std     <- read.table(paste(admb_sept,nesc[i],".std",sep=""),header=T,sep="",na="NA",fill=T) 
+SpBp    <- subset(std,name=="BD_p0")$value                              
+SpBSEp  <- subset(std,name=="BD_p0")$std    
+Frmsp    <- c(FRMS*mf[i],FRMS*mf[i])
+
+lines(c(rprSEPT,SpBp/BRMS),
+      c(FrprSEPT,Frmsp/FRMS))
+
+points(c(SpB[nyears1]/BRMS),
+       c(exp(ln_Fyr[nyears1])/FRMS),
+       pch=19,col=c('orange'),cex=c(1))
+
+points(c(SpBp/BRMS),
+       c(Frmsp/FRMS),
+       pch=19,col=c(2),cex=c(1))
+
+text(c((SpBp[1]/BRMS)+0.16,(SpBp[2]/BRMS)-0.16),
+     c(Frmsp/FRMS+0.07),
+     c('2022/23',"2023/24"),
+     cex=c(0.5,0.5))
+
+text(c(SpB[1]/BRMS,
+       SpB[nyears]/BRMS,
+       SpB[nyears-1]/BRMS),
+     c(Fyr[1]/FRMS-0.05,
+       Fyr[nyears]/FRMS-0.05,
+       Fyr[nyears-1]/FRMS-0.05),
+     c("1990/91","2021/22","2020/21"),cex=0.5)
+text(1.7,1.9,pF[i],cex=0.8,col=1)
+}
+
+```
+
+```{r Fig48,fig.cap="\\label{Fig44b}Diagramas de fases de explotación de la biomasa desovante respecto de la mortalidad por pesca mostrando el estatus de anchoveta centro-sur para el año previo 2020/21 (punto verde), año actual 2021/22 (punto y cruz naranjo) y años proyectados 2022/23 y 2023/24 (puntos rojos) bajo un escenario de reclutamiento promedio alto [1997-2009], reclutamiento promedio histórico [1997-2022], reclutamiento promedio reciente [2010-2022]. Asesoría de septiembre 2022.",fig.height=2.3,fig.width=2.2}
+
+source(paste(dir.fun,"Fn_DiagramaFase_proy.R",sep=""))
+source(paste(dir.fun,"Fn_ProbEstatus_proy.R",sep=""))
+
+escR<-c(rep("Reclprom 1997-2009",1), 
+        rep("Reclprom histórico",1),
+        rep("Reclprom 2010-2022",1))
+pF<-rep(c("Frms*1",
+          "Frms*0.9",
+          "Frms*1.1"),3)
+
+n<-1
+nesc<-c(13,23,33)
+mf<-c(1,0.9,1.1)
+ 
+for(i in 1:n){
+name<-escR[3]
+DiagramaFase_proy(name,
+                  years[nyears1-1:nyears1],
+                  SpB[nyears1-1:nyears1],
+                  SpBSE[nyears1-1:nyears1],
+                  ln_Fyr[nyears1-1:nyears1],
+                  ln_FSE[nyears1-1:nyears1],
+                  FRMS,
+                  BRMS,
+                  BLIM,
+                  FLIM,
+                  color=F,
+                  dir.0,
+                  etiqueta=F)
+
+setwd(paste(dir.0,carpetaCBA_sept,sep=""))
+rep     <- reptoRlist(paste(admb_sept,nesc[i],".rep",sep=""))
+std     <- read.table(paste(admb_sept,nesc[i],".std",sep=""),header=T,sep="",na="NA",fill=T) 
+SpBp    <- subset(std,name=="BD_p0")$value                              
+SpBSEp  <- subset(std,name=="BD_p0")$std    
+Frmsp    <-c(FRMS*mf[i],FRMS*mf[i])
+
+lines(c(rprSEPT,SpBp/BRMS),
+      c(FrprSEPT,Frmsp/FRMS))
+
+points(c(SpB[nyears1]/BRMS),
+       c(exp(ln_Fyr[nyears1])/FRMS),
+       pch=19,col=c('orange'),cex=c(1))
+
+points(c(SpBp/BRMS),
+       c(Frmsp/FRMS),
+       pch=19,col=c(2),cex=c(1))
+
+text((SpBp/BRMS),
+     c(Frmsp/FRMS+0.07),
+     c('2022/23',"2023/24"),cex=c(0.5,0.5))
+
+text(c(SpB[1]/BRMS,
+       SpB[nyears]/BRMS,
+       SpB[nyears-1]/BRMS),
+     c(Fyr[1]/FRMS-0.05,
+       Fyr[nyears]/FRMS-0.05,
+       Fyr[nyears-1]/FRMS-0.05),
+     c("1990/91","2021/22","2020/21"),cex=0.5)
+text(1.7,1.9,pF[i],cex=0.8,col=1)
+}
+
 ```
 
 \pagebreak
 
-```{=tex}
-\begin{table}[h!]
-\caption{Proyección de la biomasa desovante hacia el año biológico 2021/2022 y 2022/2023 considerando tres escenarios de reclutamientos y mortalidad por pesca igual al $F_{RMS}$. Probabilidad de estar bajo $BD_{RMS}$ y sobre $F_{RMS}$ y la probabilidad de sobre-explotación y colapso.}
- \label{Tab25}
- \small
-    \centering
-    \resizebox{15cm}{!} {
-    \begin{tabular}{l|ccc|ccc}
-    \hline \rowcolor{Gray3}
-Año biológico proyectado     & \multicolumn{3}{c}{ Estatus 2021/2022}      & \multicolumn{3}{c}{ Estatus 2022/2023}  \\  \hline  \rowcolor{Gray3}
-Escenarios de reclutamiento  & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2021}$ & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2021}$  \\ \hline
-$F_{proy}$ = $F_{RMS}$       & 0,45   & 0,45   & 0,45                 & 0,45   & 0,45   & 0,45 \\ \rowcolor{Gray4}
-$BD_{RMS}$ mil t             & 483    & 483    & 483                  & 483    & 483    & 483 \\ \hline
-$BD_{proy}$ mil t            & 564    & 554    & 544                  & 622    & 524    & 418  \\  \rowcolor{Gray4}
-$BD_{proy}/BD_{RMS}$         & 1,17   & 1,15   & 1,13                 & 1,29   & 1,09   & 0,87 \\ \hline \rowcolor{Gray4}
-$p(sobreexplotación)$        & 0,11   & 0,13   & 0,15                 & 0,00   & 0,06   & 0,60  \\
-$p(agotado/colapsado)$       & 0,00   & 0,00   & 0,00                 & 0,00   & 0,00   & 0,00 \\\hline
-  \end{tabular}}
-        \end{table}
+
+<!--- RESULTADOS DE PROYECCIÓN ASESORÍA DE SEPTIEMBRE (HITO 1) -->
+```{r}
+
+probEstatus<-rbind("$R_{proy}$"=formatC(c(reps1a$Np[1],
+                                          reps2a$Np[1],
+                                          reps3a$Np[1],
+                                          reps1a$Np[1],
+                                          reps2a$Np[1],
+                                          reps3a$Np[1])/1000, decimal.mark = ","),
+            "$F_{proy}=F_{RMS}$"=formatC(c(rep(FRMS1,6)), decimal.mark = ","),
+            "$BD_{RMS}$"=formatC(c(rep(BRMS1,6))/1000, decimal.mark = ","),
+            '$BD_{proy}$'=formatC(round(c(bds1[1],
+                                          bds2[1],
+                                          bds3[1],
+                                          bds1[2],
+                                          bds2[2],
+                                          bds3[2])/1000,0), decimal.mark = ","),
+            '$BD_{proy}/BD_{RMS}$'=formatC(round(c(RpRps1[1],
+                                                   RpRps2[1],
+                                                   RpRps3[1],
+                                                   RpRps1[2],
+                                                   RpRps2[2],
+                                                   RpRps3[2]),2), decimal.mark = ","),
+            "$p(sobreexplotación)^1$"=formatC(round(c(pc1,
+                                                      pc2,
+                                                      pc3,
+                                                      pc12,
+                                                      pc22,
+                                                      pc32),2), decimal.mark = ","),
+            "$p(agotado/colapsado)^2$"=formatC(round(c(pd1,
+                                                       pd2,
+                                                       pd3,
+                                                       pd12,
+                                                       pd22,
+                                                       pd32),2), decimal.mark = ","))
+
+colnames(probEstatus)<-rep(c("$R_{1997-2009}$",
+                             "$R_{Histórico}$",
+                             "$R_{2010-2022}$"),2)
+
+footnote2<-c("Probabilidad de estar en sobreexplotación = $p(0,5<BD_{last}/BD_{RMS}<0,9)$",
+             "Probabilidad de estar en colapso =$p(BD_{last}/BD_{RMS}<0,5)$")
+
+#-----------
+# TABLA 
+#-----------
+kbl(probEstatus, booktabs = T,format = "latex",position="h!",align="c",escape = FALSE,
+caption = "\\label{Tab25s}Proyección de la biomasa desovante hacia el año biológico 2022/2023 y 2023/2024 considerando tres escenarios de reclutamientos y mortalidad por pesca igual al $F_{RMS}$. Probabilidad de estar bajo $BD_{RMS}$ y sobre $F_{RMS}$ y la probabilidad de sobre-explotación y colapso.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)%>% 
+  add_header_above(c(" " = 1,
+                    "Escenarios de reclutamiento" = 3,
+                    "Escenarios de reclutamiento" = 3),line = F)%>% 
+  add_header_above(c(" " = 1,
+                    "Estatus 2022/2023" = 3,"Estatus 2023/2024" = 3),line = F)%>%
+footnote(number = footnote2,threeparttable = T,escape = FALSE,fixed_small_size = TRUE)
+
 ```
-\scriptsize
-
--   Probabilidad de estar en sobreexplotación = $p(0,5 < BD_{last}/BD_{RMS} < 0,9)$
--   Probabilidad de estar en colapso = $p(BD_{last}/BD_{RMS} < 0,5)$
-
-\normalsize
 
 
-```{=tex}
-\begin{table}[h!]
-\caption{Proyección de la captura estimada para los años biológicos 2021/2022 y 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos. El cálculo de la Captura para el año calendario 2022 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70\% para el primer semestre y 30\% para el segundo semestre.}
- \label{Tab26}
- \small
-    \centering
-    \resizebox{11cm}{!} {
-    \begin{tabular}{l|ccc}
-    \hline \rowcolor{Gray3}
-                                & \multicolumn{3}{c}{Captura (mil t)} \\ \rowcolor{Gray3}
-  \textit{Escenarios de reclutamiento} & $R_{1997-2009}$ & $R_{histórico}$ & $R_{2010-2021}$ \\ \hline  
-  $Cproyectada_{2021/2022}$               &  206            & 201             & 196   \\ \rowcolor{Gray4}
-  $C_{1erSemestre 2022}$             &  144            & 141             & 137   \\ 
-  $Cproyectada_{2022/2023}$               &  226            & 189             & 150   \\  \rowcolor{Gray4}
-  $C_{2doSemestre 2022}$             &  68             & 57              & 45   \\ \hline 
-  $C_{RMS}$ año calendario 2022 &  212            & 198             & 182   \\ \hline
-  \end{tabular}}
-        \end{table}
-```
+```{r}
 
-\scriptsize
-- $Cproyectada_{2021/2022}$ = Captura proyectada año 2021/2022 considerando una mortalidad por pesca igual a $F_{RMS}$.
-- $Cproyectado_{2022/2023}$ = Captura proyectada hacia el año 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$
-- $C_{1erSemestre 2022}$ =  70% * $Cproyectada_{2021/2022}$
-- $C_{2doSemestre 2022}$ = 30% * $Cproyectada_{2022/2023}$
-- $C_{RMS}$ año calendario 2022 = $C_{1erSemestre 2022}$ + $C_{2doSemestre 2022}$ 
+Capturaproy<-rbind('Año biológico proyectada 2022/2023'=round(c(cs1[1],cs2[1],cs3[1])/1000,0),
+                   'Primer Semestre 2023'=round(c(cs1[1]*0.7,cs2[1]*0.7,cs3[1]*0.7)/1000,0),
+                   'Año biológico proyectada 2023/2024'=round(c(cs1[2],cs2[2],cs3[2])/1000,0),
+                   'Segundo Semestre 2023'=round(c(cs1[2]*0.3,cs2[2]*0.3,cs3[2]*0.3)/1000,0),
+                   'Año calendario 2023'=round(c((cs1[1]*0.7)+(cs1[2]*0.3),
+                                                         (cs2[1]*0.7)+(cs2[2]*0.3),
+                                                         (cs3[1]*0.7)+(cs3[2]*0.3))/1000,0))
 
+colnames(Capturaproy)<-c("$R_{1997-2009}$","$R_{Histórico}$","$R_{2010-2022}$")
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.75\textwidth]{Figuras/Fig27_CBA-1.pdf}
-\caption{Captura 2021/2022 y 2022/2023 a la edad bajo tres escenarios de reclutamiento proyectado en el hito 1. Asesoría Septiembre 2021. }
-\label{Fig44c}
-\end{figure}
+#-----------
+# TABLA 
+#-----------
+kbl(Capturaproy, booktabs = T,format = "latex",position="h!",align="c",escape = FALSE,
+caption = "\\label{Tab26s}Proyección de la captura estimada para los años biológicos 2022/2023 y 2023/2024 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos. El cálculo de la Captura para el año calendario 2023 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70\\% para el primer semestre y 30\\% para el segundo semestre.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)%>% 
+  add_header_above(c("Captura" = 1,
+                    "Escenarios de reclutamiento" = 3),line = F)
 ```
 
 \pagebreak
 
-\normalsize
+```{r Fig27_CBA_anch,fig.cap="\\label{Fig44c}Captura 2022/2023 y 2023/2024 a la edad bajo tres escenarios de reclutamiento proyectado en el hito 1. Asesoría Septiembre 2022.",fig.height=5,fig.width=10}
 
-### Captura Biológicamente Aceptable año 2022 inicial (Asesoría de septiembre 2021)
 
-\vspace{0.3cm}
- \normalsize
+par(mfrow=c(1,2),mar=c(4,4,1,1)+0.5)
+#===============================================================================================================
+# plot captura a la talla
+plot(seq(0,4,1),reps1a$YTP_p0W_proyectada[1,],
+     type="h",main="Año 2022/2023",lwd=20,ylim=c(0,125000),yaxs= "i",
+     ylab="Captura  a la edad (t)",xlab="Edades",
+     cex.axis=1,cex.main=1,cex.lab=1,col='red2')
+lines(seq(0,4,1),reps2a$YTP_p0W_proyectada[1,],type="h",col='green2',lwd=15)
+lines(seq(0,4,1),reps3a$YTP_p0W_proyectada[1,],type="h",col='blue2',lwd=10)
+text(rep(0.35,3),c(reps1a$YTP_p0W_proyectada[1,1],
+                   reps2a$YTP_p0W_proyectada[1,1],
+                   reps3a$YTP_p0W_proyectada[1,1]),
+                 paste(c(C1eryearR1,C1eryearR2,C1eryearR3)*100,"%",sep=""))
+text(4,120000,'a)')
 
-El cálculo de la CBA inicial para el año calendario 2022 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre y 30% para el segundo semestre, bajo un criterio de explotación de F60%SPR, sujeto a percentiles de probabilidad entre el 10% y 50%. La \textbf{Tabla \ref{Tab26b}} y \textbf{Figura \ref{Fig44d}} muestran los rangos de capturas para el año 2022 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre 161 mil t y 211 mil t; bajo un escenario de $R_{histórico}$ entre 147 mil t y 197 mil t y, bajo un escenario de $R_{2010-2021}$ entre 132 mil t y 182 mil t. Considerando el descuento del 2% de descarte 2022, los rangos de capturas para el año 2022 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre 158 mil t y 207 mil t; bajo un escenario de $R_{histórico}$ entre 144 mil t y 194 mil t y, bajo un escenario de $R_{2010-2021}$ entre 129 mil t y 179 mil t. Para evaluar el efecto que tiene la decisión de la CBA en base a los percentiles (10%-50%) que en general son menores a la captura al RMS (percentil del 50%), se calculó el resguardo a lo cual equivale cada percentil (\textbf{Tabla \ref{Tab27}}). Esos niveles variaron entre un 5% para un percentil del 40% hasta un 26% para un percentil de probabilidad del 10%, considerando tres escenarios de reclutamiento.
+plot(seq(0,4,1),reps1a$YTP_p0W_proyectada[2,],type="h",main="Año 2023/2024",
+     lwd=20,ylim=c(0,125000),yaxs= "i", ylab="Captura a la edad (t)",
+     xlab="Edades",cex.axis=1,cex.main=1,cex.lab=1,col='red2')
+lines(seq(0,4,1),reps2a$YTP_p0W_proyectada[2,],type="h",col='green2',lwd=15)
+lines(seq(0,4,1),reps3a$YTP_p0W_proyectada[2,],type="h",col='blue2',lwd=10)
+text(rep(0.35,3),c(reps1a$YTP_p0W_proyectada[2,1],
+                   reps2a$YTP_p0W_proyectada[2,1],
+                   reps3a$YTP_p0W_proyectada[2,1]),
+                 paste(c(C1eryearR12,C1eryearR22,C1eryearR32)*100,"%",sep=""))
+text(rep(1.4,3),c(reps1a$YTP_p0W_proyectada[2,2],
+                  reps2a$YTP_p0W_proyectada[2,2],
+                  reps3a$YTP_p0W_proyectada[2,2]),
+                paste(c(C1eryearR12a,C1eryearR22a,C1eryearR32a)*100,"%",sep=""))
+text(4,120000,'b)')
 
-En la secta sesión del CCT-PP 2021 (Acta de Sesión No6, octubre 2021 [^6]) se recomendó una CBA máxima 2022 de 173 mil toneladas correspondiente al escenario de reclutamiento promedio histórico (1997-2021), 30 % de percentil de captura (equivalente a un 10 % resguardo) y el descuento del 2 % de descarte (\textbf{Tabla \ref{Tab26b}}).
-
-[^6]: <https://www.subpesca.cl/portal/616/articles-112739_documento.pdf>
-\vspace{0.5cm}
-
-```{=tex}
-\begin{table}[h!]
-\caption{CBA inicial año calendario 2022 calculada bajo $F_{RMS}$ y el descuento del 2\% de descarte, con sus respectivos percentiles de captura entre 10\% y 50\% y tres escenarios de reclutamientos.}
- \label{Tab26b}
- \small
-    \centering
-    \resizebox{15cm}{!} {
-    \begin{tabular}{c|ccc|ccc}
-    \hline \rowcolor{Gray3}
-  Percentiles   & \multicolumn{3}{c}{$CBA_{2022}$}                     & \multicolumn{3}{c}{$CBA_{2022}-2\%descarte$}  \\ \rowcolor{Gray3}
-  de            & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}}    & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}}  \\ \rowcolor{Gray3}
-   $C_{RMS}$    & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2021}$ & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2021}$\\ \hline 
-  mean          & 211.550         & 197.520          & 182.330         & 207.310         & 193.570          & 178.690  \\ \rowcolor{Gray4}
-  sd            & 39.588          & 39.414           & 39.325          & 38.796          & 38.626           & 38.538 \\ \hline 
-  10\%          & 160.816         & 147.009          & 131.933         & 157.591         & 144.069          & 129.302 \\ \rowcolor{Gray4}
-  20\%          & 178.232         & 164.348          & 149.233         & 174.658         & 161.062          & 146.256 \\
-  30\%          & 190.790         & 176.851          & 161.708         & 186.965         & \textbf{173.315} & 158.481 \\ \rowcolor{Gray4}
-  40\%          & 201.520         & 187.535          & 172.367         & 197.481         & 183.784          & 168.927 \\
-  $C_{RMS}$ año calendario 2022  & 211.550 & 197.520 & 182.330         & 207.310         & 193.570          & 178.690 \\ \hline
-  \end{tabular}}
-        \end{table}
 ```
 
 
+```{r Fig27_CBA,fig.cap="\\label{Fig44ds}a) Distribución de probabilidad de la Captura al RMS proyectada al 2023 bajo tres escenarios de reclutamiento proyectado en el hito 1. La zona sombreada corresponde a la zona de percentiles de probabilidad de captura (*P) entre el 10 \\% - 50 \\% y b) La CBA estimada para cada *P.",fig.height=5,fig.width=10}
+#===============================================================================
+# escenario 1
+#===============================================================================
+xca1 <-rnorm(1000, mean = CBAp_sept[1],sd=CBApstd_sept[1])
+xca  <-seq(min(xca1),max(xca1),0.5)
+yca  <-dnorm(xca, mean = CBAp_sept[1],sd=CBApstd_sept[1])
+icca <-qnorm(c(0.1,0.5,0.5),CBAp_sept[1],CBApstd_sept[1])
+xxca <-c(xca[xca>=icca[1]&xca<=icca[2]],
+         rev(xca[xca>=icca[1]&xca<=icca[2]]))
+yyca <-c(yca[xca>=icca[1]&xca<=icca[2]],
+         rep(0,length(yca[xca>=icca[1]&xca<=icca[2]])))
+#===============================================================================
+# escenario 2
+#===============================================================================
+xcb1 <-rnorm(1000, mean = CBAp_sept[2],sd= CBApstd_sept[2])
+xcb  <-seq(min(xcb1),max(xcb1),0.5)
+ycb  <-dnorm(xcb, mean = CBAp_sept[2],sd= CBApstd_sept[2])
+iccb <-qnorm(c(0.1,0.5,0.5),CBAp_sept[2],CBApstd_sept[2])
+xxcb <-c(xcb[xcb>=iccb[1]&xcb<=iccb[2]],
+         rev(xcb[xcb>=iccb[1]&xcb<=iccb[2]]))
+yycb <-c(ycb[xcb>=iccb[1]&xcb<=iccb[2]],
+         rep(0,length(ycb[xcb>=iccb[1]&xcb<=iccb[2]])))
+#===============================================================================
+# escenario 3
+#===============================================================================
+xcc1 <-rnorm(1000, mean = CBAp_sept[3],sd=CBApstd_sept[3])
+xcc  <-seq(min(xcc1),max(xcc1),0.5)
+ycc  <-dnorm(xcc, mean = CBAp_sept[3],sd=CBApstd_sept[3])
+iccc <-qnorm(c(0.1,0.5,0.5),CBAp_sept[3],CBApstd_sept[3])
+xxcc <-c(xcc[xcc>=iccc[1]&xcc<=iccc[2]],
+         rev(xcc[xcc>=iccc[1]&xcc<=iccc[2]]))
+yycc <-c(ycc[xcc>=iccc[1]&xcc<=iccc[2]],
+         rep(0,length(ycc[xcc>=iccc[1]&xcc<=iccc[2]])))
 
-\vspace{0.5cm}
+par(mfrow=c(1,2),mar=c(4,4,1,1)+0.5)
+#===============================================================================
+# plot densidad de probabilidad CBA
+plot(xca,yca,type="l",ylab="Densidad de probabilidad",
+     xaxs="i",yaxs= "i",xlab="CBA 2023 (toneladas)",main="",
+     cex.axis=1,cex.main=1,cex.lab=1,xlim=c(30000,400000),ylim=c(0,13e-06))
+
+polygon(xxca,yyca,col=gray(0.8,0.7),border="gray80")
+lines(xca,yca,lwd=1,col="red2",lty=1)
+
+polygon(xxcb,yycb,col=gray(0.8,0.7),border="gray80")
+lines(xcb,ycb,lwd=1,col="green2",lty=1)
+
+polygon(xxcc,yycc,col=gray(0.8,0.7),border="gray80")
+lines(xcc,ycc,lwd=1,col="blue2",lty=1)
+
+legend(50000,12.8e-06,
+       c(paste("CBA2023_R1997-2009 = [",round(icca[1],0),"-",round(icca[2],0),"]",sep=" "),
+         paste("CBA2023_Rhistórico = [",round(iccb[1],0),"-",round(iccb[2],0),"]",sep=" "),
+         paste("CBA2023_R2010-2022 = [",round(iccc[1],0),"-",round(iccc[2],0),"]",sep=" ")), lty=c(1,1,1),col=c('red2',"green2","blue2"),bty="n",lwd=1,cex=0.8)
+text(390000,12.7e-06,'a)')
+box()
+
+#===============================================================================
+# plot percentiles de captura
+plot(seq(10,50,10),CBA_sept[1,],type="o", 
+     ylab="CBA 2023 (toneladas)",xlab="Percentil de Captura (P*)",
+     main="",cex.axis=1,cex.main=1,cex.lab=1,col="red2",ylim=c(50000,250000))
+lines(seq(10,50,10),CBA_sept[2,],type="o",col="green2")
+lines(seq(10,50,10),CBA_sept[3,],type="o",col="blue2")
+
+legend(12,2.5e+05,c("R1997-2009","Rhistórico","R2010-2022"),
+       col=c(2,3,4),pch=c(19,19,19),lwd=1,bty="n",cex=0.8)
+text(49,2.5e+05,'b)')
 
 
-```{=tex}
-\begin{table}[h!]
-\caption{Resguardo de la Captura al RMS}
- \label{Tab27}
- \small
-    \centering
-    \resizebox{8cm}{!} {
-    \begin{tabular}{lccc}
-    \hline
-  Percentiles   & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}} \\
-  de $C_{RMS}$  & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$ \\ \hline 
-  10\%          & 0,24         & 0,26        & 0,28 \\
-  20\%          & 0,16         & 0,17        & 0,18  \\
-  30\%          & 0,11         & 0,10        & 0,11  \\
-  40\%          & 0,05         & 0,05        & 0,05  \\ \hline
-  \end{tabular}}
-        \end{table}
 ```
-
 
 
 \pagebreak
 
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.95\textwidth]{Figuras/Fig27_CBA-2.pdf}
-\caption{a) Distribución de probabilidad de la Captura al RMS proyectada al 2022 bajo tres escenarios de reclutamiento proyectado en el hito 1. La zona sombreada corresponde a la zona de percentiles de probabilidad de captura (*P) entre el 10 \% - 50 \%. b) La CBA estimada para cada *P. }
-\label{Fig44d}
-\end{figure}
+
+
+### Captura Biológicamente Aceptable año 2023 inicial 
+
+El cálculo de la CBA inicial para el año calendario 2023 se obtiene como el promedio ponderado según la estacionalidad semestral de la pesquería que a la fecha se asume 70% para el primer semestre y 30% para el segundo semestre, bajo un criterio de explotación de $F60\%SPR$, sujeto a percentiles de probabilidad entre el 10% y 50%. Las \textbf{Tablas \ref{Tab27s} y \ref{Tab27s_b} } y \textbf{Figura \ref{Fig44ds}} muestran los rangos de capturas para el año 2023 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre `r formatC(round(CBA_sept[1,1]/1000,1),decimal.mark = ",")` mil t y `r formatC(round(CBA_sept[1,5]/1000,1),decimal.mark = ",")` mil t; bajo un escenario de $R_{histórico}$ entre `r formatC(round(CBA_sept[2,1]/1000,1),decimal.mark = ",")` mil t y `r formatC(round(CBA_sept[2,5]/1000,1),decimal.mark = ",")` mil t y, bajo un escenario de $R_{2010-2022}$ entre `r formatC(round(CBA_sept[3,1]/1000,1),decimal.mark = ",")` mil t y `r formatC(round(CBA_sept[3,5]/1000,1),decimal.mark = ",")` mil t. Considerando el descuento del 2% de descarte 2023, los rangos de capturas para el año 2023 estimada bajo un escenario de $R_{1997-2009}$ podría situarse entre `r formatC(round(CBAd_sept[1,1]/1000,1),decimal.mark = ",")` mil t y `r formatC(round(CBAd_sept[1,5]/1000,1),decimal.mark = ",")` mil t; bajo un escenario de $R_{histórico}$ entre `r formatC(round(CBAd_sept[2,1]/1000,1),decimal.mark = ",")` mil t y `r formatC(round(CBAd_sept[2,5]/1000,1),decimal.mark = ",")` mil t y, bajo un escenario de $R_{2010-2022}$ entre `r formatC(round(CBAd_sept[3,1]/1000,1),decimal.mark = ",")` mil t y `r formatC(round(CBAd_sept[3,5]/1000,1),decimal.mark = ",")` mil t. Para evaluar el efecto que tiene la decisión de la CBA en base a los percentiles (10%-50%) que en general son menores a la captura al RMS (percentil del 50%), se calculó el resguardo a lo cual equivale cada percentil (\textbf{Tabla \ref{Tab28s}}). Esos niveles variaron entre un `r formatC(round(mean(buffer[,4])*100,1),decimal.mark = ",")`% para un percentil del 40% hasta un `r formatC(round(mean(buffer[,1])*100,1),decimal.mark = ",")`% para un percentil de probabilidad del 10%, considerando tres escenarios de reclutamiento.
+
+
+**En la secta sesión del CCT-PP 2021 (Acta de Sesión No6, octubre 2021 [^6]) se recomendó una CBA máxima 2022 de 173 mil toneladas correspondiente al escenario de reclutamiento promedio histórico (1997-2021), 30 % de percentil de captura (equivalente a un 10 % resguardo) y el descuento del 2 % de descarte (\textbf{Tabla \ref{Tab26b}}).**
+
+**[^6]: <https://www.subpesca.cl/portal/616/articles-112739_documento.pdf>**
+
+
+```{r}
+percentiles<-c("10\\%","20\\%","30\\%","40\\%","50\\%")
+escrec<-c("$R_{1997-2009}$","$R_{Histórico}$","$R_{2010-2022}$")
+
+tCBA<-t(data.frame(CBAp_sept,CBApstd_sept,CBA_sept))
+colnames(tCBA)  <-escrec
+row.names(tCBA) <-c('mean','sd',percentiles)
+#-----------
+# TABLA 
+#-----------
+kbl(round(tCBA,0), booktabs = T,format = "latex",position="h!",align="c",escape = FALSE,
+    format.args=list(big.mark = '.'),
+caption = "\\label{Tab27s}CBA inicial año calendario 2023 de anchoveta calculada bajo $F_{RMS}$ con sus respectivos percentiles de captura entre 10\\% y 50\\% y tres escenarios de reclutamientos.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)%>% 
+  add_header_above(c(" " = 1,
+                    "Escenarios de reclutamiento" = 3),line = F)%>% 
+  add_header_above(c(" " = 1,
+                    "CBA 2023" = 3))
+```
+
+\pagebreak
+
+```{r}
+tCBAd<-t(data.frame(CBApd_sept,CBApdstd_sept,CBAd_sept))
+colnames(tCBAd)<-escrec
+row.names(tCBAd)<-c('mean','sd',percentiles)
+#-----------
+# TABLA 
+#-----------
+kbl(round(tCBAd,0), booktabs = T,format = "latex",position="h!",escape = FALSE,align="c",
+    format.args=list(big.mark = '.'),
+caption = "\\label{Tab27s_b}CBA inicial año calendario 2023 considerando el descuento del 2 \\% de descarte.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)%>% 
+  add_header_above(c(" " = 1,
+                    "Escenarios de reclutamiento" = 3),line = F)%>% 
+  add_header_above(c(" " = 1,
+                    "CBA 2023 - 2 \\% descarte" = 3))
 ```
 
 
-\normalsize
+```{r}
+buffer2<-data.frame(t(buffer))
+colnames(buffer2)<-escrec
+row.names(buffer2)<-percentiles
+#----------
+# TABLA 
+#-----------
+kbl(buffer2, booktabs = T,format = "latex",position="h!",align="c",escape = FALSE,
+    format.args=list(decimal.mark = ','),
+    caption = "\\label{Tab28s}Nivel de resguardo de cada percentil de Captura al RMS") %>% 
+    kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)%>% 
+    add_header_above(c(" " = 1,
+                    "Escenarios de reclutamiento" = 3),line = F)%>% 
+    add_header_above(c(" " = 1,
+                    "Resguardo" = 3))
+```
+
 
 \pagebreak
 
@@ -3719,258 +4224,6 @@ La \textbf{Tabla \ref{Tab29m_alt}} muestra las diferencias porcentuales entre la
         \end{table}
 ```
 
-\vspace{0.5cm}
-
-\normalsize
-
-\pagebreak
-
-### Segunda actualización del stock año 2021/2022 y proyección año 2022/2023 
-
-\vspace{0.3cm}
-
-La actualización de la biomasa desovante para el año 2021/2022 (718 mil t) de la asesoría actual disminuye  un 1% respecto a la estimada en la asesoría de marzo 2022 (728 mil t), manteniéndose la probabilidad de sobreexplotación en un 0% para el año biológico 2021/2022 (\textbf{Figuras \ref{Fig44am} y \ref{Fig44aj}}, \textbf{Tablas \ref{Tab25m} y \ref{Tab25j}}).  
-
-La  proyección del stock se realizó un año biológico hacia el futuro (julio 2022-junio 2023) en base a tres escenarios de reclutamiento: a) un escenario desfavorable que consiste en el reclutamiento promedio del período 2010- 2022 (23 mil millones de ind.), b) un escenario favorable que corresponde al promedio de los reclutamientos del período 1997 - 2009 (52 mil millones de ind.) y c) un escenario que representa el promedio histórico (35 mil millones de ind.) (\textbf{Figura \ref{Fig44aj}}), con una mortalidad por pesca en torno al $F_{RMS}$ y pesos medios igual al promedio de los últimos 5 años.  Respecto a la biomasa desovante proyectada hacia el año 2022/2023 en la asesoría actual (560 mil t) aumenta un 4% respecto a la asesoría previa (537 mil t),  disminuyendo la probabilidad de sobreexplotación a un 12% considerando el escenario de reclutamientos histórico como referencia (\textbf{Figuras \ref{Fig44am} y \ref{Fig44aj}}, \textbf{Tablas \ref{Tab25m} y \ref{Tab25j}}). 
-
-
-
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.8\textwidth]{Figuras/Fig34a_julio-1.pdf}
-\caption{Proyección de un año biológico (2022/2023) de la biomasa desovante, razón $BD/BD_{RMS}$ y capturas en base a tres escenarios de reclutamiento proyectado. Asesoría de julio 2022}
-\label{Fig44aj}
-\end{figure}
-```
-
-
-\vspace{0.5cm}
-
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.32\textwidth]{Figuras/Fig49_julio-1.pdf}
-\includegraphics[width=0.32\textwidth]{Figuras/Fig50_julio-1.pdf}
-\includegraphics[width=0.32\textwidth]{Figuras/Fig51_julio-1.pdf}
-\caption{Diagramas de fases de explotación de la biomasa desovante respecto de la mortalidad por pesca mostrando el estatus para el año previo 2020/21 (punto verde), año actual 2021/22 (punto y cruz naranjo) y año proyectado 2022/23 (punto rojo) bajo un escenario de reclutamiento promedio alto [1997-2009] (panel izquierdo), reclutamiento promedio histórico [1997-2022] (panel intermedio), reclutamiento promedio reciente [2010-2022] (panel derecho) Asesoría de julio 2022.}
-\label{Fig44bj}
-\end{figure}
-```
-
-\pagebreak
-
-```{=tex}
-\begin{table}[h!]
-\caption{Estatus  año 2021/2022 en asesoría de julio 2022 y proyectado hacia el año 2022/2023, considerando reclutamiento actualizado  y proyectado bajo tres escenarios de reclutamientos promedio ($R_{2actual/proy}$) y mortalidad por pesca actual y proyectada ($F_{2actual/proy}$) igual al $F_{RMS}$. Biomasa desovante objetivo ($BD_{RMS}$), actualizada  y proyectada ($BD_{2actual/proy}$). Probabilidad de sobre-explotación y colapso.}
- \label{Tab25j}
- \small
-    \centering
-    \resizebox{15cm}{!} {
-    \begin{tabular}{l|c|ccc}
-    \hline \rowcolor{Gray3}
-    & \multicolumn{1}{c}{ Estatus actual 2021/2022} & \multicolumn{3}{c}{ Estatus proyectado 2022/2023}  \\  \hline  \rowcolor{Gray3}
-Escenarios de reclutamiento  & $R_{2actual}$ & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$  \\ \hline
-$R_{2actual/proy}$            &  37      & 52   & 35  & 23      \\  \rowcolor{Gray4}
-$F_{2actual/proy}$ = $F_{RMS}$&  0,33    & 0,45 & 0,45 & 0,45 \\ 
-$BD_{RMS}$ mil t              &  487     & 487  & 487  & 487  \\ \hline
-$BD_{2actual/proy}$ mil t     &  718     & 570  & 560  & 553 \\  \rowcolor{Gray4}
-$BD_{2actual/proy}/BD_{RMS}$  &  1,48    & 1,17 & 1,15 & 1,14   \\ \hline \rowcolor{Gray4}
-$p(sobreexplotación)$         &  0,00    & 0,10 & 0,12 & 0,13 \\
-$p(agotado/colapsado)$        &  0,00    & 0,00 & 0,00 & 0,00   \\\hline
-  \end{tabular}}
-        \end{table}
-```
-
-\spacing{0}
-
-\scriptsize
--   Probabilidad de estar en sobreexplotación = $p(0,5 < BD_{last}/BD_{RMS} < 0,9)$
--   Probabilidad de estar en colapso = $p(BD_{last}/BD_{RMS} < 0,5)$
-
-\spacing{1.5}
-
- \normalsize
-
-
-
-\vspace{0.5cm}
-
-La captura actualizada del año 2021/2022 con información de los desembarques registrados por Sernapesca (203 mil t) es un 23% menor al supuesto de captura igual al RMS utilizado en la asesoría previa (264 mil t) ( \textbf{Tablas \ref{Tab26m} y \ref{Tab26j}}). El aporte del reclutamiento actualizado en la estimación de captura 2021/2022 es de un 4%, en la asesoría previa, el aporte era un 3% (\textbf{Figuras \ref{Fig44cm} y \ref{Fig44cj}}).
-
-La captura proyectada 2022/2023 (209 mil t) en la asesoría actual aumenta un 7% respecto a la asesoría previa (194 mil t), considerando el escenario de reclutamiento histórico ($R_{1997-2022}$) como referencia (\textbf{Tablas \ref{Tab26m} y \ref{Tab26j}}). El aporte del reclutamiento en la estimación de captura 2022/2023 es de un 6% para un escenario de reclutamiento alto ($R_{1997-2009}$), de un 4% para un escenario de reclutamientos histórico ($R_{1997-2022}$) y de un 3% para un escenario de reclutamiento recientes ($R_{2010-2022}$) (\textbf{Figura \ref{Fig44cj}}). 
-
-El cálculo de la Captura al RMS ($C_{RMS}$) para el año calendario 2022 se obtiene como el desembarque del primer semestre 2022 equivalente al valor registrado por SERNAPESCA más el  30% de la captura proyectada 2022/2023. Al respecto, la captura 2022 actualizada (255 mil t) disminuye un 7% respecto a la asesoría previa (275 mil t) considerando el escenario de reclutamiento histórico ($R_{1997-2022}$) como referencia, dado que la captura 2021/2022 actualizada en la asesoría actual fue menor al supuesto utilizado en la asesoría previa (en torno al RMS).
-
-\vspace{0.5cm}
-
-```{=tex}
-\begin{table}[h!]
-\caption{Captura  año 2021/2022 actualizada en asesoría de julio 2022 considerando la mortalidad por pesca del último año de la evaluación de stock ($F_{2021/2022}$) y captura proyectada hacia el año 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$, con sus respectivos escenarios de reclutamientos.}
- \label{Tab26j}
- \small
-    \centering
-    \resizebox{12cm}{!} {
-    \begin{tabular}{l|c|ccc}
-    \hline \rowcolor{Gray3}
-                                & \multicolumn{4}{c}{Captura (mil t)}  \\ \rowcolor{Gray3}
-  Escenarios de reclutamiento  & $R_{2actual}$ & $R_{1991-2007}$ & $R_{2008-2012}$  & $R_{2013-2022}$  \\ \hline
-  $C2actual_{2021/2022}$        &  203        &          &   &     \\ 
-  $C_{1erSemestre 2022}$        &  192        &          &   &     \\ \hline
-  $Cproyectado_{2022/2023}$     &             & 213      & 209   &  206 \\ 
-  $C_{2doSemestre 2022}$        &             & 64       & 63    &  62  \\ \hline \rowcolor{Gray3}
-  $C_{RMS}$ año calendario 2022 &             & 256      & 255   &  254 \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
-\spacing{0}
-
-\scriptsize
-- $C2actual_{2021/2022}$ = Captura actualizada año 2021/2022 considerando una mortalidad por pesca igual a $F_{2021/2022}$.
-- $Cproyectado_{2022/2023}$ = Captura proyectada hacia el año 2022/2023 considerando una mortalidad por pesca igual al $F_{RMS}$
-- $C_{1erSemestre 2022}$ = $Desembarque_{1erSem2021}$ equivalente al valor registrado por SERNAPESCA
-- $C_{2doSemestre 2022}$ = 30% * $Cproyectado_{2022/2023}$
-- $C_{RMS}$ año calendario 2022 = $C_{1erSemestre 2022}$ + $C_{2doSemestre 2022}$ 
-
-\spacing{1.5}
-\vspace{0.5cm}
-
-\normalsize
-
-
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.85\textwidth]{Figuras/Fig27_CBA_julio-1.pdf}
-\caption{Captura a la edad actualizada 2021/2022 y Captura a la edad proyectada 2022/2023  bajo tres escenarios de reclutamiento proyectado en el hito 3. Asesoría Julio 2022. }
-\label{Fig44cj}
-\end{figure}
-```
-
-\normalsize
-
-\pagebreak
-
-### Segunda revisión de CBA 2022  
-
-\vspace{0.3cm}
- \normalsize
-
-El cálculo de la CBA para el año calendario 2022 se obtiene como el desembarque del primer semestre 2022 equivalente al valor registrado por SERNAPESCA más el  30% de la captura proyectada 2022/2023.  Al respecto, la \textbf{Tabla \ref{Tab27j}} y \textbf{Figura \ref{Fig44dj}} muestran los rangos de capturas para el año 2022 estimada bajo un escenario de reclutamientos altos $R_{1997-2009}$ podría situarse entre 238 mil t y 256 mil t; bajo un escenario de reclutamientos histórico $R_{1997-2022}$ entre 236 mil t y 255 mil t y, bajo un escenario de reclutamientos recientes $R_{2010-2022}$ entre 236 mil t y 254 mil t. 
-
-Considerando el descuento del 2% de descarte, los rangos de capturas para el año 2022 estimada bajo un escenario de reclutamientos altos $R_{1997-2009}$ podría situarse entre 233 mil t y 251 mil t; bajo un escenario de reclutamientos históricos $R_{1997-2022}$ entre 232 mil t y 249,5 mil t y, bajo un escenario de reclutamientos recientes $R_{2010-2022}$ entre 231 mil t y 249 mil t. 
-
-Los niveles de resguardo variaron entre un 1%  para un percentil del 40% hasta un 7% aprox. para un percentil de probabilidad del 10%, considerando tres escenarios de reclutamiento (\textbf{Tabla \ref{Tab28j}}). La \textbf{Tabla \ref{Tab29j}} muestra las diferencias porcentuales entre la CBA inicial proyectada en el Hito 1 y la segunda revisión de CBA 2022 actualizada en la asesoría actual (Hito 3). La \textbf{Tabla \ref{Tab29j2}} muestra las diferencias porcentuales entre la primera revisión de CBA  actualizada en el Hito 2 y la segunda revisión de CBA 2022 actualizada en la asesoría actual (Hito 3).
-
-
-\vspace{0.5cm}
-
-
-```{=tex}
-\begin{table}[h!]
-\caption{Segunda revisión de la CBA año calendario 2022 y el descuento del 2\% de descarte, con sus respectivos percentiles de captura entre 10\% y 50\% y tres escenarios de reclutamientos.}
- \label{Tab27j}
- \small
-    \centering
-    \resizebox{15cm}{!} {
-    \begin{tabular}{|c|ccc|ccc|}
-    \hline \rowcolor{Gray3}
-  Percentiles   & \multicolumn{3}{c}{$CBA_{2022}$}                     & \multicolumn{3}{c}{$CBA_{2022}-2\%descarte$}  \\ \rowcolor{Gray3}
-  de            & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}}    & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}}  \\ \rowcolor{Gray3}
-   $C_{RMS}$    & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$ & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$\\ \hline 
-  mean          & 255.970  & 254.600 & 253.690 & 250.850 & 249.500  & 248.610 \\ \rowcolor{Gray4}
-  sd            &  14.129  &  14.104 &  14.072 & 13.846  & 13.821   & 13.791  \\ \hline 
-  10\%          & 237.863  & 236.525 & 235.656 & 233.106 & 231.788  & 230.936 \\ \rowcolor{Gray4}
-  20\%          & 244.079  & 242.730 & 241.847 & 239.197 & 237.868  & 237.003 \\
-  30\%          & 248.561  & 247.204 & 246.311 & 243.589 & 242.252  & 241.378 \\ \rowcolor{Gray4}
-  40\%          & 252.390  & 251.027 & 250.125 & 247.342 & 245.998  & 245.116 \\
-  $C_{RMS}$ año calendario 2022 & 255.970  & 254.600 & 253.690 & 250.850 & 249.500 &  248.610  \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
-\pagebreak
-
-\vspace{0.5cm}
-
-
-```{=tex}
-\begin{table}[h!]
-\caption{Nivel de resguardo de cada percentil de Captura al RMS}
- \label{Tab28j}
- \small
-    \centering
-    \resizebox{8cm}{!} {
-    \begin{tabular}{lccc}
-    \hline
-  Percentiles   & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}} \\
-  de $C_{RMS}$  & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$ \\ \hline 
-  10\%          & 0,07 & 0,07 & 0,07  \\
-  20\%          & 0,05 & 0,05 & 0,05  \\
-  30\%          & 0,03 & 0,03 & 0,03  \\
-  40\%          & 0,01 & 0,01 & 0,01  \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
-\vspace{0.5cm}
-
-
-```{=tex}
-\begin{table}[h!]
-\caption{Diferencia entre CBA inicial (Hito 1) y Segunda revisión de CBA (Hito 3)}
- \label{Tab29j}
- \small
-    \centering
-    \resizebox{8cm}{!} {
-    \begin{tabular}{lccc}
-    \hline
-  Percentiles   & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}} \\
-  de $C_{RMS}$  & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$ \\ \hline 
-  10\%          & 48\%  &  61\%  &  79\%  \\
-  20\%          & 37\%  &  48\%  &  62\%  \\
-  30\%          & 30\%  &  40\%  &  52\%  \\
-  40\%          & 25\%  &  34\%  &  45\%  \\ 
-  50\%          & 21\%  &  29\%  &  39\%  \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
-\vspace{0.5cm}
-
-
-```{=tex}
-\begin{table}[h!]
-\caption{Diferencia entre Primera revisión de CBA (Hito 2) y Segunda revisión de CBA (Hito 3)}
- \label{Tab29j2}
- \small
-    \centering
-    \resizebox{8cm}{!} {
-    \begin{tabular}{lccc}
-    \hline
-  Percentiles   & \multicolumn{3}{c}{\textit{Escenarios de reclutamiento}} \\
-  de $C_{RMS}$  & $R_{1997-2009}$ & $R_{histórico}$  & $R_{2010-2022}$ \\ \hline 
-  10\%          &  22\%    & 23\%   &  23\% \\
-  20\%          &  10\%    & 10\%   &  10\% \\
-  30\%          &  3\%     & 3\%    &  3\% \\
-  40\%          &  -3\%    & -3\%   &  -3\% \\ 
-  50\%          &  -7\%    & -7\%   &  -7\% \\ \hline
-  \end{tabular}}
-        \end{table}
-```
-
-
-
-
-```{=tex}
-\begin{figure}[h!]
-\centering
-\includegraphics[width=0.95\textwidth]{Figuras/Fig27_CBA_julio-2.pdf}
-\caption{a) Distribución de probabilidad de la Captura al RMS proyectada al 2022 bajo tres escenarios de reclutamiento proyectado en el hito 3. La zona sombreada corresponde a la zona de percentiles de probabilidad de captura (*P) entre el 10 \% - 50 \%. b) La CBA estimada para cada *P. }
-\label{Fig44dj}
-\end{figure}
-```
 
 
 
