@@ -5,6 +5,7 @@ rm(list=ls(all=T))
 library(stringr) # para arreglo de archivo .dat
 library(dplyr)  # para usar melt
 library(reshape) # para usar melt
+library(tidyverse)
 
 dir.0       <-getwd() # directorio de trabajo 
 dir.1       <-paste(dir.0,"/codigos_admb",sep="") # carpeta de códigos ADMB 
@@ -18,6 +19,14 @@ setwd(dir.1)
 admb_dat<-list.files(pattern=".dat")
 admb_rep<-list.files(pattern=".rep")
 admb_std<-list.files(pattern=".std")
+
+admb_sept<-str_sub(admb_dat[3], 1, 6)
+admb_mar<-str_sub(admb_dat[1], 1, 6)
+admb_jul<-str_sub(admb_dat[2], 1, 6)
+
+carpetaCBA_sept<-"/CBA_sept/"
+carpetaCBA_mar<-"/CBA_mar/"
+carpetaCBA_jul<-"/CBA_jul/"
 
 # ASESORÍA DE SEPTIEMBRE
 data1        <- lisread(admb_dat[3]) 
@@ -56,81 +65,132 @@ age     <- seq(0,4,1)
 nage    <- length(age)   
 
 ###############################################################################
-# Ajustes de los índices de abundancia
-# Fig22
+# Descripción de los datos
+# Fig21
 ###############################################################################
 
-lasty <- nyears1
+#---------------
+# sobre índices
+#---------------
+year<-format(dat2$Ind[,1],nsmall=0, big.mark="")
+recl<-dat2$Ind[,2]
+pela<-dat2$Ind[,4]
+mpdh<-dat2$Ind[,6]
+
+dataInd<-data.frame(year,recl,pela,mpdh)
+#--------------------------
+#  sobre datos de captura
+#-------------------------
+bioyear<-yearsb
+
+desemYdesc_previo<-c(350755,77701,442110,56441,14545,235359,
+                     269955,359681,431902,328805,639364,411747,
+                     362871,311530,167758,66681,60226,58785,
+                     57116,71774,51957,67425,138520,160799,209506,203330)
+
+desc_previo       <- c(rep(1,4),rep(1.04,15),rep(1.02,1),rep(1.06,1),1.01,rep(1.02,4))
+desembarque       <- desemYdesc_previo/desc_previo
+desc_actualizado  <- c(rep(1,4),rep(1.04,17),1.014,1.021,1.018,1.02,1.02)
+CapturaDescartada <- -(1-desc_actualizado)*desembarque
+CapturaTotal      <- desembarque+CapturaDescartada
+
+porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%",1),rep("1,8\\%",1),rep("2\\%",2))
+
+dataDes_y_descar<-data.frame("Año"=bioyear,
+                             "Desembarques"=round(desembarque,0),
+                             "Pdescarte" =porcDesc_actualizado,
+                             "Capturadesc"=round(CapturaDescartada,0),
+                             "Capturatotal"=round(CapturaTotal,0))
+
+###############################################################################
+# Datos índices de abundancia
+###############################################################################
 cvBcV   <-0.30
 cvBcO   <-0.30
 cvdes   <-0.01
+
+names_ind<- c('id',
+              'Crucero_verano', 
+              'Crucero_otoño',
+              'Crucero_huevos', 
+              'Desembarques') 
 #==============================================================================
-ind_obs           <- cbind(c(rep1$reclasobs),
-                           c(rep1$pelacesobs),
-                           c(rep1$mphobs),
-                           c(rep1$desembarqueobs))
-ind_obs[ind_obs==0] <- NA
-colnames(ind_obs) <- c('Crucero_verano', 
-                       'Crucero_otoño',
-                       'Crucero_huevos', 
-                       'Desembarques') 
-#-----------------------------------------------------     
-ind_sept           <- cbind(c(rep1$reclaspred), 
-                            c(rep1$pelacespred), 
-                            c(rep1$mphpred),
-                            c(rep1$desembarquepred)) 
-colnames(ind_sept) <- c('Crucero_verano', 
-                        'Crucero_otoño',
-                        'Crucero_huevos', 
-                        'Desembarques') 
-#-----------------------------------------------------
-ind_marzo           <- cbind(c(rep2$reclaspred),
-                             c(rep2$pelacespred),
-                             c(rep2$mphpred),
-                             c(rep2$desembarquepred)) 
-colnames(ind_marzo) <- c('Crucero_verano', 
-                         'Crucero_otoño',
-                         'Crucero_huevos', 
-                         'Desembarques') 
-#-----------------------------------------------------
-ind_julio           <- cbind(c(rep3$reclaspred),
-                             c(rep3$pelacespred), 
-                             c(rep3$mphpred),
-                             c(rep3$desembarquepred)) 
-colnames(ind_julio) <- c('Crucero_verano', 
-                         'Crucero_otoño',
-                         'Crucero_huevos', 
-                         'Desembarques') 
+#Observados
+#==============================================================================
+indobs_sept<- data.frame(seq(1,nyears1,1),
+                         rep1$reclasobs,
+                         rep1$pelacesobs,
+                         rep1$mphobs,
+                         rep1$desembarqueobs) %>% 
+              na_if(0) %>% 
+              magrittr::set_colnames(names_ind) %>%
+              mutate(Asesoria='observado Hito 1') %>%
+              mutate (yrs= years1) %>% 
+              melt(id.var=c('yrs', 'Asesoria'))  
 
+indobs_marzo<- data.frame(seq(1,nyears1,1),
+                          rep2$reclasobs,
+                          rep2$pelacesobs,
+                          rep2$mphobs,
+                          rep2$desembarqueobs) %>% 
+                na_if(0)%>% 
+                magrittr::set_colnames(names_ind) %>%
+                mutate(Asesoria='observado Hito 2') %>%
+                mutate (yrs= years1) %>% 
+                melt(id.var=c('yrs', 'Asesoria'))  
+
+indobs_julio<- data.frame(seq(1,nyears1,1),
+                          rep3$reclasobs,
+                          rep3$pelacesobs,
+                          rep3$mphobs,
+                          rep3$desembarqueobs) %>% 
+                na_if(0)%>% 
+                magrittr::set_colnames(names_ind)%>%
+                mutate(Asesoria='observado Hito 3') %>%
+                mutate (yrs= years1) %>% 
+                melt(id.var=c('yrs', 'Asesoria'))  
+#==============================================================================
+#Predichos
+#==============================================================================    
+indpred_sept<- data.frame(seq(1,nyears1,1),
+                          rep1$reclaspred, 
+                          rep1$pelacespred, 
+                          rep1$mphpred,
+                          rep1$desembarquepred) %>% 
+                magrittr::set_colnames(names_ind) %>% 
+                mutate (Asesoria='Hito 1: septiembre') %>%
+                mutate (yrs= years1)  %>% 
+                melt(id.var=c('yrs', 'Asesoria'))
+
+indpred_marzo<- data.frame(seq(1,nyears1,1),
+                           rep2$reclaspred,
+                           rep2$pelacespred,
+                           rep2$mphpred,
+                           rep2$desembarquepred) %>% 
+                 magrittr::set_colnames(names_ind) %>% 
+                 mutate (Asesoria='Hito 2: marzo') %>% 
+                 mutate (yrs= years1)  %>% 
+                 melt(id.var=c('yrs', 'Asesoria'))
+
+indpred_julio<- data.frame(rep3$reclaspred,
+                           rep3$pelacespred, 
+                           rep3$mphpred,
+                           rep3$desembarquepred) %>% 
+                 magrittr::set_colnames(names_ind) %>% 
+                 mutate (Asesoria='Hito 3: julio') %>% 
+                 mutate (yrs= years1)  %>% 
+                 mutate (id= seq(1,nyears1,1))  %>% 
+                 melt(id.var=c('yrs', 'Asesoria'))
 #=================================================================================
-ind     <- data.frame(ind_obs) %>%
-           mutate(Asesoria='observado') %>%
-           mutate (yrs= years1) %>% 
-           melt(id.var=c('yrs', 'Asesoria'))  
 
-sept    <- data.frame(ind_sept) %>% 
-           mutate (Asesoria='Hito 1: septiembre') %>%
-           mutate (yrs= years1)  %>% 
-           melt(id.var=c('yrs', 'Asesoria'))
-
-marzo   <- data.frame(ind_marzo) %>% 
-           mutate (Asesoria='Hito 2: marzo') %>% 
-           mutate (yrs= years1)  %>% 
-           melt(id.var=c('yrs', 'Asesoria'))
-
-julio   <- data.frame(ind_julio) %>% 
-           mutate (Asesoria='Hito 3: julio') %>% 
-           mutate (yrs= years1)  %>% 
-           melt(id.var=c('yrs', 'Asesoria'))
-
-base1 <- data.frame(rbind(ind, sept))  
+base1 <- merge(indobs_sept, merge(indpred_sept, indpred_marzo, all = TRUE), all = TRUE)  
 
 ###############################################################################
 # Residuos de los Ajustes de los índices de abundancia
 # Fig23
 ###############################################################################
 
-Res_matt <- data.frame(log(ind_obs) - log(ind_sept)) %>% 
+Res_matt <- data.frame(log(indobs_marzo) - log(indpred_marzo)) %>% 
             mutate(yrs = years1) %>% 
             mutate(Asesoria = 'base')
 
@@ -181,7 +241,7 @@ predf_julio <- as.data.frame(f3_pre) %>%
   mutate(edad = rep(age, each=nyears1)) %>% 
   mutate(type='Hito 3: julio')
 
-matf  <- rbind(obsf,predf_sep)
+matf  <- rbind(obsf,predf_sep,predf_marzo)
 
 #------------------------------------------------------------------------------
 # Composición de edad reclas
@@ -216,7 +276,7 @@ predr_julio <- as.data.frame(r3_pre) %>%
   mutate(edad = rep(age, each=nyears1)) %>% 
   mutate(type='Hito 3: julio')
 
-matr  <- rbind(obsr,predr_sep)
+matr  <- rbind(obsr,predr_sep,predr_marzo)
 
 #------------------------------------------------------------------------------
 
@@ -249,7 +309,7 @@ predp_julio <- as.data.frame(p3_pre) %>%
   mutate(edad = rep(age, each=nyears1)) %>% 
   mutate(type='Hito 3: julio')
 
-matp  <- rbind(obsp,predp_sep)
+matp  <- rbind(obsp,predp_sep,predp_marzo)
 
 ###############################################################################
 # COMPARACIÓN CON ASESORÍAS PREVIAS
@@ -460,7 +520,7 @@ VarPobJul<- data.frame(x=years3,
 ###############################################################################
 dir<-paste(dir.0,"/Retrospectivo_sept",sep="")
 setwd(dir)
-admb<-"MAE922"
+admb<-str_sub(admb_dat[3], 1, 6)
 
 
 retros2  <- seq(1,5)
@@ -822,3 +882,166 @@ pc_jul <- pnorm(0.9,rprJUL,rprJULstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,
 pd_jul <- pnorm(0.5,rprJUL,rprJULstd,lower.tail = TRUE,log.p = F)
 # *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)
 pe_jul <- 1-pnorm(1.1,FrprJUL,FrprJULstd,lower.tail = TRUE,log.p = F)
+
+
+
+#######################################################################
+#<!--- RESULTADOS DE PROYECCIÓN ASESORÍA DE SEPTIEMBRE (HITO 1) -->
+#######################################################################  
+
+dira<-paste(dir.0,carpetaCBA_sept,sep="")
+setwd(dira)
+
+
+
+reps1a     <- reptoRlist(paste(admb_sept,"11.rep",sep=""))  
+reps2a     <- reptoRlist(paste(admb_sept,"12.rep",sep="")) 
+reps3a     <- reptoRlist(paste(admb_sept,"13.rep",sep="")) 
+
+
+stds1     <- read.table(paste(dir.0,carpetaCBA_sept,admb_sept,"11.std", sep=''),header=T,sep="",na="NA",fill=T) 
+stds2     <- read.table(paste(dir.0,carpetaCBA_sept,admb_sept,"12.std", sep=''),header=T,sep="",na="NA",fill=T) 
+stds3     <- read.table(paste(dir.0,carpetaCBA_sept,admb_sept,"13.std", sep=''),header=T,sep="",na="NA",fill=T) 
+
+bds1     <- subset(stds1,name=="BD_p0")$value ; 
+bds1std  <- subset(stds1,name=="BD_p0")$std #reclutamiento medios
+bds2     <- subset(stds2,name=="BD_p0")$value ; 
+bds2std  <- subset(stds2,name=="BD_p0")$std #reclutamiento 2018
+bds3     <- subset(stds3,name=="BD_p0")$value ; 
+bds3std  <- subset(stds3,name=="BD_p0")$std #reclutamiento 2012
+
+RpRps1     <- subset(stds1,name=="RPR_p0")$value ; 
+RpRps1std  <- subset(stds1,name=="RPR_p0")$std #reclutamiento medios
+RpRps2     <- subset(stds2,name=="RPR_p0")$value ; 
+RpRps2std  <- subset(stds2,name=="RPR_p0")$std #reclutamiento 2018
+RpRps3     <- subset(stds3,name=="RPR_p0")$value ; 
+RpRps3std  <- subset(stds3,name=="RPR_p0")$std #reclutamiento 2012
+
+cs1     <- subset(stds1,name=="YTP_p0")$value ; 
+cs1std  <- subset(stds1,name=="YTP_p0")$std #reclutamiento medios
+cs2     <- subset(stds2,name=="YTP_p0")$value ; 
+cs2std  <- subset(stds2,name=="YTP_p0")$std #reclutamiento 2018
+cs3     <- subset(stds3,name=="YTP_p0")$value ; 
+cs3std  <- subset(stds3,name=="YTP_p0")$std #reclutamiento 2012
+
+#######################################################################
+# RECLUTAMIENTO ESTIMADO ULTIMO AÑO EVALUACIÓN (AÑO ACTUAL)
+RTs0s     <- subset(stds1,name=="Reclutas")$value[nyears1] ; 
+RTs0s_std  <- subset(stds1,name=="Reclutas")$std[nyears1] 
+
+#BIOMASA DESOVANTE ESTIMADA ULTIMO AÑO EVALUACIÓN
+bds0s     <- subset(stds1,name=="SSB")$value[nyears1] ; 
+bds0s_std  <- subset(stds1,name=="SSB")$std[nyears1] 
+#######################################################################
+
+# aporte del grupo de edad 0 (reclutamiento) año actual
+C1eryearR1act<-round(reps1a$YTP_r0W_actual[1]/sum(reps1a$YTP_r0W_actual),2)
+C1eryearR1act2<-round(reps1a$YTP_r0W_actual[2]/sum(reps1a$YTP_r0W_actual),2)
+
+# aporte del grupo de edad 0 (reclutamiento) 1er año proyectado
+C1eryearR1<-round(reps1a$YTP_p0W_proyectada[1,1]/sum(reps1a$YTP_p0W_proyectada[1,]),2)
+C1eryearR2<-round(reps2a$YTP_p0W_proyectada[1,1]/sum(reps2a$YTP_p0W_proyectada[1,]),2)
+C1eryearR3<-round(reps3a$YTP_p0W_proyectada[1,1]/sum(reps3a$YTP_p0W_proyectada[1,]),2)
+
+# aporte del grupo de edad 1 (reclutamiento) 1er año proyectado
+C1eryearR1a<-round(reps1a$YTP_p0W_proyectada[1,2]/sum(reps1a$YTP_p0W_proyectada[1,]),2)
+C1eryearR2a<-round(reps2a$YTP_p0W_proyectada[1,2]/sum(reps2a$YTP_p0W_proyectada[1,]),2)
+C1eryearR3a<-round(reps3a$YTP_p0W_proyectada[1,2]/sum(reps3a$YTP_p0W_proyectada[1,]),2)
+
+# aporte del grupo de edad 0 (reclutamiento) 2do año proyectado
+C1eryearR12<-round(reps1a$YTP_p0W_proyectada[2,1]/sum(reps1a$YTP_p0W_proyectada[2,]),2)
+C1eryearR22<-round(reps2a$YTP_p0W_proyectada[2,1]/sum(reps2a$YTP_p0W_proyectada[2,]),2)
+C1eryearR32<-round(reps3a$YTP_p0W_proyectada[2,1]/sum(reps3a$YTP_p0W_proyectada[2,]),2)
+
+# aporte del grupo de edad 1  2do año proyectado
+C1eryearR12a<-round(reps1a$YTP_p0W_proyectada[2,2]/sum(reps1a$YTP_p0W_proyectada[2,]),2)
+C1eryearR22a<-round(reps2a$YTP_p0W_proyectada[2,2]/sum(reps2a$YTP_p0W_proyectada[2,]),2)
+C1eryearR32a<-round(reps3a$YTP_p0W_proyectada[2,2]/sum(reps3a$YTP_p0W_proyectada[2,]),2)
+
+#######################################################################################
+# ESTATUS PROYECTADO
+#######################################################################################
+
+#--------------------------
+# PRIMER AÑO PROYECTADO
+#--------------------------
+### *Probabilidad de estar bajo BRMS* 
+pa1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
+pa2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
+pa3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
+### *Probabilidad de estar en zona de sobreexplotacion*
+pc1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,
+               RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
+pc2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,
+               RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
+pc3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,
+               RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
+### *Probabilidad de estar en zona de colapso*
+pd1<-pnorm(0.5,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
+pd2<-pnorm(0.5,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
+pd3<-pnorm(0.5,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
+
+#--------------------------
+# SEGUNDO AÑO PROYECTADO
+#--------------------------
+### *Probabilidad de estar bajo BRMS* 
+pa12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
+pa22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
+pa32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
+### *Probabilidad de estar en zona de sobreexplotacion*
+pc12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,
+                RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
+pc22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,
+                RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
+pc32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,
+                RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
+### *Probabilidad de estar en zona de colapso*
+pd12<-pnorm(0.5,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
+pd22<-pnorm(0.5,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
+pd32<-pnorm(0.5,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
+
+#######################################################################################
+
+#-----------------------------
+# CBA INICIAL
+#-----------------------------
+
+n<-3
+q       <- seq(0.1,0.5,0.1)  # niveles de riesgo (cuantiles)                                
+nq      <- length(q)                                                                                   
+CBA_sept     <- matrix(ncol=nq,nrow=n)
+CBAp_sept    <- rep(0,n)
+CBApstd_sept <- rep(0,n)
+
+buffer   <- matrix(ncol=nq,nrow=n)
+descarte <- matrix(ncol=nq,nrow=n)
+
+for(i in 1:n){
+  std     <- read.table(paste(admb_sept,"1",i,".std",sep=""),header=T,sep="",na="NA",fill=T) 
+  CBAp_sept[i]    <-subset(std,name=="CBA_c0")$value[1]
+  CBApstd_sept[i] <-subset(std,name=="CBA_c0")$std[1]
+  for(j in 1:nq){CBA_sept[i,j]<-qnorm(q[j],CBAp_sept[i],CBApstd_sept[i])}}
+
+for(i in 1:n){for(j in 1:nq){	
+  buffer[i,j]<-round(1-CBA_sept[i,j]/CBA_sept[i,5],2)}}
+
+#-----------------------------
+# CBA INICIAL MENOS DESCARTE
+#-----------------------------
+
+n<-3
+q       <- seq(0.1,0.5,0.1)  # niveles de riesgo (cuantiles)                                
+nq      <- length(q)                                                                                   
+CBAd_sept     <- matrix(ncol=nq,nrow=n)
+CBApd_sept    <- rep(0,n)
+CBApdstd_sept <- rep(0,n)
+
+
+for(i in 1:n){
+  std     <- read.table(paste(admb_sept,"1",i,".std",sep=""),header=T,sep="",na="NA",fill=T) 
+  CBApd_sept[i]    <-subset(std,name=="CBA_c0d")$value[1]
+  CBApdstd_sept[i] <-subset(std,name=="CBA_c0d")$std[1]
+  for(j in 1:nq){CBAd_sept[i,j]<-qnorm(q[j],CBApd_sept[i],CBApdstd_sept[i])}}
+
+
+
