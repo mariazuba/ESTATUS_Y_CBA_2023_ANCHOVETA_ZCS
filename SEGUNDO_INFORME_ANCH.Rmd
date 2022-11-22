@@ -2078,67 +2078,67 @@ En relación al ajuste a los datos de composiciones de edades, se observa que el
 
 ```{r Fig22,fig.cap="\\label{Fig22}Ajustes del modelo anual en edades a los valores de biomasas de cruceros de verano, otoño y desembarques. Las barras corresponden al intervalo de confianza asintótico y el círculo al valor del estimador",fig.height=7,fig.width=8}
 
+base1<-rbind(indobs_marzo,indpred_sept,indpred_marzo )
+
 #=================================================================================
 #GRÁFICOS
 #=================================================================================
 
-BcV <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_verano'), 
+BcV <- ggplot(base1 %>% filter(type!='observado', variable=='Crucero_verano'), 
        aes(yrs,value/1000000)) + 
        geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
        scale_colour_manual(values=c('black','red')) +
        scale_linetype_manual(values=c("solid",'dashed'))+
-       geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_verano'),
+       geom_point(data = base1 %>% filter(type=='observado', variable=='Crucero_verano'),
        aes(yrs,value/1000000), shape = 19, colour = 'gray30') +
-       geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_verano'),
+       geom_errorbar(data = base1 %>% filter(type=='observado', variable=='Crucero_verano'),
        aes(ymin = value*exp(-1.96*cvBcO)*10^-6, ymax = value*exp(1.96*cvBcO)*10^-6), color = 'gray30') +
-       scale_x_continuous(breaks = seq(from = 1985, to = 2022, by = 5)) +
-       labs(x = '', y = 'Toneladas (millones)') +
+       scale_x_continuous(breaks = seq(from = 1985, to = 2050, by = 4)) +
+       labs(x = '', y = 'Biomasas (millones de t)') +
        theme_bw(base_size=9) + 
        ggtitle('Crucero de verano')+
        theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
-BcP <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_otoño'), 
+BcP <- ggplot(base1 %>% filter(type!='observado', variable=='Crucero_otoño'), 
        aes(yrs,value/1000000)) + 
        geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
        scale_colour_manual(values=c('black','red'),name="Asesoría") +
        scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
-       geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_otoño'),
+       geom_point(data = base1 %>% filter(type=='observado', variable=='Crucero_otoño'),
        aes(yrs,value/1000000), shape = 19, colour = 'gray30') +
-       geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_otoño'),
+       geom_errorbar(data = base1 %>% filter(type=='observado', variable=='Crucero_otoño'),
        aes(ymin = value*exp(-1.96*cvBcV)*10^-6, ymax = value*exp(1.96*cvBcV)*10^-6), color = 'gray30') +
-       scale_x_continuous(breaks = seq(from = 1985, to = 2022, by = 5)) +
-       labs(x = '', y = 'Toneladas (millones)') +
+       scale_x_continuous(breaks = seq(from = 1985, to = 2050, by = 4)) +
+       labs(x = '', y = 'Biomasas (millones de t)') +
        theme_bw(base_size=9) + 
        ggtitle('Crucero de otoño')+
        theme(plot.title = element_text(hjust = 0.5))
 
-BcH <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Crucero_huevos'), 
-       aes(yrs,value/1000000)) + 
+BcH <- ggplot(base1 %>% filter(type!='observado', variable=='Crucero_huevos'), 
+       aes(yrs,value/1000)) + 
         geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
        scale_colour_manual(values=c('black','red'),name="Asesoría") +
        scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
-       geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_huevos'),
-       aes(yrs,value/1000000), shape = 19, colour = 'gray30') +
-       #geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Crucero_huevos'),
-       #aes(ymin = value*exp(-1.96*cvBcH)*10^-6, ymax = value*exp(1.96*cvBcH)*10^-6), color = 'gray30') +
-       scale_x_continuous(breaks = seq(from = 1985, to = 2021, by = 5)) +
-       labs(x = '', y = 'Toneladas (millones)') +
+       geom_point(data = base1 %>% filter(type=='observado', variable=='Crucero_huevos'),
+       aes(yrs,value/1000), shape = 19, colour = 'gray30') +
+       scale_x_continuous(breaks = seq(from = 1985, to = 2050, by = 4)) +
+       labs(x = '', y = 'Biomasas (miles de t)') +
        theme_bw(base_size=9) + 
        ggtitle('Crucero de huevos')+
        theme(plot.title = element_text(hjust = 0.5),legend.position="none")
 
 
-d   <- ggplot(base1 %>% filter(Asesoria!='observado', variable=='Desembarques'), 
+d   <- ggplot(base1 %>% filter(type!='observado', variable=='Desembarques'), 
        aes(yrs,value/1000)) +
        geom_line(aes(colour=Asesoria,linetype = Asesoria), size=0.8) +
        scale_colour_manual(values=c('black','red')) +
        scale_linetype_manual(values=c("solid",'dashed'))+
-       geom_point(data = base1 %>% filter(Asesoria=='observado', variable=='Desembarques'),
+       geom_point(data = base1 %>% filter(type=='observado', variable=='Desembarques'),
        aes(yrs,value/1000), shape = 19, colour = 'gray30') +
-       geom_errorbar(data = base1 %>% filter(Asesoria=='observado', variable=='Desembarques'),
+       geom_errorbar(data = base1 %>% filter(type=='observado', variable=='Desembarques'),
        aes(ymin = value*exp(-1.96*cvdes)*10^-3, ymax = value*exp(1.96*cvdes)*10^-3), color = 'gray30') +
        scale_x_continuous(breaks = seq(from = 1985, to = 2022, by = 5)) +
-       labs(x = '', y = 'Toneladas (miles)') +
+       labs(x = '', y = 'Capturas (miles de t)') +
        theme_bw(base_size=9) + 
        ggtitle('Desembarques') +
        theme(plot.title = element_text(hjust = 0.5),legend.position="none")
@@ -2228,11 +2228,14 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig24,fig.cap="\\label{Fig24}Ajuste del modelo base a las composiciones de edades de la flota de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=7,fig.width=8}
 
-  figf <- ggplot(filter(matf, type=='obs')) + 
-          geom_bar(aes(x = edad, y = value), stat="identity", fill='gray66', color = 'gray28') + 
-          facet_wrap(~year, dir = 'v', as.table = TRUE) + 
+matf  <- rbind(obsf_marzo,predf_marzo,predf_sept)
+
+  figf <- ggplot(matf %>% filter(type=='observado')) + 
+          geom_bar(aes(x = variable, y = value), stat="identity", fill='gray66', color = 'gray28') + 
+          facet_wrap(~yrs, dir = 'v', as.table = TRUE) + 
           labs(x = 'Edad', y = 'Proporción') +
-          geom_line(data = matf %>% filter(type != 'obs'), aes(x = edad, y = value, colour=type,linetype =type)) +
+          geom_line(data = matf %>% filter(type=='predicho'),
+                    aes(x = as.numeric(variable), y = value,colour=Asesoria,linetype =Asesoria)) +
           scale_colour_manual(values=c('black','red'),name="Asesoría") +
           scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
           theme(panel.background = element_rect(fill ="gray99")) + 
@@ -2248,11 +2251,13 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig25,fig.cap="\\label{Fig25}Ajuste del modelo base a las composiciones de edades de los Cruceros de verano de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=7,fig.width=8}
 
-  figr <- ggplot(filter(matr, type=='obs')) + 
-          geom_bar(aes(x = edad, y = value), stat="identity", fill='gray66', color = 'gray28') + 
-          facet_wrap(~year, dir = 'v', as.table = TRUE) + 
+matr  <- rbind(obsr_sept,predr_marzo,predr_sept)
+
+  figr <- ggplot(filter(matr, type=='observado')) + 
+          geom_bar(aes(x = variable, y = value), stat="identity", fill='gray66', color = 'gray28') + 
+          facet_wrap(~yrs, dir = 'v', as.table = TRUE) + 
           labs(x = 'Edad', y = 'Proporción') +
-          geom_line(data = matr %>% filter(type != 'obs'), aes(x = edad, y = value, colour=type,linetype =type)) +
+          geom_line(data = matr %>% filter(type != 'observado'), aes(x = as.numeric(variable), y = value, colour=Asesoria,linetype =Asesoria)) +
           scale_colour_manual(values=c('black','red'),name="Asesoría") +
           scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
           theme(panel.background = element_rect(fill ="gray99")) + theme(panel.grid=element_line(color=NA)) +
@@ -2267,10 +2272,12 @@ r1.1 + r2.2 + r4.4
 
 ```{r Fig26,fig.cap="\\label{Fig26}Ajuste del modelo base a las composiciones de edades de los Cruceros de otoño de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=7,fig.width=8}
 
-  figp <- ggplot(filter(matp, type=='obs')) + 
-          geom_bar(aes(x = edad, y = value), stat="identity", fill='gray66', color = 'gray28') + 
-          facet_wrap(~year, dir = 'v', as.table = TRUE) + labs(x = 'Edad', y = 'Proporción') +
-          geom_line(data = matp %>% filter(type != 'obs'), aes(x = edad, y = value, colour=type,linetype =type)) +
+matp  <- rbind(obsp_sept,predp_marzo,predp_sept)
+
+  figp <- ggplot(filter(matp, type=='observado')) + 
+          geom_bar(aes(x = variable, y = value), stat="identity", fill='gray66', color = 'gray28') + 
+          facet_wrap(~yrs, dir = 'v', as.table = TRUE) + labs(x = 'Edad', y = 'Proporción') +
+          geom_line(data = matp %>% filter(type != 'observado'), aes(x = as.numeric(variable), y = value, colour=Asesoria,linetype =Asesoria)) +
           scale_colour_manual(values=c('black','red'),name="Asesoría") +
           scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
           theme(panel.background = element_rect(fill ="gray99")) + theme(panel.grid=element_line(color=NA)) +
