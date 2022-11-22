@@ -3,30 +3,36 @@
 rm(list=ls(all=T))
 
 library(stringr) # para arreglo de archivo .dat
+library(tidyverse)
+library(kableExtra) # genera tablas
+library(ggplot2) # genera figuras
+library(ggthemes) # para ggplot
+library(patchwork) # para unir gráficos de ggplot
 library(dplyr)  # para usar melt
 library(reshape) # para usar melt
-library(tidyverse)
+library(here)
 
-dir.0       <-getwd() # directorio de trabajo 
-dir.1       <-paste(dir.0,"/codigos_admb",sep="") # carpeta de códigos ADMB 
-dir.fun     <-paste(dir.0,"/funciones/",sep="") # carpeta de funciones utilizadas en este informe
+
+dir.0   <- here() # directorio de trabajo 
+dir.1   <- paste(dir.0,"/codigos_admb",sep="") # carpeta de códigos ADMB 
+dir.fun <- paste(dir.0,"/funciones/",sep="") # carpeta de funciones utilizadas en este informe
 source(paste(dir.fun,"functions.R",sep="")) # funciones para leer .dat y .rep
 source(paste(dir.fun,"Fn_PBRs.R",sep="")) # funciones para leer .dat y .rep
 
 
 setwd(dir.1)
 
-admb_dat<-list.files(pattern=".dat")
-admb_rep<-list.files(pattern=".rep")
-admb_std<-list.files(pattern=".std")
+admb_dat  <- list.files(pattern=".dat")
+admb_rep  <- list.files(pattern=".rep")
+admb_std  <- list.files(pattern=".std")
 
-admb_sept<-str_sub(admb_dat[3], 1, 6)
-admb_mar<-str_sub(admb_dat[1], 1, 6)
-admb_jul<-str_sub(admb_dat[2], 1, 6)
+admb_sept <- str_sub(admb_dat[3], 1, 6)
+admb_mar  <- str_sub(admb_dat[1], 1, 6)
+admb_jul  <- str_sub(admb_dat[2], 1, 6)
 
-carpetaCBA_sept<-"/CBA_sept/"
-carpetaCBA_mar<-"/CBA_mar/"
-carpetaCBA_jul<-"/CBA_jul/"
+carpetaCBA_sept <- "/CBA_sept/"
+carpetaCBA_mar  <- "/CBA_mar/"
+carpetaCBA_jul  <- "/CBA_jul/"
 
 # ASESORÍA DE SEPTIEMBRE
 data1        <- lisread(admb_dat[3]) 
@@ -52,21 +58,300 @@ std3         <- read.table(admb_std[2],header=T,sep="",na="NA",fill=T)
 ###############################################################################
 # AÑOS BIOLOGICO ANCHOVETA
 ###############################################################################
-yearsb<-c("1996/97",
-          "1997/98","1998/99","1999/00","2000/01","2001/02","2002/03","2003/04",
-          "2004/05","2005/06","2006/07","2007/08","2008/09","2009/10","2010/11",
-          "2011/12","2012/13","2013/14","2014/15","2015/16","2016/17","2017/18",
-          "2018/19","2019/20",'2020/21','2021/22')
+yearsb  <- c("1996/97","1997/98","1998/99","1999/00","2000/01","2001/02","2002/03",
+             "2003/04","2004/05","2005/06","2006/07","2007/08","2008/09","2009/10",
+             "2010/11","2011/12","2012/13","2013/14","2014/15","2015/16","2016/17",
+             "2017/18","2018/19","2019/20",'2020/21','2021/22','2022/23')
 
-years1<-rep1$years
-nyears1<-length(years1)
+years1  <- rep1$years
+nyears1 <- length(years1)
+
+years2  <- rep2$years
+nyears2 <- length(years2)
+
+years3  <- rep3$years
+nyears3 <- length(years3)
 
 age     <- seq(0,4,1)                                            
 nage    <- length(age)   
 
+
+###############################################################################
+# Datos índices de abundancia
+###############################################################################
+cvBcV   <-0.30
+cvBcO   <-0.30
+cvdes   <-0.01
+
+names_ind<- c('Crucero_verano', 
+              'Crucero_otoño',
+              'Crucero_huevos', 
+              'Desembarques') 
+#==============================================================================
+#Observados
+#==============================================================================
+indobs_sept  <- data.frame(rep1$reclasobs,
+                         rep1$pelacesobs,
+                         rep1$mphobs,
+                         rep1$desembarqueobs) %>% 
+                na_if(0) %>% 
+                magrittr::set_colnames(names_ind) %>%
+                mutate(Asesoria='Hito 1: septiembre',type='observado',yrs= years1) %>% 
+                melt(id.var=c('yrs','type', 'Asesoria'))  
+
+indobs_marzo <- data.frame(rep2$reclasobs,
+                          rep2$pelacesobs,
+                          rep2$mphobs,
+                          rep2$desembarqueobs) %>% 
+                na_if(0)%>% 
+                magrittr::set_colnames(names_ind) %>%
+                mutate(Asesoria='Hito 2: marzo',type='observado',yrs= years2) %>% 
+                melt(id.var=c('yrs','type', 'Asesoria'))  
+
+indobs_julio <- data.frame(rep3$reclasobs,
+                          rep3$pelacesobs,
+                          rep3$mphobs,
+                          rep3$desembarqueobs) %>% 
+                na_if(0)%>% 
+                magrittr::set_colnames(names_ind)%>%
+                mutate(Asesoria='Hito 3: julio',type='observado',yrs= years3) %>% 
+                melt(id.var=c('yrs','type', 'Asesoria'))  
+#==============================================================================
+#Predichos
+#==============================================================================    
+indpred_sept <- data.frame(rep1$reclaspred, 
+                          rep1$pelacespred, 
+                          rep1$mphpred,
+                          rep1$desembarquepred) %>% 
+                magrittr::set_colnames(names_ind) %>% 
+                mutate (Asesoria='Hito 1: septiembre',type='predicho',yrs= years1)  %>% 
+                melt(id.var=c('yrs','type', 'Asesoria'))
+
+indpred_marzo <- data.frame(rep2$reclaspred,
+                           rep2$pelacespred,
+                           rep2$mphpred,
+                           rep2$desembarquepred) %>% 
+                 magrittr::set_colnames(names_ind) %>% 
+                 mutate (Asesoria='Hito 2: marzo',type='predicho',yrs= years2)  %>% 
+                 melt(id.var=c('yrs','type', 'Asesoria'))
+
+indpred_julio <- data.frame(rep3$reclaspred,
+                           rep3$pelacespred, 
+                           rep3$mphpred,
+                           rep3$desembarquepred) %>% 
+                 magrittr::set_colnames(names_ind) %>% 
+                 mutate (Asesoria='Hito 3: julio',type='predicho',yrs= years3)  %>% 
+                 melt(id.var=c('yrs','type', 'Asesoria'))
+
+###############################################################################
+# COMPOSICIONES DE EDAD FLOTA
+###############################################################################
+#-----------
+# Observado
+#-----------
+
+a<-identical(rep1$pf_obs,rep2$pf_obs)
+if(a==FALSE){
+  pf_obs<-rbind(rep1$pf_obs,rep(0,nage))
+  pf_pred<-rbind(rep1$pf_pred,rep(0,nage))} else{
+  pf_obs  <-rep1$pf_obs
+  pf_pred <-rep1$pf_pred}
+
+
+obsf_sept  <- as.data.frame(pf_obs) %>% 
+              magrittr::set_colnames(age)%>% 
+              mutate(yrs=years2,
+                     Asesoria='Hito 1: septiembre',
+                     flota='flota',
+                     type='observado') %>% 
+              melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+obsf_marzo  <- as.data.frame(rep2$pf_obs) %>% 
+               magrittr::set_colnames(age)%>% 
+               mutate(yrs=years2, 
+                      Asesoria='Hito 2: marzo',
+                      flota='flota',
+                      type='observado') %>% 
+               melt(id.vars=c('yrs','Asesoria','flota','type')) 
+
+obsf_julio  <- as.data.frame(rep3$pf_obs) %>% 
+               magrittr::set_colnames(age)%>% 
+               mutate(yrs=years3,
+                      Asesoria='Hito 3: julio',
+                      flota='flota',
+                      type='observado') %>% 
+               melt(id.vars=c('yrs','Asesoria','flota','type')) 
+#-----------
+# Predicho
+#-----------
+predf_sept <- as.data.frame(pf_pred) %>% 
+              magrittr::set_colnames(age)%>% 
+              mutate(yrs=years2,
+                     Asesoria='Hito 1: septiembre',
+                     flota='flota',
+                     type='predicho')%>%
+              melt(id.vars=c('yrs','Asesoria','flota','type')) 
+
+predf_marzo <- as.data.frame(rep2$pf_pred ) %>% 
+               magrittr::set_colnames(age)%>% 
+               mutate(yrs=years2,
+                      Asesoria='Hito 2: marzo',
+                      flota='flota',
+                      type='predicho')%>%
+               melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+predf_julio <- as.data.frame(rep3$pf_pred) %>% 
+               magrittr::set_colnames(age)%>% 
+               mutate(yrs=years3,
+                      Asesoria='Hito 3: julio',
+                      flota='flota',
+                      type='predicho')%>%
+               melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+###############################################################################
+# COMPOSICIONES DE EDAD CRUCERO DE VERANO
+###############################################################################
+a<-identical(rep1$pobs_RECLAS,rep2$pobs_RECLAS)
+if(a==FALSE){
+  pobs_RECLAS<-rbind(rep1$pobs_RECLAS,rep(0,nage))
+  ppred_RECLAS<-rbind(rep1$ppred_RECLAS,rep(0,nage))} else{
+    pobs_RECLAS  <-rep1$pobs_RECLAS
+    ppred_RECLAS <-rep1$ppred_RECLAS}
+
+#-----------
+# Observado
+#-----------
+obsr_sept  <- as.data.frame(pobs_RECLAS) %>% 
+              magrittr::set_colnames(age)%>% 
+              mutate(yrs=years2,
+                     Asesoria='Hito 1: septiembre',
+                     flota='Crucero_verano',
+                     type='observado')%>%
+              melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+obsr_marzo <- as.data.frame(rep2$pobs_RECLAS) %>% 
+              magrittr::set_colnames(age)%>% 
+              mutate(yrs=years2, 
+                     Asesoria='Hito 2: marzo',
+                     flota='Crucero_verano',
+                     type='observado') %>% 
+               melt(id.vars=c('yrs','Asesoria','flota','type')) 
+
+obsr_julio <- as.data.frame(rep3$pobs_RECLAS) %>% 
+              magrittr::set_colnames(age)%>% 
+              mutate(yrs=years3,
+                     Asesoria='Hito 3: julio',
+                     flota='Crucero_verano',
+                     type='observado') %>% 
+              melt(id.vars=c('yrs','Asesoria','flota','type')) 
+#-----------
+# Predicho
+#-----------
+predr_sept <- as.data.frame(ppred_RECLAS) %>% 
+             magrittr::set_colnames(age)%>% 
+             mutate(yrs=years2,
+             Asesoria='Hito 1: septiembre',
+             flota='Crucero_verano',
+             type='predicho')%>%
+             melt(id.vars=c('yrs','Asesoria','flota','type')) 
+
+predr_marzo <- as.data.frame(rep2$ppred_RECLAS) %>% 
+               magrittr::set_colnames(age)%>% 
+               mutate(yrs=years2,
+               Asesoria='Hito 2: marzo',
+               flota='Crucero_verano',
+               type='predicho')%>%
+               melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+predr_julio <- as.data.frame(rep3$ppred_RECLAS) %>% 
+               magrittr::set_colnames(age)%>% 
+               mutate(yrs=years3,
+               Asesoria='Hito 3: julio',
+               flota='Crucero_verano',
+               type='predicho')%>%
+               melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+###############################################################################
+# COMPOSICIONES DE EDAD CRUCERO DE OTOÑO
+###############################################################################
+a<-identical(rep1$pobs_PELACES,rep2$pobs_PELACES)
+if(a==FALSE){
+  pobs_PELACES<-rbind(rep1$pobs_PELACES,rep(0,nage))
+  ppred_PELACES<-rbind(rep1$ppred_PELACES,rep(0,nage))} else{
+    pobs_PELACES<-rep1$pobs_PELACES
+    ppred_PELACES<-rep1$ppred_PELACES}
+
+#-----------
+# Observado
+#-----------
+obsp_sept  <- as.data.frame(pobs_PELACES) %>% 
+  magrittr::set_colnames(age)%>% 
+  mutate(yrs=years2,
+         Asesoria='Hito 1: septiembre',
+         flota='Crucero_otoño',
+         type='observado')%>%
+  melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+obsp_marzo  <- as.data.frame(rep2$pobs_PELACES) %>% 
+  magrittr::set_colnames(age)%>% 
+  mutate(yrs=years2, 
+         Asesoria='Hito 2: marzo',
+         flota='Crucero_otoño',
+         type='observado') %>% 
+  melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+obsp_julio  <- as.data.frame(rep3$pobs_PELACES) %>% 
+  magrittr::set_colnames(age)%>% 
+  mutate(yrs=years3,
+         Asesoria='Hito 3: julio',
+         flota='Crucero_otoño',
+         type='observado') %>% 
+  melt(id.vars=c('yrs','Asesoria','flota','type'))
+#-----------
+# Predicho
+#-----------
+predp_sept <- as.data.frame(ppred_PELACES) %>% 
+  magrittr::set_colnames(age)%>% 
+  mutate(yrs=years2,
+         Asesoria='Hito 1: septiembre',
+         flota='Crucero_otoño',
+         type='predicho')%>%
+  melt(id.vars=c('yrs','Asesoria','flota','type')) 
+
+predp_marzo <- as.data.frame(rep2$ppred_PELACES) %>% 
+  magrittr::set_colnames(age)%>% 
+  mutate(yrs=years2,
+         Asesoria='Hito 2: marzo',
+         flota='Crucero_otoño',
+         type='predicho')%>%
+  melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+predp_julio <- as.data.frame(rep3$ppred_PELACES) %>% 
+  magrittr::set_colnames(age)%>% 
+  mutate(yrs=years3,
+         Asesoria='Hito 3: julio',
+         flota='Crucero_otoño',
+         type='predicho')%>%
+  melt(id.vars=c('yrs','Asesoria','flota','type'))
+
+
+
+###############################################################################
+# Residuos de los Ajustes de los índices de abundancia
+###############################################################################
+
+Res_sept <- data.frame(Res=(log(indobs_sept$value)-log(indpred_sept$value)),
+                       Pred=log(indpred_sept$value))
+
+Res_marzo <- data.frame(Res=(log(indobs_marzo$value)-log(indpred_marzo$value)),
+                        Pred=log(indpred_marzo$value))
+
+Res_julio <- data.frame(Res=(log(indobs_julio$value)-log(indpred_julio$value)),
+                        Pred=log(indpred_julio$value))
+
+
 ###############################################################################
 # Descripción de los datos
-# Fig21
 ###############################################################################
 
 #---------------
@@ -98,218 +383,11 @@ porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%
 
 dataDes_y_descar<-data.frame("Año"=bioyear,
                              "Desembarques"=round(desembarque,0),
-                             "Pdescarte" =porcDesc_actualizado,
+                             "Pdescarte"=porcDesc_actualizado,
                              "Capturadesc"=round(CapturaDescartada,0),
                              "Capturatotal"=round(CapturaTotal,0))
 
-###############################################################################
-# Datos índices de abundancia
-###############################################################################
-cvBcV   <-0.30
-cvBcO   <-0.30
-cvdes   <-0.01
 
-names_ind<- c('id',
-              'Crucero_verano', 
-              'Crucero_otoño',
-              'Crucero_huevos', 
-              'Desembarques') 
-#==============================================================================
-#Observados
-#==============================================================================
-indobs_sept<- data.frame(seq(1,nyears1,1),
-                         rep1$reclasobs,
-                         rep1$pelacesobs,
-                         rep1$mphobs,
-                         rep1$desembarqueobs) %>% 
-              na_if(0) %>% 
-              magrittr::set_colnames(names_ind) %>%
-              mutate(Asesoria='observado Hito 1') %>%
-              mutate (yrs= years1) %>% 
-              melt(id.var=c('yrs', 'Asesoria'))  
-
-indobs_marzo<- data.frame(seq(1,nyears1,1),
-                          rep2$reclasobs,
-                          rep2$pelacesobs,
-                          rep2$mphobs,
-                          rep2$desembarqueobs) %>% 
-                na_if(0)%>% 
-                magrittr::set_colnames(names_ind) %>%
-                mutate(Asesoria='observado Hito 2') %>%
-                mutate (yrs= years1) %>% 
-                melt(id.var=c('yrs', 'Asesoria'))  
-
-indobs_julio<- data.frame(seq(1,nyears1,1),
-                          rep3$reclasobs,
-                          rep3$pelacesobs,
-                          rep3$mphobs,
-                          rep3$desembarqueobs) %>% 
-                na_if(0)%>% 
-                magrittr::set_colnames(names_ind)%>%
-                mutate(Asesoria='observado Hito 3') %>%
-                mutate (yrs= years1) %>% 
-                melt(id.var=c('yrs', 'Asesoria'))  
-#==============================================================================
-#Predichos
-#==============================================================================    
-indpred_sept<- data.frame(seq(1,nyears1,1),
-                          rep1$reclaspred, 
-                          rep1$pelacespred, 
-                          rep1$mphpred,
-                          rep1$desembarquepred) %>% 
-                magrittr::set_colnames(names_ind) %>% 
-                mutate (Asesoria='Hito 1: septiembre') %>%
-                mutate (yrs= years1)  %>% 
-                melt(id.var=c('yrs', 'Asesoria'))
-
-indpred_marzo<- data.frame(seq(1,nyears1,1),
-                           rep2$reclaspred,
-                           rep2$pelacespred,
-                           rep2$mphpred,
-                           rep2$desembarquepred) %>% 
-                 magrittr::set_colnames(names_ind) %>% 
-                 mutate (Asesoria='Hito 2: marzo') %>% 
-                 mutate (yrs= years1)  %>% 
-                 melt(id.var=c('yrs', 'Asesoria'))
-
-indpred_julio<- data.frame(rep3$reclaspred,
-                           rep3$pelacespred, 
-                           rep3$mphpred,
-                           rep3$desembarquepred) %>% 
-                 magrittr::set_colnames(names_ind) %>% 
-                 mutate (Asesoria='Hito 3: julio') %>% 
-                 mutate (yrs= years1)  %>% 
-                 mutate (id= seq(1,nyears1,1))  %>% 
-                 melt(id.var=c('yrs', 'Asesoria'))
-#=================================================================================
-
-base1 <- merge(indobs_sept, merge(indpred_sept, indpred_marzo, all = TRUE), all = TRUE)  
-
-###############################################################################
-# Residuos de los Ajustes de los índices de abundancia
-# Fig23
-###############################################################################
-
-Res_matt <- data.frame(log(indobs_marzo) - log(indpred_marzo)) %>% 
-            mutate(yrs = years1) %>% 
-            mutate(Asesoria = 'base')
-
-Res      <- rbind(Res_matt) %>%
-            melt(id.vars= c('yrs','Asesoria'))
-
-pred     <- base1 %>% 
-            filter(Asesoria!='observado') %>% 
-            mutate (pred = log(value))
-
-predm    <- pred$pred
-Res2     <- cbind(Res,predm)
-
-
-###############################################################################
-# Ajustes de las composiciones de edad
-###############################################################################
-
-# Composición de edad flota
-# Fig24
-
-f1_obs <- data.frame(rep1$pf_obs)
-f1_pre <- rbind(rep1$pf_pred) 
-f2_pre <- rep2$pf_pred 
-f3_pre <- rep3$pf_pred
-
-obsf  <- as.data.frame(f1_obs) %>% 
-        mutate(year=years1) %>% 
-        melt(id.vars='year') %>%
-        mutate(edad = rep(age, each=nyears1)) %>%
-        mutate(type='obs')
-
-predf_sep <- as.data.frame(f1_pre) %>% 
-  mutate(year=years1) %>%
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>%
-  mutate(type='Hito 1: septiembre')
-
-predf_marzo <- as.data.frame(f2_pre) %>% 
-  mutate(year=years1) %>%
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 2: marzo')
-
-predf_julio <- as.data.frame(f3_pre) %>% 
-  mutate(year=years1) %>%
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 3: julio')
-
-matf  <- rbind(obsf,predf_sep,predf_marzo)
-
-#------------------------------------------------------------------------------
-# Composición de edad reclas
-# Fig25
-
-r1_obs <- data.frame(rep1$pobs_RECLAS)
-r1_pre <- rbind(rep1$ppred_RECLAS) 
-r2_pre <- rep2$ppred_RECLAS
-r3_pre <- rep3$ppred_RECLAS
-
-obsr  <- as.data.frame(r1_obs) %>% 
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>%
-  mutate(type='obs')
-
-predr_sep <- as.data.frame(r1_pre) %>%
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>%
-  mutate(type='Hito 1: septiembre')
-
-predr_marzo <- as.data.frame(r2_pre) %>%
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 2: marzo')
-
-predr_julio <- as.data.frame(r3_pre) %>%
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 3: julio')
-
-matr  <- rbind(obsr,predr_sep,predr_marzo)
-
-#------------------------------------------------------------------------------
-
-p1_obs <- data.frame(rep1$pobs_PELACES)
-p1_pre <- rbind(rep1$ppred_PELACES) 
-p2_pre <- rep2$ppred_PELACES
-p3_pre <- rep3$ppred_PELACES
-
-obsp  <- as.data.frame(p1_obs) %>% 
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>%
-  mutate(type='obs')
-
-predp_sep <- as.data.frame(p1_pre) %>% 
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 1: septiembre')
-
-predp_marzo <- as.data.frame(p2_pre) %>% 
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 2: marzo')
-
-predp_julio <- as.data.frame(p3_pre) %>% 
-  mutate(year=years1) %>% 
-  melt(id.vars='year') %>%
-  mutate(edad = rep(age, each=nyears1)) %>% 
-  mutate(type='Hito 3: julio')
-
-matp  <- rbind(obsp,predp_sep,predp_marzo)
 
 ###############################################################################
 # COMPARACIÓN CON ASESORÍAS PREVIAS
