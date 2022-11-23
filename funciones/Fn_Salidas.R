@@ -90,6 +90,7 @@ names_ind<- c('Crucero_verano',
 #==============================================================================
 #Observados
 #==============================================================================
+<<<<<<< Updated upstream
 indobs_sept  <- data.frame(rep1$reclasobs,
                          rep1$pelacesobs,
                          rep1$mphobs,
@@ -100,48 +101,108 @@ indobs_sept  <- data.frame(rep1$reclasobs,
                 melt(id.var=c('yrs','type', 'Asesoria'))  
 
 indobs_marzo <- data.frame(rep2$reclasobs,
+=======
+indobs_sept<- data.frame(rep1$reclasobs,
+                         rep1$pelacesobs,
+                         rep1$mphobs,
+                         rep1$desembarqueobs) %>% 
+              na_if(0) %>% 
+              magrittr::set_colnames(names_ind) %>%
+              mutate(Asesoria='observado Hito 1') %>%
+              mutate (yrs= years1) %>%  
+  mutate (id= seq(1,nyears1,1))  %>% 
+  melt(id.var=c('id','yrs', 'Asesoria')) 
+
+indobs_marzo<- data.frame(rep2$reclasobs,
+>>>>>>> Stashed changes
                           rep2$pelacesobs,
                           rep2$mphobs,
                           rep2$desembarqueobs) %>% 
                 na_if(0)%>% 
                 magrittr::set_colnames(names_ind) %>%
+<<<<<<< Updated upstream
                 mutate(Asesoria='Hito 2: marzo',type='observado',yrs= years2) %>% 
                 melt(id.var=c('yrs','type', 'Asesoria'))  
 
 indobs_julio <- data.frame(rep3$reclasobs,
+=======
+                mutate(Asesoria='observado Hito 2') %>%
+                mutate (yrs= years1) %>%  
+  mutate (id= seq(1,nyears1,1))  %>% 
+  melt(id.var=c('id','yrs', 'Asesoria')) 
+
+indobs_julio<- data.frame(rep3$reclasobs,
+>>>>>>> Stashed changes
                           rep3$pelacesobs,
                           rep3$mphobs,
                           rep3$desembarqueobs) %>% 
                 na_if(0)%>% 
                 magrittr::set_colnames(names_ind)%>%
+<<<<<<< Updated upstream
                 mutate(Asesoria='Hito 3: julio',type='observado',yrs= years3) %>% 
                 melt(id.var=c('yrs','type', 'Asesoria'))  
 #==============================================================================
 #Predichos
 #==============================================================================    
 indpred_sept <- data.frame(rep1$reclaspred, 
+=======
+                mutate(Asesoria='observado Hito 3') %>%
+                mutate (yrs= years1) %>%  
+  mutate (id= seq(1,nyears1,1)) %>% 
+  melt(id.var=c('id','yrs', 'Asesoria'))  
+#==============================================================================
+#Predichos
+#==============================================================================    
+indpred_sept<- data.frame(rep1$reclaspred, 
+>>>>>>> Stashed changes
                           rep1$pelacespred, 
                           rep1$mphpred,
                           rep1$desembarquepred) %>% 
                 magrittr::set_colnames(names_ind) %>% 
+<<<<<<< Updated upstream
                 mutate (Asesoria='Hito 1: septiembre',type='predicho',yrs= years1)  %>% 
                 melt(id.var=c('yrs','type', 'Asesoria'))
 
 indpred_marzo <- data.frame(rep2$reclaspred,
+=======
+                mutate (Asesoria='Hito 1: septiembre') %>%
+                mutate (yrs= years1)  %>%  
+  mutate (id= seq(1,nyears1,1))  %>% 
+  melt(id.var=c('id','yrs', 'Asesoria'))
+
+indpred_marzo<- data.frame(rep2$reclaspred,
+>>>>>>> Stashed changes
                            rep2$pelacespred,
                            rep2$mphpred,
                            rep2$desembarquepred) %>% 
                  magrittr::set_colnames(names_ind) %>% 
+<<<<<<< Updated upstream
                  mutate (Asesoria='Hito 2: marzo',type='predicho',yrs= years2)  %>% 
                  melt(id.var=c('yrs','type', 'Asesoria'))
+=======
+                 mutate (Asesoria='Hito 2: marzo') %>% 
+                 mutate (yrs= years1)  %>%  
+  mutate (id= seq(1,nyears1,1))  %>% 
+  melt(id.var=c('id','yrs', 'Asesoria'))
+>>>>>>> Stashed changes
 
 indpred_julio <- data.frame(rep3$reclaspred,
                            rep3$pelacespred, 
                            rep3$mphpred,
                            rep3$desembarquepred) %>% 
                  magrittr::set_colnames(names_ind) %>% 
+<<<<<<< Updated upstream
                  mutate (Asesoria='Hito 3: julio',type='predicho',yrs= years3)  %>% 
                  melt(id.var=c('yrs','type', 'Asesoria'))
+=======
+                 mutate (Asesoria='Hito 3: julio') %>% 
+                 mutate (yrs= years1)  %>% 
+                 mutate (id= seq(1,nyears1,1))  %>% 
+                 melt(id.var=c('id','yrs', 'Asesoria'))
+#=================================================================================
+
+base1 <- merge(indobs_sept, merge(indpred_sept, indpred_marzo, all = TRUE), all = TRUE)  
+>>>>>>> Stashed changes
 
 ###############################################################################
 # COMPOSICIONES DE EDAD FLOTA
