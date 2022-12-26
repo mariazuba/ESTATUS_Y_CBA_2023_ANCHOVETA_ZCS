@@ -1,5 +1,5 @@
 
-# ARREGLO DATOS
+# ARREGLO DATOS PARA SALIDAS DE TABLAS Y FIGURAS ----
 rm(list=ls(all=T))
 
 library(stringr) # para arreglo de archivo .dat
@@ -34,30 +34,28 @@ carpetaCBA_sept <- "/CBA_sept/"
 carpetaCBA_mar  <- "/CBA_mar/"
 carpetaCBA_jul  <- "/CBA_jul/"
 
-# ASESORÍA DE SEPTIEMBRE
+# ASESORÍA DE SEPTIEMBRE ----
 data1        <- lisread(admb_dat[3]) 
 names(data1) <- str_trim(names(data1), side="right")
 dat1         <- data1
 rep1         <- reptoRlist(admb_rep[3])
 std1         <- read.table(admb_std[3],header=T,sep="",na="NA",fill=T) 
 
-# ASESORÍA DE MARZO
+# ASESORÍA DE MARZO ----
 data2        <- lisread(admb_dat[1]) 
 names(data2) <- str_trim(names(data2), side="right")
 dat2         <- data2
 rep2         <- reptoRlist(admb_rep[1])
 std2         <- read.table(admb_std[1],header=T,sep="",na="NA",fill=T) 
 
-# ASESORÍA DE JULIO
+# ASESORÍA DE JULIO ----
 data3        <- lisread(admb_dat[2]) 
 names(data3) <- str_trim(names(data3), side="right")
 dat3         <- data3
 rep3         <- reptoRlist(admb_rep[2])
 std3         <- read.table(admb_std[2],header=T,sep="",na="NA",fill=T) 
 
-###############################################################################
-# AÑOS BIOLOGICO ANCHOVETA
-###############################################################################
+# AÑOS BIOLOGICO ANCHOVETA ----
 yearsb  <- c("1996/97","1997/98","1998/99","1999/00","2000/01","2001/02","2002/03",
              "2003/04","2004/05","2005/06","2006/07","2007/08","2008/09","2009/10",
              "2010/11","2011/12","2012/13","2013/14","2014/15","2015/16","2016/17",
@@ -76,9 +74,7 @@ age     <- seq(0,4,1)
 nage    <- length(age)   
 
 
-###############################################################################
-# Datos índices de abundancia
-###############################################################################
+#  1. AJUSTES INDICES DE ABUNDANCIA ><> ><> ><> ><> ----
 cvBcV   <-0.30
 cvBcO   <-0.30
 cvdes   <-0.01
@@ -87,10 +83,7 @@ names_ind<- c('Crucero_verano',
               'Crucero_otoño',
               'Crucero_huevos', 
               'Desembarques') 
-#==============================================================================
 #Observados
-#==============================================================================
-<<<<<<< Updated upstream
 indobs_sept  <- data.frame(rep1$reclasobs,
                          rep1$pelacesobs,
                          rep1$mphobs,
@@ -101,115 +94,54 @@ indobs_sept  <- data.frame(rep1$reclasobs,
                 melt(id.var=c('yrs','type', 'Asesoria'))  
 
 indobs_marzo <- data.frame(rep2$reclasobs,
-=======
-indobs_sept<- data.frame(rep1$reclasobs,
-                         rep1$pelacesobs,
-                         rep1$mphobs,
-                         rep1$desembarqueobs) %>% 
-              na_if(0) %>% 
-              magrittr::set_colnames(names_ind) %>%
-              mutate(Asesoria='observado Hito 1') %>%
-              mutate (yrs= years1) %>%  
-  mutate (id= seq(1,nyears1,1))  %>% 
-  melt(id.var=c('id','yrs', 'Asesoria')) 
-
-indobs_marzo<- data.frame(rep2$reclasobs,
->>>>>>> Stashed changes
                           rep2$pelacesobs,
                           rep2$mphobs,
                           rep2$desembarqueobs) %>% 
                 na_if(0)%>% 
                 magrittr::set_colnames(names_ind) %>%
-<<<<<<< Updated upstream
                 mutate(Asesoria='Hito 2: marzo',type='observado',yrs= years2) %>% 
                 melt(id.var=c('yrs','type', 'Asesoria'))  
 
-indobs_julio <- data.frame(rep3$reclasobs,
-=======
-                mutate(Asesoria='observado Hito 2') %>%
-                mutate (yrs= years1) %>%  
-  mutate (id= seq(1,nyears1,1))  %>% 
-  melt(id.var=c('id','yrs', 'Asesoria')) 
-
 indobs_julio<- data.frame(rep3$reclasobs,
->>>>>>> Stashed changes
                           rep3$pelacesobs,
                           rep3$mphobs,
                           rep3$desembarqueobs) %>% 
                 na_if(0)%>% 
                 magrittr::set_colnames(names_ind)%>%
-<<<<<<< Updated upstream
                 mutate(Asesoria='Hito 3: julio',type='observado',yrs= years3) %>% 
                 melt(id.var=c('yrs','type', 'Asesoria'))  
-#==============================================================================
-#Predichos
-#==============================================================================    
-indpred_sept <- data.frame(rep1$reclaspred, 
-=======
-                mutate(Asesoria='observado Hito 3') %>%
-                mutate (yrs= years1) %>%  
-  mutate (id= seq(1,nyears1,1)) %>% 
-  melt(id.var=c('id','yrs', 'Asesoria'))  
-#==============================================================================
-#Predichos
-#==============================================================================    
+#Predichos 
+
 indpred_sept<- data.frame(rep1$reclaspred, 
->>>>>>> Stashed changes
                           rep1$pelacespred, 
                           rep1$mphpred,
                           rep1$desembarquepred) %>% 
                 magrittr::set_colnames(names_ind) %>% 
-<<<<<<< Updated upstream
                 mutate (Asesoria='Hito 1: septiembre',type='predicho',yrs= years1)  %>% 
                 melt(id.var=c('yrs','type', 'Asesoria'))
 
 indpred_marzo <- data.frame(rep2$reclaspred,
-=======
-                mutate (Asesoria='Hito 1: septiembre') %>%
-                mutate (yrs= years1)  %>%  
-  mutate (id= seq(1,nyears1,1))  %>% 
-  melt(id.var=c('id','yrs', 'Asesoria'))
-
-indpred_marzo<- data.frame(rep2$reclaspred,
->>>>>>> Stashed changes
                            rep2$pelacespred,
                            rep2$mphpred,
                            rep2$desembarquepred) %>% 
                  magrittr::set_colnames(names_ind) %>% 
-<<<<<<< Updated upstream
                  mutate (Asesoria='Hito 2: marzo',type='predicho',yrs= years2)  %>% 
                  melt(id.var=c('yrs','type', 'Asesoria'))
-=======
-                 mutate (Asesoria='Hito 2: marzo') %>% 
-                 mutate (yrs= years1)  %>%  
-  mutate (id= seq(1,nyears1,1))  %>% 
-  melt(id.var=c('id','yrs', 'Asesoria'))
->>>>>>> Stashed changes
-
+                
 indpred_julio <- data.frame(rep3$reclaspred,
                            rep3$pelacespred, 
                            rep3$mphpred,
                            rep3$desembarquepred) %>% 
                  magrittr::set_colnames(names_ind) %>% 
-<<<<<<< Updated upstream
                  mutate (Asesoria='Hito 3: julio',type='predicho',yrs= years3)  %>% 
                  melt(id.var=c('yrs','type', 'Asesoria'))
-=======
-                 mutate (Asesoria='Hito 3: julio') %>% 
-                 mutate (yrs= years1)  %>% 
-                 mutate (id= seq(1,nyears1,1))  %>% 
-                 melt(id.var=c('id','yrs', 'Asesoria'))
-#=================================================================================
 
 base1 <- merge(indobs_sept, merge(indpred_sept, indpred_marzo, all = TRUE), all = TRUE)  
->>>>>>> Stashed changes
 
-###############################################################################
-# COMPOSICIONES DE EDAD FLOTA
-###############################################################################
-#-----------
+
+# 2. AJUSTES COMPOSICIONES DE EDAD  ><> ><> ><> ><> ----
+# FLOTA ----
 # Observado
-#-----------
 
 a<-identical(rep1$pf_obs,rep2$pf_obs)
 if(a==FALSE){
@@ -242,9 +174,8 @@ obsf_julio  <- as.data.frame(rep3$pf_obs) %>%
                       flota='flota',
                       type='observado') %>% 
                melt(id.vars=c('yrs','Asesoria','flota','type')) 
-#-----------
+
 # Predicho
-#-----------
 predf_sept <- as.data.frame(pf_pred) %>% 
               magrittr::set_colnames(age)%>% 
               mutate(yrs=years2,
@@ -269,9 +200,7 @@ predf_julio <- as.data.frame(rep3$pf_pred) %>%
                       type='predicho')%>%
                melt(id.vars=c('yrs','Asesoria','flota','type'))
 
-###############################################################################
-# COMPOSICIONES DE EDAD CRUCERO DE VERANO
-###############################################################################
+#CRUCERO DE VERANO ----
 a<-identical(rep1$pobs_RECLAS,rep2$pobs_RECLAS)
 if(a==FALSE){
   pobs_RECLAS<-rbind(rep1$pobs_RECLAS,rep(0,nage))
@@ -279,9 +208,7 @@ if(a==FALSE){
     pobs_RECLAS  <-rep1$pobs_RECLAS
     ppred_RECLAS <-rep1$ppred_RECLAS}
 
-#-----------
 # Observado
-#-----------
 obsr_sept  <- as.data.frame(pobs_RECLAS) %>% 
               magrittr::set_colnames(age)%>% 
               mutate(yrs=years2,
@@ -305,9 +232,8 @@ obsr_julio <- as.data.frame(rep3$pobs_RECLAS) %>%
                      flota='Crucero_verano',
                      type='observado') %>% 
               melt(id.vars=c('yrs','Asesoria','flota','type')) 
-#-----------
+
 # Predicho
-#-----------
 predr_sept <- as.data.frame(ppred_RECLAS) %>% 
              magrittr::set_colnames(age)%>% 
              mutate(yrs=years2,
@@ -332,9 +258,8 @@ predr_julio <- as.data.frame(rep3$ppred_RECLAS) %>%
                type='predicho')%>%
                melt(id.vars=c('yrs','Asesoria','flota','type'))
 
-###############################################################################
-# COMPOSICIONES DE EDAD CRUCERO DE OTOÑO
-###############################################################################
+#CRUCERO DE OTOÑO ----
+
 a<-identical(rep1$pobs_PELACES,rep2$pobs_PELACES)
 if(a==FALSE){
   pobs_PELACES<-rbind(rep1$pobs_PELACES,rep(0,nage))
@@ -342,9 +267,7 @@ if(a==FALSE){
     pobs_PELACES<-rep1$pobs_PELACES
     ppred_PELACES<-rep1$ppred_PELACES}
 
-#-----------
 # Observado
-#-----------
 obsp_sept  <- as.data.frame(pobs_PELACES) %>% 
   magrittr::set_colnames(age)%>% 
   mutate(yrs=years2,
@@ -368,9 +291,8 @@ obsp_julio  <- as.data.frame(rep3$pobs_PELACES) %>%
          flota='Crucero_otoño',
          type='observado') %>% 
   melt(id.vars=c('yrs','Asesoria','flota','type'))
-#-----------
+
 # Predicho
-#-----------
 predp_sept <- as.data.frame(ppred_PELACES) %>% 
   magrittr::set_colnames(age)%>% 
   mutate(yrs=years2,
@@ -395,11 +317,8 @@ predp_julio <- as.data.frame(rep3$ppred_PELACES) %>%
          type='predicho')%>%
   melt(id.vars=c('yrs','Asesoria','flota','type'))
 
-
-
-###############################################################################
-# Residuos de los Ajustes de los índices de abundancia
-###############################################################################
+# 3. RESIDUOS ><> ><> ><> ><> ----
+# índices de abundancia ----
 
 Res_sept <- data.frame(Res=(log(indobs_sept$value)-log(indpred_sept$value)),
                        Pred=log(indpred_sept$value))
@@ -411,36 +330,31 @@ Res_julio <- data.frame(Res=(log(indobs_julio$value)-log(indpred_julio$value)),
                         Pred=log(indpred_julio$value))
 
 
-###############################################################################
-# Descripción de los datos
-###############################################################################
+# Descripción de los datos para Metodología----
 
-#---------------
-# sobre índices
-#---------------
+# sobre índices ----
 year<-format(dat2$Ind[,1],nsmall=0, big.mark="")
 recl<-dat2$Ind[,2]
 pela<-dat2$Ind[,4]
 mpdh<-dat2$Ind[,6]
 
 dataInd<-data.frame(year,recl,pela,mpdh)
-#--------------------------
-#  sobre datos de captura
-#-------------------------
+
+#  sobre datos de captura ----
 bioyear<-yearsb
 
 desemYdesc_previo<-c(350755,77701,442110,56441,14545,235359,
                      269955,359681,431902,328805,639364,411747,
                      362871,311530,167758,66681,60226,58785,
-                     57116,71774,51957,67425,138520,160799,209506,203330)
+                     57116,71774,51957,67425,138520,160799,209506,203330,NA)
 
-desc_previo       <- c(rep(1,4),rep(1.04,15),rep(1.02,1),rep(1.06,1),1.01,rep(1.02,4))
+desc_previo       <- c(rep(1,4),rep(1.04,15),rep(1.02,1),rep(1.06,1),1.01,rep(1.02,5))
 desembarque       <- desemYdesc_previo/desc_previo
-desc_actualizado  <- c(rep(1,4),rep(1.04,17),1.014,1.021,1.018,1.02,1.02)
+desc_actualizado  <- c(rep(1,4),rep(1.04,17),1.014,1.021,1.018,1.02,1.02,1.02)
 CapturaDescartada <- -(1-desc_actualizado)*desembarque
 CapturaTotal      <- desembarque+CapturaDescartada
 
-porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%",1),rep("1,8\\%",1),rep("2\\%",2))
+porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%",1),rep("1,8\\%",1),rep("2\\%",3))
 
 dataDes_y_descar<-data.frame("Año"=bioyear,
                              "Desembarques"=round(desembarque,0),
@@ -450,10 +364,7 @@ dataDes_y_descar<-data.frame("Año"=bioyear,
 
 
 
-###############################################################################
-# COMPARACIÓN CON ASESORÍAS PREVIAS
-# Fig32
-###############################################################################
+# 4. COMPARACIÓN CON ASESORÍAS PREVIAS ><> ><> ><> ><> ----
 
 dir<-paste(dir.0,"/rep_AsesoriasPrevias",sep="")
 
@@ -464,7 +375,7 @@ sept21 <-paste(dir,"/MAE0921b.rep",sep="")
 mar22  <-paste(dir,"/MAE322.rep",sep="")
 jul22  <-paste(dir.1,"/MAE722.rep",sep="")
 sept22 <-paste(dir.1,"/MAE922.rep",sep="")
-#=============================================================================
+
 rep_sept20 <- reptoRlist(sept20)
 rep_mar21  <- reptoRlist(mar21)
 rep_jul21  <- reptoRlist(jul21)
@@ -472,7 +383,7 @@ rep_sept21 <- reptoRlist(sept21)
 rep_mar22  <- reptoRlist(mar22)
 rep_jul22  <- reptoRlist(jul22)
 rep_sept22 <- reptoRlist(sept22)
-#=============================================================================
+
 years  <- rep_sept22$years
 nyears <- length(years)                                                                
 x  <-c(years,rev(years))
@@ -510,9 +421,7 @@ year_retros <- c('2022_sept','2022_julio','2022_marzo','2021_sept',
                  "2021_julio","2021_marzo","2020_sept")
 nretros <-7
 
-###############################################################################
-# PERFIL VEROSIMILITUD
-###############################################################################
+# 5. PERFIL VEROSIMILITUD ><> ><> ><> ><> ----
 
 dir<-paste(dir.0,"/Verosimilitud_sept",sep="")
 setwd(dir)
@@ -567,23 +476,20 @@ residuos<-res/Ro
 #datares<-data.frame(names_res,residuos)
 
 setwd(dir.1)
-###############################################################################
-# VARIABLES POBLACIONALES
-###############################################################################
-#------------------------------------------------------------------------------
-# HITO 1: SEPTIEMBRE
-#------------------------------------------------------------------------------
 
-Rt1      <- c(subset(std1,name=="Reclutas")$value) 
-Rt1std   <- c(subset(std1,name=="Reclutas")$std)
-BT1      <- c(subset(std1,name=="BT")$value)   
-BT1std   <- c(subset(std1,name=="BT")$std)
-BD1      <- c(subset(std1,name=="SSB")$value)   
-BD1std   <- c(subset(std1,name=="SSB")$std)
-Ft1      <- c(subset(std1,name=="log_Ft")$value)   
-Ft1std   <- c(subset(std1,name=="log_Ft")$std)
+# 7. VARIABLES POBLACIONALES ><> ><> ><> ><> ----
+# HITO 1: SEPTIEMBRE ----
 
-VarPobSep<- data.frame(x=years1, 
+Rt1      <- c(subset(std1,name=="Reclutas")$value,NA) 
+Rt1std   <- c(subset(std1,name=="Reclutas")$std,NA)
+BT1      <- c(subset(std1,name=="BT")$value,NA)   
+BT1std   <- c(subset(std1,name=="BT")$std,NA)
+BD1      <- c(subset(std1,name=="SSB")$value,NA)   
+BD1std   <- c(subset(std1,name=="SSB")$std,NA)
+Ft1      <- c(subset(std1,name=="log_Ft")$value,NA)   
+Ft1std   <- c(subset(std1,name=="log_Ft")$std,NA)
+
+VarPobSep<- data.frame(x=years2, 
                        Rt1=Rt1,
                        BT1=BT1,
                        BD1=BD1,
@@ -596,9 +502,7 @@ VarPobSep<- data.frame(x=years1,
                        upperBD1 = (BD1+1.96*BD1std),
                        lowerFt1 = exp(Ft1-1.96*Ft1std), 
                        upperFt1 = exp(Ft1+1.96*Ft1std))
-#------------------------------------------------------------------------------
-# HITO 2: MARZO
-#------------------------------------------------------------------------------
+# HITO 2: MARZO----
 years2<-rep2$years
 nyears2<-length(years2)
 
@@ -624,9 +528,7 @@ VarPobMar<- data.frame(x=years2,
                        upperBD2 = (BD2+1.96*BD2std),
                        lowerFt2 = exp(Ft2 -1.96*Ft2std), 
                        upperFt2 = exp(Ft2+1.96*Ft2std))
-#------------------------------------------------------------------------------
-# HITO 3: JULIO
-#------------------------------------------------------------------------------
+# HITO 3: JULIO----
 years3  <- rep3$years
 nyears3 <- length(years3)
 
@@ -653,10 +555,7 @@ VarPobJul<- data.frame(x=years3,
                        lowerFt3 = exp(Ft3 -1.96*Ft3std), 
                        upperFt3 = exp(Ft3 +1.96*Ft3std))
 
-
-###############################################################################
-# ANÁLISIS RETROSPECTIVO
-###############################################################################
+# 6. ANÁLISIS RETROSPECTIVO ><> ><> ><> ><> ----
 dir<-paste(dir.0,"/Retrospectivo_sept",sep="")
 setwd(dir)
 admb<-str_sub(admb_dat[3], 1, 6)
@@ -745,12 +644,9 @@ Ft_retroRel<- data.frame(x=years1,
                          y4=rel.diff.f[,4],
                          y5=rel.diff.f[,5])
 
-###############################################################################
-# PUNTOS BIOLÓGICOS DE REFERENCIA
-###############################################################################
-#------------------------------------------------------------------------------
-# HITO 1: SEPTIEMBRE
-#------------------------------------------------------------------------------
+# 8. PUNTOS BIOLÓGICOS DE REFERENCIA ><> ><> ><> ><> ----
+
+# HITO 1: SEPTIEMBRE----
 #PBR año biologico
 Amax        <- dat1$nedades 
 Fmort 	    <- seq(0,3.5,0.02)           
@@ -787,9 +683,7 @@ SpBSE1        <- BD1std                # desviaci?n estandar BD
 ln_Fyr1       <- Ft1                   # logaritmo de Ft
 ln_FSE1       <- Ft1std                # logaritmo de la desviaci?n standar de Ft
 
-#------------------------------------------------------------------------------
-# HITO 2: MARZO
-#------------------------------------------------------------------------------
+# HITO 2: MARZO----
 #PBR año biologico
 Amax        <- dat2$nedades 
 Fmort 	    <- seq(0,3.5,0.02)           
@@ -826,9 +720,7 @@ SpBSE2        <- BD2std               # desviaci?n estandar BD
 ln_Fyr2       <- Ft2                  # logaritmo de Ft
 ln_FSE2       <- Ft2std    
 
-#------------------------------------------------------------------------------
-# HITO 3: JULIO
-#------------------------------------------------------------------------------
+# HITO 3: JULIO----
 #PBR año biologico
 Amax        <- dat3$nedades 
 Fmort 	    <- seq(0,3.5,0.02)           
@@ -865,12 +757,9 @@ SpBSE3        <- BD3std              # desviaci?n estandar BD
 ln_Fyr3       <- Ft3                 # logaritmo de Ft
 ln_FSE3       <- Ft3std              # logaritmo de la desviaci?n standar de Ft
 
-###############################################################################
-# ESTATUS
-###############################################################################
-
-#para serie histórica
-#----------------------------------------------------------
+# 9. ESTATUS ><> ><> ><> ><> ----
+# HITO 1: SEPTIEMBRE ----
+#para serie histórica----
 Rpr1     <- c(subset(std1,name=="RPRequ3")$value); 
 Rpr1std  <- c(subset(std1,name=="RPRequ3")$std)
 Frpr1    <- c(subset(std1,name=="Frpr")$value); 
@@ -883,22 +772,22 @@ EstatusSep<- data.frame(x=years1,
                         upperRpr1   = (Rpr1 +1.96*Rpr1std ),
                         lowerFrpr1 = (Frpr1 -1.96*Frpr1std), 
                         upperFrpr1 = (Frpr1 +1.96*Frpr1std))
-#Para densidad de probabilidad último año
+#Para densidad de probabilidad último año----
 rprSEPT     <-subset(std1,name=="RPRequ3")$value[nyears1]
 rprSEPTstd  <-subset(std1,name=="RPRequ3")$std[nyears1]
 FrprSEPT    <-subset(std1,name=="Frpr")$value[nyears1]
 FrprSEPTstd <-subset(std1,name=="Frpr")$std[nyears1]
-# biomasa desovante vs BDrms
+# biomasa desovante vs BDrms----
 xbs1 <-rnorm(1000, mean = rprSEPT, sd = rprSEPTstd)
 xbs  <-seq(min(xbs1),max(xbs1),0.005)
 ybs  <-dnorm(xbs, mean = rprSEPT, sd =rprSEPTstd)
 icbs <-qnorm(c(0.05,0.95,0.5),rprSEPT,rprSEPTstd)
-# mortalidad por pesca vs Frms
+# mortalidad por pesca vs Frms----
 xfs1 <- rnorm(1000, mean = FrprSEPT, sd = FrprSEPTstd)
 xfs  <-seq(min(xfs1),max(xfs1),0.005)
 yfs  <-dnorm(xfs, mean = FrprSEPT, sd =FrprSEPTstd)
 icfs <-qnorm(c(0.05,0.95,0.5),FrprSEPT,FrprSEPTstd)
-#distribución probabilidad
+#distribución probabilidad----
 xxbs<- c(xbs[xbs>=icbs[1]&xbs<=icbs[2]],rev(xbs[xbs>=icbs[1]&xbs<=icbs[2]]))
 yybs<- c(ybs[xbs>=icbs[1]&xbs<=icbs[2]],rep(0,length(ybs[xbs>=icbs[1]&xbs<=icbs[2]])))
 xxfs<- c(xfs[xfs>=icfs[1]&xfs<=icfs[2]],rev(xfs[xfs>=icfs[1]&xfs<=icfs[2]]))
@@ -907,24 +796,21 @@ yyfs<- c(yfs[xfs>=icfs[1]&xfs<=icfs[2]],rep(0,length(yfs[xfs>=icfs[1]&xfs<=icfs[
 densb_bs  <- data.frame(x=xxbs, y=yybs , t=rep('a', length(xxbs)), r=seq(1,length(xxbs),1))
 densb_fs  <- data.frame(x=xxfs, y=yyfs , t=rep('a', length(xxfs)), r=seq(1,length(xxfs),1))
 
-#---------------------------------------------------------------------------------------
-# *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms)---- 
 pa_sept <-pnorm(0.9,rprSEPT,rprSEPTstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)
+# *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)----
 pb_sept <-1-pnorm(1.1,FrprSEPT,FrprSEPTstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms)---- 
 pc_sept <-pnorm(0.9,rprSEPT,rprSEPTstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,
                    rprSEPT,rprSEPTstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) ----
 pd_sept <-pnorm(0.5,rprSEPT,rprSEPTstd,lower.tail = TRUE,log.p = F)
-# *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)
+# *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)----
 pe_sept <-1-pnorm(1.1,FrprSEPT,FrprSEPTstd,lower.tail = TRUE,log.p = F)
 
 
-#----------------------------------------------------------
-# marzo
-#----------------------------------------------------------
-#para serie histórica
+# HITO 2: MARZO----
+#para serie histórica ----
 Rpr2     <- c(subset(std2,name=="RPRequ3")$value); 
 Rpr2std  <- c(subset(std2,name=="RPRequ3")$std)
 Frpr2    <- c(subset(std2,name=="Frpr")$value); 
@@ -937,44 +823,44 @@ EstatusMar<- data.frame(x=years1,
                         upperRpr2  = (Rpr2  +1.96*Rpr2std ),
                         lowerFrpr2 = (Frpr2 -1.96*Frpr2std), 
                         upperFrpr2 = (Frpr2 +1.96*Frpr2std))
-#Para densidad de probabilidad último año
+#Para densidad de probabilidad último año ----
 rprMAR     <-subset(std2,name=="RPRequ3")$value[nyears1]
 rprMARstd  <-subset(std2,name=="RPRequ3")$std[nyears1]
 FrprMAR    <-subset(std2,name=="Frpr")$value[nyears1]
 FrprMARstd <-subset(std2,name=="Frpr")$std[nyears1]
-# biomasa desovante vs BDrms
+# biomasa desovante vs BDrms ----
 xbm1  <-rnorm(1000, mean = rprMAR, sd = rprMARstd)
 xbm   <-seq(min(xbm1),max(xbm1),0.005)
 ybm   <-dnorm(xbm, mean = rprMAR, sd =rprMARstd)
 icbm  <-qnorm(c(0.05,0.95,0.5),rprMAR,rprMARstd)
-# mortalidad por pesca vs Frms
+# mortalidad por pesca vs Frms ----
 xfm1  <- rnorm(1000, mean = FrprMAR, sd = FrprMARstd)
 xfm   <-seq(min(xfm1),max(xfm1),0.005)
 yfm   <-dnorm(xfm, mean = FrprMAR, sd =FrprMARstd)
 icfm  <-qnorm(c(0.05,0.95,0.5),FrprMAR,FrprMARstd)
-#distribución probabilidad
+#distribución probabilidad ----
 xxbm  <- c(xbm[xbm>=icbm[1]&xbm<=icbm[2]],rev(xbm[xbm>=icbm[1]&xbm<=icbm[2]]))
 yybm  <- c(ybm[xbm>=icbm[1]&xbm<=icbm[2]],rep(0,length(ybm[xbm>=icbm[1]&xbm<=icbm[2]])))
 xxfm  <- c(xfm[xfm>=icfm[1]&xfm<=icfm[2]],rev(xfm[xfm>=icfm[1]&xfm<=icfm[2]]))
 yyfm  <- c(yfm[xfm>=icfm[1]&xfm<=icfm[2]],rep(0,length(yfm[xfm>=icfm[1]&xfm<=icfm[2]])))
 densb_bm  <- data.frame(x=xxbm, y=yybm , t=rep('a', length(xxbm)), r=seq(1,length(xxbm),1))
 densb_fm  <- data.frame(x=xxfm, y=yyfm , t=rep('a', length(xxfm)), r=seq(1,length(xxfm),1))
-#---------------------------------------------------------------------------------------
-# *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) 
+
+# *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) ---- 
 pa_mar <-pnorm(0.9,rprMAR,rprMARstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)
+# *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms) ----
 pb_mar <-1-pnorm(1.1,FrprMAR,FrprMARstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms) ----
 pc_mar <-pnorm(0.9,rprMAR,rprMARstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,
                    rprMAR,rprMARstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) ----
 pd_mar <-pnorm(0.5,rprMAR,rprMARstd,lower.tail = TRUE,log.p = F)
-# *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)
+# *Probailidad de sobrepesca* #Asesoría  #P(F>Frms) ----
 pe_mar <-1-pnorm(1.1,FrprMAR,FrprMARstd,lower.tail = TRUE,log.p = F)
 
-#----------------------------------------------------------
-# julio
-#----------------------------------------------------------
+
+# HITO 3: JULIO ----
+#para serie histórica ----
 Rpr3     <- c(subset(std3,name=="RPRequ3")$value); 
 Rpr3std  <- c(subset(std3,name=="RPRequ3")$std)
 Frpr3    <- c(subset(std3,name=="Frpr")$value); 
@@ -987,51 +873,48 @@ EstatusJul<- data.frame(x=years1,
                         upperRpr3  = (Rpr3  +1.96*Rpr3std ),
                         lowerFrpr3 = (Frpr3 -1.96*Frpr3std), 
                         upperFrpr3 = (Frpr3 +1.96*Frpr3std))
-#Para densidad de probabilidad último año
+#Para densidad de probabilidad último año ----
 rprJUL     <- subset(std3,name=="RPRequ3")$value[nyears1]
 rprJULstd  <- subset(std3,name=="RPRequ3")$std[nyears1]
 FrprJUL    <- subset(std3,name=="Frpr")$value[nyears1]
 FrprJULstd <- subset(std3,name=="Frpr")$std[nyears1]
-# biomasa desovante vs BDrms
+# biomasa desovante vs BDrms----
 xbj1  <- rnorm(1000, mean = rprJUL, sd = rprJULstd)
 xbj   <- seq(min(xbj1),max(xbj1),0.005)
 ybj   <- dnorm(xbj, mean = rprJUL, sd =rprJULstd)
 icbj  <- qnorm(c(0.05,0.95,0.5),rprJUL,rprJULstd)
-# mortalidad por pesca vs Frms
+# mortalidad por pesca vs Frms----
 xfj1  <- rnorm(1000, mean = FrprJUL, sd = FrprJULstd)
 xfj   <- seq(min(xfj1),max(xfj1),0.005)
 yfj   <- dnorm(xfj, mean = FrprJUL, sd =FrprJULstd)
 icfj  <- qnorm(c(0.05,0.95,0.5),FrprJUL,FrprJULstd)
-#distribución probabilidad
+#distribución probabilidad----
 xxbj  <- c(xbj[xbj>=icbj[1]&xbj<=icbj[2]],rev(xbj[xbj>=icbj[1]&xbj<=icbj[2]]))
 yybj  <- c(ybj[xbj>=icbj[1]&xbj<=icbj[2]],rep(0,length(ybj[xbj>=icbj[1]&xbj<=icbj[2]])))
 xxfj  <- c(xfj[xfj>=icfj[1]&xfj<=icfj[2]],rev(xfj[xfj>=icfj[1]&xfj<=icfj[2]]))
 yyfj  <- c(yfj[xfj>=icfj[1]&xfj<=icfj[2]],rep(0,length(yfj[xfj>=icfj[1]&xfj<=icfj[2]])))
 densb_bj  <- data.frame(x=xxbj, y=yybj , t=rep('a', length(xxbj)), r=seq(1,length(xxbj),1))
 densb_fj  <- data.frame(x=xxfj, y=yyfj , t=rep('a', length(xxfj)), r=seq(1,length(xxfj),1))
-#---------------------------------------------------------------------------------------
-# *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) 
+
+# *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms) ----
 pa_jul <- pnorm(0.9,rprJUL,rprJULstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)
+# *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms) ----
 pb_jul <- 1-pnorm(1.1,FrprJUL,FrprJULstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar en zona de sobreexplotacion*  #Asesoría  #P(BD<BDrms)  ----
 pc_jul <- pnorm(0.9,rprJUL,rprJULstd,lower.tail = TRUE,log.p = F)-pnorm(0.5,
                    rprJUL,rprJULstd,lower.tail = TRUE,log.p = F)
-# *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) 
+# *Probabilidad de estar en zona de colapso* #Asesoría  #P(BD<BDrms) ----
 pd_jul <- pnorm(0.5,rprJUL,rprJULstd,lower.tail = TRUE,log.p = F)
-# *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)
+# *Probailidad de sobrepesca* #Asesoría  #P(F>Frms) ----
 pe_jul <- 1-pnorm(1.1,FrprJUL,FrprJULstd,lower.tail = TRUE,log.p = F)
 
 
+# 10. PROYECCION ><> ><> ><> ><>  ----
 
-#######################################################################
-#<!--- RESULTADOS DE PROYECCIÓN ASESORÍA DE SEPTIEMBRE (HITO 1) -->
-#######################################################################  
+# RESULTADOS DE PROYECCIÓN ASESORÍA DE SEPTIEMBRE (HITO 1) ----
 
 dira<-paste(dir.0,carpetaCBA_sept,sep="")
 setwd(dira)
-
-
 
 reps1a     <- reptoRlist(paste(admb_sept,"11.rep",sep=""))  
 reps2a     <- reptoRlist(paste(admb_sept,"12.rep",sep="")) 
@@ -1063,88 +946,76 @@ cs2std  <- subset(stds2,name=="YTP_p0")$std #reclutamiento 2018
 cs3     <- subset(stds3,name=="YTP_p0")$value ; 
 cs3std  <- subset(stds3,name=="YTP_p0")$std #reclutamiento 2012
 
-#######################################################################
-# RECLUTAMIENTO ESTIMADO ULTIMO AÑO EVALUACIÓN (AÑO ACTUAL)
+# RECLUTAMIENTO ESTIMADO ULTIMO AÑO EVALUACIÓN (AÑO ACTUAL) ----
 RTs0s     <- subset(stds1,name=="Reclutas")$value[nyears1] ; 
 RTs0s_std  <- subset(stds1,name=="Reclutas")$std[nyears1] 
 
-#BIOMASA DESOVANTE ESTIMADA ULTIMO AÑO EVALUACIÓN
+#BIOMASA DESOVANTE ESTIMADA ULTIMO AÑO EVALUACIÓN ----
 bds0s     <- subset(stds1,name=="SSB")$value[nyears1] ; 
 bds0s_std  <- subset(stds1,name=="SSB")$std[nyears1] 
-#######################################################################
 
-# aporte del grupo de edad 0 (reclutamiento) año actual
+# aporte del grupo de edad 0 (reclutamiento) año actual ----
 C1eryearR1act<-round(reps1a$YTP_r0W_actual[1]/sum(reps1a$YTP_r0W_actual),2)
 C1eryearR1act2<-round(reps1a$YTP_r0W_actual[2]/sum(reps1a$YTP_r0W_actual),2)
 
-# aporte del grupo de edad 0 (reclutamiento) 1er año proyectado
+# aporte del grupo de edad 0 (reclutamiento) 1er año proyectado ----
 C1eryearR1<-round(reps1a$YTP_p0W_proyectada[1,1]/sum(reps1a$YTP_p0W_proyectada[1,]),2)
 C1eryearR2<-round(reps2a$YTP_p0W_proyectada[1,1]/sum(reps2a$YTP_p0W_proyectada[1,]),2)
 C1eryearR3<-round(reps3a$YTP_p0W_proyectada[1,1]/sum(reps3a$YTP_p0W_proyectada[1,]),2)
 
-# aporte del grupo de edad 1 (reclutamiento) 1er año proyectado
+# aporte del grupo de edad 1 (reclutamiento) 1er año proyectado ----
 C1eryearR1a<-round(reps1a$YTP_p0W_proyectada[1,2]/sum(reps1a$YTP_p0W_proyectada[1,]),2)
 C1eryearR2a<-round(reps2a$YTP_p0W_proyectada[1,2]/sum(reps2a$YTP_p0W_proyectada[1,]),2)
 C1eryearR3a<-round(reps3a$YTP_p0W_proyectada[1,2]/sum(reps3a$YTP_p0W_proyectada[1,]),2)
 
-# aporte del grupo de edad 0 (reclutamiento) 2do año proyectado
+# aporte del grupo de edad 0 (reclutamiento) 2do año proyectado ----
 C1eryearR12<-round(reps1a$YTP_p0W_proyectada[2,1]/sum(reps1a$YTP_p0W_proyectada[2,]),2)
 C1eryearR22<-round(reps2a$YTP_p0W_proyectada[2,1]/sum(reps2a$YTP_p0W_proyectada[2,]),2)
 C1eryearR32<-round(reps3a$YTP_p0W_proyectada[2,1]/sum(reps3a$YTP_p0W_proyectada[2,]),2)
 
-# aporte del grupo de edad 1  2do año proyectado
+# aporte del grupo de edad 1  2do año proyectado ----
 C1eryearR12a<-round(reps1a$YTP_p0W_proyectada[2,2]/sum(reps1a$YTP_p0W_proyectada[2,]),2)
 C1eryearR22a<-round(reps2a$YTP_p0W_proyectada[2,2]/sum(reps2a$YTP_p0W_proyectada[2,]),2)
 C1eryearR32a<-round(reps3a$YTP_p0W_proyectada[2,2]/sum(reps3a$YTP_p0W_proyectada[2,]),2)
 
-#######################################################################################
-# ESTATUS PROYECTADO
-#######################################################################################
+# ESTATUS PROYECTADO ----
 
-#--------------------------
-# PRIMER AÑO PROYECTADO
-#--------------------------
-### *Probabilidad de estar bajo BRMS* 
+# PRIMER AÑO PROYECTADO ----
+### *Probabilidad de estar bajo BRMS* ----
 pa1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
 pa2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
 pa3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de sobreexplotacion*
+### *Probabilidad de estar en zona de sobreexplotacion* ----
 pc1<-pnorm(0.9,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,
                RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
 pc2<-pnorm(0.9,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,
                RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
 pc3<-pnorm(0.9,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)-pnorm(0.5,
                RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de colapso*
+### *Probabilidad de estar en zona de colapso*----
 pd1<-pnorm(0.5,RpRps1[1],RpRps1std[1],lower.tail = TRUE,log.p = F)
 pd2<-pnorm(0.5,RpRps2[1],RpRps2std[1],lower.tail = TRUE,log.p = F)
 pd3<-pnorm(0.5,RpRps3[1],RpRps3std[1],lower.tail = TRUE,log.p = F)
 
-#--------------------------
-# SEGUNDO AÑO PROYECTADO
-#--------------------------
-### *Probabilidad de estar bajo BRMS* 
+# SEGUNDO AÑO PROYECTADO ----
+
+### *Probabilidad de estar bajo BRMS* ----
 pa12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
 pa22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
 pa32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de sobreexplotacion*
+### *Probabilidad de estar en zona de sobreexplotacion* ----
 pc12<-pnorm(0.9,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,
                 RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
 pc22<-pnorm(0.9,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,
                 RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
 pc32<-pnorm(0.9,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)-pnorm(0.5,
                 RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
-### *Probabilidad de estar en zona de colapso*
+### *Probabilidad de estar en zona de colapso* ----
 pd12<-pnorm(0.5,RpRps1[2],RpRps1std[2],lower.tail = TRUE,log.p = F)
 pd22<-pnorm(0.5,RpRps2[2],RpRps2std[2],lower.tail = TRUE,log.p = F)
 pd32<-pnorm(0.5,RpRps3[2],RpRps3std[2],lower.tail = TRUE,log.p = F)
 
-#######################################################################################
-
-#-----------------------------
-# CBA INICIAL
-#-----------------------------
-
+# CBA INICIAL ----
 n<-3
 q       <- seq(0.1,0.5,0.1)  # niveles de riesgo (cuantiles)                                
 nq      <- length(q)                                                                                   
@@ -1164,10 +1035,7 @@ for(i in 1:n){
 for(i in 1:n){for(j in 1:nq){	
   buffer[i,j]<-round(1-CBA_sept[i,j]/CBA_sept[i,5],2)}}
 
-#-----------------------------
-# CBA INICIAL MENOS DESCARTE
-#-----------------------------
-
+# CBA INICIAL MENOS DESCARTE ----
 n<-3
 q       <- seq(0.1,0.5,0.1)  # niveles de riesgo (cuantiles)                                
 nq      <- length(q)                                                                                   
