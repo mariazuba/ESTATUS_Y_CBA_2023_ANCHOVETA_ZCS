@@ -320,14 +320,20 @@ predp_julio <- as.data.frame(rep3$ppred_PELACES) %>%
 # 3. RESIDUOS ><> ><> ><> ><> ----
 # índices de abundancia ----
 
-Res_sept <- data.frame(Res=(log(indobs_sept$value)-log(indpred_sept$value)),
-                       Pred=log(indpred_sept$value))
+Res_sept <- indobs_sept %>% 
+            mutate(
+            Res=(log(indobs_sept$value)-log(indpred_sept$value)),
+            Pred=log(indpred_sept$value))
 
-Res_marzo <- data.frame(Res=(log(indobs_marzo$value)-log(indpred_marzo$value)),
-                        Pred=log(indpred_marzo$value))
+Res_marzo <-indobs_marzo %>% 
+            mutate(
+            Res=(log(indobs_marzo$value)-log(indpred_marzo$value)),
+            Pred=log(indpred_marzo$value))
 
-Res_julio <- data.frame(Res=(log(indobs_julio$value)-log(indpred_julio$value)),
-                        Pred=log(indpred_julio$value))
+Res_julio <-indobs_julio %>% 
+             mutate(
+             Res=(log(indobs_julio$value)-log(indpred_julio$value)),
+             Pred=log(indpred_julio$value))
 
 
 # Descripción de los datos para Metodología----
@@ -479,7 +485,8 @@ setwd(dir.1)
 
 # 7. VARIABLES POBLACIONALES ><> ><> ><> ><> ----
 # HITO 1: SEPTIEMBRE ----
-
+years1m<-c(rep1$years,2023)
+nyears1m<-length(years1m)
 Rt1      <- c(subset(std1,name=="Reclutas")$value,NA) 
 Rt1std   <- c(subset(std1,name=="Reclutas")$std,NA)
 BT1      <- c(subset(std1,name=="BT")$value,NA)   
@@ -489,19 +496,19 @@ BD1std   <- c(subset(std1,name=="SSB")$std,NA)
 Ft1      <- c(subset(std1,name=="log_Ft")$value,NA)   
 Ft1std   <- c(subset(std1,name=="log_Ft")$std,NA)
 
-VarPobSep<- data.frame(x=years2, 
-                       Rt1=Rt1,
-                       BT1=BT1,
-                       BD1=BD1,
-                       Ft1=exp(Ft1), 
-                       lowerRt1 = (Rt1-1.96*Rt1std), 
-                       upperRt1 = (Rt1+1.96*Rt1std),
-                       lowerBT1 = (BT1-1.96*BT1std), 
-                       upperBT1 = (BT1+1.96*BT1std),
-                       lowerBD1 = (BD1-1.96*BD1std), 
-                       upperBD1 = (BD1+1.96*BD1std),
-                       lowerFt1 = exp(Ft1-1.96*Ft1std), 
-                       upperFt1 = exp(Ft1+1.96*Ft1std))
+VarPobSep<- data.frame(x=years1m, 
+                       Rt=Rt1,
+                       BT=BT1,
+                       BD=BD1,
+                       Ft=exp(Ft1), 
+                       lowerRt = (Rt1-1.96*Rt1std), 
+                       upperRt = (Rt1+1.96*Rt1std),
+                       lowerBT = (BT1-1.96*BT1std), 
+                       upperBT = (BT1+1.96*BT1std),
+                       lowerBD = (BD1-1.96*BD1std), 
+                       upperBD = (BD1+1.96*BD1std),
+                       lowerFt = exp(Ft1-1.96*Ft1std), 
+                       upperFt = exp(Ft1+1.96*Ft1std))
 # HITO 2: MARZO----
 years2<-rep2$years
 nyears2<-length(years2)
@@ -516,18 +523,18 @@ Ft2      <- subset(std2,name=="log_Ft")$value
 Ft2std   <- subset(std2,name=="log_Ft")$std
 
 VarPobMar<- data.frame(x=years2, 
-                       Rt2=Rt2,
-                       BT2=BT2,
-                       BD2=BD2,
-                       Ft2=exp(Ft2), 
-                       lowerRt2 = (Rt2 -1.96*Rt2std), 
-                       upperRt2 = (Rt2+1.96*Rt2std),
-                       lowerBT2 = (BT2 -1.96*BT2std), 
-                       upperBT2 = (BT2+1.96*BT2std),
-                       lowerBD2 = (BD2 -1.96*BD2std), 
-                       upperBD2 = (BD2+1.96*BD2std),
-                       lowerFt2 = exp(Ft2 -1.96*Ft2std), 
-                       upperFt2 = exp(Ft2+1.96*Ft2std))
+                       Rt=Rt2,
+                       BT=BT2,
+                       BD=BD2,
+                       Ft=exp(Ft2), 
+                       lowerRt = (Rt2 -1.96*Rt2std), 
+                       upperRt = (Rt2+1.96*Rt2std),
+                       lowerBT = (BT2 -1.96*BT2std), 
+                       upperBT = (BT2+1.96*BT2std),
+                       lowerBD = (BD2 -1.96*BD2std), 
+                       upperBD = (BD2+1.96*BD2std),
+                       lowerFt = exp(Ft2 -1.96*Ft2std), 
+                       upperFt = exp(Ft2+1.96*Ft2std))
 # HITO 3: JULIO----
 years3  <- rep3$years
 nyears3 <- length(years3)
@@ -542,107 +549,107 @@ Ft3      <- subset(std3,name=="log_Ft")$value
 Ft3std   <- subset(std3,name=="log_Ft")$std
 
 VarPobJul<- data.frame(x=years3, 
-                       Rt3=Rt3,
-                       BT3=BT3,
-                       BD3=BD3,
-                       Ft3=exp(Ft3), 
-                       lowerRt3 = (Rt3 -1.96*Rt3std), 
-                       upperRt3 = (Rt3 +1.96*Rt3std),
-                       lowerBT3 = (BT3 -1.96*BT3std), 
-                       upperBT3 = (BT3 +1.96*BT3std),
-                       lowerBD3 = (BD3 -1.96*BD3std), 
-                       upperBD3 = (BD3 +1.96*BD3std),
-                       lowerFt3 = exp(Ft3 -1.96*Ft3std), 
-                       upperFt3 = exp(Ft3 +1.96*Ft3std))
+                       Rt=Rt3,
+                       BT=BT3,
+                       BD=BD3,
+                       Ft=exp(Ft3), 
+                       lowerRt = (Rt3 -1.96*Rt3std), 
+                       upperRt = (Rt3 +1.96*Rt3std),
+                       lowerBT = (BT3 -1.96*BT3std), 
+                       upperBT = (BT3 +1.96*BT3std),
+                       lowerBD = (BD3 -1.96*BD3std), 
+                       upperBD = (BD3 +1.96*BD3std),
+                       lowerFt = exp(Ft3 -1.96*Ft3std), 
+                       upperFt = exp(Ft3 +1.96*Ft3std))
 
 # 6. ANÁLISIS RETROSPECTIVO ><> ><> ><> ><> ----
-dir<-paste(dir.0,"/Retrospectivo_sept",sep="")
-setwd(dir)
-admb<-str_sub(admb_dat[3], 1, 6)
-
-
-retros2  <- seq(1,5)
-nretros2 <- length(retros2)
-year_retros2<-as.factor(years1[(nyears1-(nretros2-1)):nyears1])
-
-retroR      <- matrix(0,nrow=nyears1,ncol=nretros2+1)
-retroBD     <- matrix(0,nrow=nyears1,ncol=nretros2+1)
-retroF      <- matrix(0,nrow=nyears1,ncol=nretros2+1)
-
-for(i in 1:length(retros2)){
-  rep<- reptoRlist(paste(admb,"s",i,".rep",sep=""))
-  retroR[,i+1] <- c(rep$Reclutas,rep(NA,i-1))
-  retroBD[,i+1] <- c(rep$SSB,rep(NA,i-1))
-  retroF[,i+1]  <- c(rep$Ftot,rep(NA,i-1)) }
-
-
-# retrospectivo relativo (cálculo)
-mohn.r       <- rep(NA, nretros2)
-rel.diff.r   <- matrix(NA, nrow=nyears1, ncol=(nretros2))
-mohn.ssb     <- rep(NA, nretros2)
-rel.diff.ssb <- matrix(NA, nrow=nyears1, ncol=(nretros2))
-mohn.f       <- rep(NA, nretros2)
-rel.diff.f   <- matrix(NA, nrow=nyears1, ncol=(nretros2))
-
-for(j in 1:nretros2){
-  rel.diff.r[,j]   <- (retroR[,(j+1)]-retroR[,2])/retroR[,2]
-  mohn.r[j]        <- rel.diff.r[(nyears1-j),j]
-  rel.diff.ssb[,j] <- (retroBD[,(j+1)]-retroBD[,2])/retroBD[,2]
-  mohn.ssb[j]      <- rel.diff.ssb[(nyears1-j),j]
-  rel.diff.f[,j]   <- (retroF[,(j+1)]-retroF[,2])/retroF[,2]
-  mohn.f[j]        <- rel.diff.f[(nyears1-j),j]}
-
-ave.mohn.r    <- mean(mohn.r)
-ave.mohn.ssb  <- mean(mohn.ssb)
-ave.mohn.f    <- mean(mohn.f)
-
-# Arreglo datos
-
-#Para retrospectivo tradicional
-Rt_retro<- data.frame(x=years1, 
-                      y1=retroR[,2],
-                      y2=retroR[,3],
-                      y3=retroR[,4],
-                      y4=retroR[,5],
-                      y5=retroR[,6],
-                      lower = (Rt1 -1.96*Rt1std),
-                      upper = (Rt1 +1.96*Rt1std))
-BD_retro<- data.frame(x=years1,
-                      y1=retroBD[,2],
-                      y2=retroBD[,3],
-                      y3=retroBD[,4],
-                      y4=retroBD[,5],
-                      y5=retroBD[,6],
-                      lower = (BD1 -1.96*BD1std),
-                      upper = (BD1 +1.96*BD1std))
-Ft_retro<- data.frame(x=years1,
-                      y1=retroF[,2],
-                      y2=retroF[,3],
-                      y3=retroF[,4],
-                      y4=retroF[,5],
-                      y5=retroF[,6], 
-                      lower = exp(Ft1-1.96*Ft1std),
-                      upper = exp(Ft1+1.96*Ft1std))
-
-#Para restrospectivo relativo
-Rt_retroRel<- data.frame(x=years1,
-                         y1=rel.diff.r[,1],
-                         y2=rel.diff.r[,2],
-                         y3=rel.diff.r[,3],
-                         y4=rel.diff.r[,4],
-                         y5=rel.diff.r[,5])
-BD_retroRel<- data.frame(x=years1,
-                         y1=rel.diff.ssb[,1],
-                         y2=rel.diff.ssb[,2],
-                         y3=rel.diff.ssb[,3],
-                         y4=rel.diff.ssb[,4],
-                         y5=rel.diff.ssb[,5])
-Ft_retroRel<- data.frame(x=years1, 
-                         y1=rel.diff.f[,1],
-                         y2=rel.diff.f[,2],
-                         y3=rel.diff.f[,3],
-                         y4=rel.diff.f[,4],
-                         y5=rel.diff.f[,5])
+# dir<-paste(dir.0,"/Retrospectivo_sept",sep="")
+# setwd(dir)
+# admb<-str_sub(admb_dat[3], 1, 6)
+# 
+# 
+# retros2  <- seq(1,5)
+# nretros2 <- length(retros2)
+# year_retros2<-as.factor(years1[(nyears1-(nretros2-1)):nyears1])
+# 
+# retroR      <- matrix(0,nrow=nyears1,ncol=nretros2+1)
+# retroBD     <- matrix(0,nrow=nyears1,ncol=nretros2+1)
+# retroF      <- matrix(0,nrow=nyears1,ncol=nretros2+1)
+# 
+# for(i in 1:length(retros2)){
+#   rep<- reptoRlist(paste(admb,"s",i,".rep",sep=""))
+#   retroR[,i+1] <- c(rep$Reclutas,rep(NA,i-1))
+#   retroBD[,i+1] <- c(rep$SSB,rep(NA,i-1))
+#   retroF[,i+1]  <- c(rep$Ftot,rep(NA,i-1)) }
+# 
+# 
+# # retrospectivo relativo (cálculo)
+# mohn.r       <- rep(NA, nretros2)
+# rel.diff.r   <- matrix(NA, nrow=nyears1, ncol=(nretros2))
+# mohn.ssb     <- rep(NA, nretros2)
+# rel.diff.ssb <- matrix(NA, nrow=nyears1, ncol=(nretros2))
+# mohn.f       <- rep(NA, nretros2)
+# rel.diff.f   <- matrix(NA, nrow=nyears1, ncol=(nretros2))
+# 
+# for(j in 1:nretros2){
+#   rel.diff.r[,j]   <- (retroR[,(j+1)]-retroR[,2])/retroR[,2]
+#   mohn.r[j]        <- rel.diff.r[(nyears1-j),j]
+#   rel.diff.ssb[,j] <- (retroBD[,(j+1)]-retroBD[,2])/retroBD[,2]
+#   mohn.ssb[j]      <- rel.diff.ssb[(nyears1-j),j]
+#   rel.diff.f[,j]   <- (retroF[,(j+1)]-retroF[,2])/retroF[,2]
+#   mohn.f[j]        <- rel.diff.f[(nyears1-j),j]}
+# 
+# ave.mohn.r    <- mean(mohn.r)
+# ave.mohn.ssb  <- mean(mohn.ssb)
+# ave.mohn.f    <- mean(mohn.f)
+# 
+# # Arreglo datos
+# 
+# #Para retrospectivo tradicional
+# Rt_retro<- data.frame(x=years1, 
+#                       y1=retroR[,2],
+#                       y2=retroR[,3],
+#                       y3=retroR[,4],
+#                       y4=retroR[,5],
+#                       y5=retroR[,6],
+#                       lower = (Rt1 -1.96*Rt1std),
+#                       upper = (Rt1 +1.96*Rt1std))
+# BD_retro<- data.frame(x=years1,
+#                       y1=retroBD[,2],
+#                       y2=retroBD[,3],
+#                       y3=retroBD[,4],
+#                       y4=retroBD[,5],
+#                       y5=retroBD[,6],
+#                       lower = (BD1 -1.96*BD1std),
+#                       upper = (BD1 +1.96*BD1std))
+# Ft_retro<- data.frame(x=years1,
+#                       y1=retroF[,2],
+#                       y2=retroF[,3],
+#                       y3=retroF[,4],
+#                       y4=retroF[,5],
+#                       y5=retroF[,6], 
+#                       lower = exp(Ft1-1.96*Ft1std),
+#                       upper = exp(Ft1+1.96*Ft1std))
+# 
+# #Para restrospectivo relativo
+# Rt_retroRel<- data.frame(x=years1,
+#                          y1=rel.diff.r[,1],
+#                          y2=rel.diff.r[,2],
+#                          y3=rel.diff.r[,3],
+#                          y4=rel.diff.r[,4],
+#                          y5=rel.diff.r[,5])
+# BD_retroRel<- data.frame(x=years1,
+#                          y1=rel.diff.ssb[,1],
+#                          y2=rel.diff.ssb[,2],
+#                          y3=rel.diff.ssb[,3],
+#                          y4=rel.diff.ssb[,4],
+#                          y5=rel.diff.ssb[,5])
+# Ft_retroRel<- data.frame(x=years1, 
+#                          y1=rel.diff.f[,1],
+#                          y2=rel.diff.f[,2],
+#                          y3=rel.diff.f[,3],
+#                          y4=rel.diff.f[,4],
+#                          y5=rel.diff.f[,5])
 
 # 8. PUNTOS BIOLÓGICOS DE REFERENCIA ><> ><> ><> ><> ----
 
@@ -766,12 +773,13 @@ Frpr1    <- c(subset(std1,name=="Frpr")$value);
 Frpr1std <- c(subset(std1,name=="Frpr")$std)
 
 EstatusSep<- data.frame(x=years1, 
-                        Rpr1=Rpr1,
-                        Frpr1=Frpr1,
-                        lowerRpr1  = (Rpr1 - 1.96*Rpr1std ), 
-                        upperRpr1   = (Rpr1 +1.96*Rpr1std ),
-                        lowerFrpr1 = (Frpr1 -1.96*Frpr1std), 
-                        upperFrpr1 = (Frpr1 +1.96*Frpr1std))
+                        Rpr=Rpr1,
+                        Frpr=Frpr1,
+                        lowerRpr  = (Rpr1 - 1.96*Rpr1std ), 
+                        upperRpr   = (Rpr1 +1.96*Rpr1std ),
+                        lowerFrpr = (Frpr1 -1.96*Frpr1std), 
+                        upperFrpr = (Frpr1 +1.96*Frpr1std))
+
 #Para densidad de probabilidad último año----
 rprSEPT     <-subset(std1,name=="RPRequ3")$value[nyears1]
 rprSEPTstd  <-subset(std1,name=="RPRequ3")$std[nyears1]
@@ -816,13 +824,14 @@ Rpr2std  <- c(subset(std2,name=="RPRequ3")$std)
 Frpr2    <- c(subset(std2,name=="Frpr")$value); 
 Frpr2std <- c(subset(std2,name=="Frpr")$std)
 
-EstatusMar<- data.frame(x=years1, 
-                        Rpr2=Rpr2,
-                        Frpr2=Frpr2,
-                        lowerRpr2  = (Rpr2  -1.96*Rpr2std ), 
-                        upperRpr2  = (Rpr2  +1.96*Rpr2std ),
-                        lowerFrpr2 = (Frpr2 -1.96*Frpr2std), 
-                        upperFrpr2 = (Frpr2 +1.96*Frpr2std))
+EstatusMar<- data.frame(x=years2, 
+                        Rpr=Rpr2,
+                        Frpr=Frpr2,
+                        lowerRpr  = (Rpr2  -1.96*Rpr2std ), 
+                        upperRpr  = (Rpr2  +1.96*Rpr2std ),
+                        lowerFrpr = (Frpr2 -1.96*Frpr2std), 
+                        upperFrpr = (Frpr2 +1.96*Frpr2std))
+
 #Para densidad de probabilidad último año ----
 rprMAR     <-subset(std2,name=="RPRequ3")$value[nyears1]
 rprMARstd  <-subset(std2,name=="RPRequ3")$std[nyears1]
@@ -867,12 +876,13 @@ Frpr3    <- c(subset(std3,name=="Frpr")$value);
 Frpr3std <- c(subset(std3,name=="Frpr")$std)
 
 EstatusJul<- data.frame(x=years1, 
-                        Rpr3=Rpr3,
-                        Frpr3=Frpr3,
-                        lowerRpr3  = (Rpr3  -1.96*Rpr3std ), 
-                        upperRpr3  = (Rpr3  +1.96*Rpr3std ),
-                        lowerFrpr3 = (Frpr3 -1.96*Frpr3std), 
-                        upperFrpr3 = (Frpr3 +1.96*Frpr3std))
+                        Rpr=Rpr3,
+                        Frpr=Frpr3,
+                        lowerRpr  = (Rpr3  -1.96*Rpr3std ), 
+                        upperRpr  = (Rpr3  +1.96*Rpr3std ),
+                        lowerFrpr = (Frpr3 -1.96*Frpr3std), 
+                        upperFrpr = (Frpr3 +1.96*Frpr3std))
+
 #Para densidad de probabilidad último año ----
 rprJUL     <- subset(std3,name=="RPRequ3")$value[nyears1]
 rprJULstd  <- subset(std3,name=="RPRequ3")$std[nyears1]
