@@ -2779,7 +2779,7 @@ legend(2007,1300000,escRecl,pch=19,lwd=1,col=col_escRecl,bty="n")
 plot(c(yearsp,yearProy),
      c(rep1$SSB,bds3)/BRMS1,
      type="o",ylab=expression("BD/BD"[RMS]),col=col_escRecl[3],xlab="Años",
-     pch=19,xlim=c(yearsp[1],yearProy[2]+1),ylim=c(0,2.1))
+     pch=19,xlim=c(1997,2025),ylim=c(0,2.1))
 
 lines(c(yearsp,yearProy),
       c(rep1$SSB,bds2)/BRMS1,
@@ -2801,8 +2801,7 @@ abline(h=0.5,lty=2,col=2)
 # plot capturas proyectadas
 plot(c(yearsp,yearProy),
      c(rep1$desembarquepred,cs3),type="o",
-     ylab="Capturas (t)",col=col_escRecl[3],xlab="Años",pch=19,
-     xlim=c(yearsp[1],yearProy[2]+1))
+     ylab="Capturas (t)",col=col_escRecl[3],xlab="Años",pch=19,xlim=c(1997,2025),)
 
 lines(c(yearsp,yearProy),
       c(rep1$desembarquepred,cs2),
