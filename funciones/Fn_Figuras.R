@@ -728,4 +728,54 @@ fig17<-function(name3,years3,nyears3,yearpoints){
 }
 
 # 13. Proyección ----
+fig18<-function(yearProy,SSB,BRMS,desembarquepred,escRecl,col_escRecl){
+  
+yearsp<-c(reps1a$years,yearProy)
+Rtp<-reps1a$Reclutas
+Rs1<-reps1a$Np[1]
+Rs2<-reps2a$Np[1]
+Rs3<-reps3a$Np[1]
 
+dataRproy<-data.frame(S1=c(Rtp,rep(Rs1,2)),
+                      S2=c(Rtp,rep(Rs2,2)),
+                      S3=c(Rtp,rep(Rs3,2)),
+                      base=c(Rtp,rep(NA,2))) %>% 
+                      mutate(years=yearsp,indicador='Rt') %>% 
+                      melt(id.vars=c('years','indicador'))
+
+
+dataBDproy<-data.frame(S1=c(SSB,bds1),
+                       S2=c(SSB,bds2),
+                       S3=c(SSB,bds3),
+                       base=c(SSB,rep(NA,2))) %>% 
+                      mutate(years=yearsp,indicador='BD')%>% 
+                      melt(id.vars=c('years','indicador'))
+
+
+dataBD_rmsproy<-data.frame(S1=round(c(SSB,bds1)/BRMS,1),
+                           S2=round(c(SSB,bds2)/BRMS,1),
+                           S3=round(c(SSB,bds3)/BRMS,1),
+                           base=round(c(SSB/BRMS,rep(NA,2)),1)) %>% 
+                           mutate(years=yearsp,indicador='BD_BDrms')%>% 
+                           melt(id.vars=c('years','indicador'))
+
+dataCt_proy<-data.frame(S1=c(desembarquepred,cs1),
+                        S2=c(desembarquepred,cs2),
+                        S3=c(desembarquepred,cs3),
+                        base=c(desembarquepred,rep(NA,2))) %>% 
+                        mutate(years=yearsp,indicador='Capturas')%>% 
+                        melt(id.vars=c('years','indicador'))
+
+DataProy<-rbind(dataRproy,dataBDproy,dataBD_rmsproy,dataCt_proy)
+
+ ggplot(data=DataProy,aes(y=value, x=years, colour = variable)) + 
+          lims(x=c(yearsp[1],yearProy[2]+1)) + 
+   geom_vline(xintercept = yearProy[1]) +
+   geom_line()+
+   geom_point()+
+   facet_wrap(~indicador, dir = 'v', as.table = TRUE,scales='free_y') + 
+   scale_colour_manual("",values=col_escRecl)+
+   theme_bw(base_size=11) + 
+   theme(plot.title = element_text(hjust = 0.5),legend.position="top")
+ 
+}
