@@ -62,3 +62,59 @@ CBA<-function(dir.0,dir.1,Carpeta,admb,l_opt_proy,l_opRec,l_mf,opt_proy,system){
   cat(S,file=(can<-file(paste(admb,".dat",sep=""),"wb",encoding="UTF-8")),sep="\n")
   close(can)
 }
+
+CreaDataProybase<-function(dir.0,carpetaCBA,admb){
+  
+  
+  dira<-paste(dir.0,carpetaCBA,sep="")
+  setwd(dira)
+  
+  reps1a     <- reptoRlist(paste(admb,"11.rep",sep=""))  
+  reps2a     <- reptoRlist(paste(admb,"12.rep",sep="")) 
+  reps3a     <- reptoRlist(paste(admb,"13.rep",sep="")) 
+  
+  
+  stds1     <- read.table(paste(dir.0,carpetaCBA,admb,"11.std", sep=''),
+                          header=T,sep="",na="NA",fill=T) 
+  stds2     <- read.table(paste(dir.0,carpetaCBA,admb,"12.std", sep=''),
+                          header=T,sep="",na="NA",fill=T) 
+  stds3     <- read.table(paste(dir.0,carpetaCBA,admb,"13.std", sep=''),
+                          header=T,sep="",na="NA",fill=T) 
+  
+  # Biomasa desovante
+  bds1     <- subset(stds1,name=="BD_p0")$value ; 
+  bds1std  <- subset(stds1,name=="BD_p0")$std 
+  bds2     <- subset(stds2,name=="BD_p0")$value ; 
+  bds2std  <- subset(stds2,name=="BD_p0")$std 
+  bds3     <- subset(stds3,name=="BD_p0")$value ; 
+  bds3std  <- subset(stds3,name=="BD_p0")$std 
+  
+  # razon BD/BDrms
+  RpRps1     <- subset(stds1,name=="RPR_p0")$value ; 
+  RpRps1std  <- subset(stds1,name=="RPR_p0")$std 
+  RpRps2     <- subset(stds2,name=="RPR_p0")$value ; 
+  RpRps2std  <- subset(stds2,name=="RPR_p0")$std 
+  RpRps3     <- subset(stds3,name=="RPR_p0")$value ; 
+  RpRps3std  <- subset(stds3,name=="RPR_p0")$std 
+  
+  # Capturas
+  cs1     <- subset(stds1,name=="YTP_p0")$value ; 
+  cs1std  <- subset(stds1,name=="YTP_p0")$std 
+  cs2     <- subset(stds2,name=="YTP_p0")$value ; 
+  cs2std  <- subset(stds2,name=="YTP_p0")$std 
+  cs3     <- subset(stds3,name=="YTP_p0")$value ; 
+  cs3std  <- subset(stds3,name=="YTP_p0")$std 
+  
+  save(reps1a,reps2a,reps3a,
+       stds1,stds2,stds3,
+       bds1,bds1std,
+       bds2,bds2std,
+       bds3,bds3std,
+       RpRps1,RpRps1std,
+       RpRps2,RpRps2std,
+       RpRps3,RpRps3std,
+       cs1,cs1std,
+       cs2,cs2std,
+       cs3,cs3std,
+       file='DataproyBase.RData')
+}
