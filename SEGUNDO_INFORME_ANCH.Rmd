@@ -2712,77 +2712,27 @@ La  proyección de la población se realizó 2 años biológicos hacia el futuro
 ```{r Fig44a,fig.cap="\\label{Fig44a}Proyección de dos años biológicos (2022/2023 y 2023/2024) de la biomasa desovante, razón $BD/BD_{RMS}$ y capturas en base a tres escenarios de reclutamiento proyectado. Asesoría de septiembre 2022.", fig.height=7,fig.width=9}
 
  # source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+# source(paste(dir.fun,"Fn_Figuras.R",sep=""))
 
-par(mfrow=c(2,2),mar=c(4,4,1,1)+0.5)
+
+
+
 yearProy<-c(2023,2024)
-escRecl <- c("Reclprom 1997-2009",
-             "Reclprom Histórico",
-             "Reclprom 2010-2022")
+escRecl <- c("R_prom 1997-2009",
+             "R_prom Histórico",
+             "R_prom 2010-2022",
+             "Serie histórica")
+
 col_escRecl<-c(2,3,4,1)
 
 SSB<-rep1$SSB
 BRMS<-BRMS1
 desembarquepred<-rep1$desembarquepred
-#=======================================================
 
-  
-# plot reclutamientos 
-plot(c(yearsp,yearProy),c(Rtp,NA,NA),
-     type="o", ylab="Reclutamientos",xlab="Años",main="",
-     cex.axis=1,cex.main=1,cex.lab=1,xlim=c(yearsp[1],yearProy[2]+1),pch=19)
+DataProy<-datafig18(dir.0,carpetaCBA_sept,admb_sept,yearProy,SSB,BRMS,desembarquepred)
+fig18(DataProy,escRecl,col_escRecl)
 
-abline(v=yearProy[1]-1,h=1,lty=2)
 
-lines(c(yearsp,yearProy),c(Rtp,Rts2,Rts2),type="o",col=col_escRecl[2],pch=19)
-lines(c(yearsp,yearProy),c(Rtp,Rts3,Rts3),type="o",col=col_escRecl[3],pch=19)
-lines(c(yearsp,yearProy),c(Rtp,Rts1,Rts1),type="o",col=col_escRecl[1],pch=19)
-lines(c(yearsp,yearProy),c(Rtp,NA,NA),type="o",col=1,pch=19)
-
-abline(h=c(Rts1,Rts2,Rts3),col=col_escRecl)
-
-text(yearProy[2]+1,c(Rts1,Rts2,Rts3)+1500,
-     round(c(Rts1,Rts2,Rts3)/1000,0),cex=0.7)
-#text(2024,550000,"a)")
-#=======================================================
-# plot Biomasa desovante
-plot(c(yearsp,yearProy),c(SSB,bds3),
-     type="o",ylab="Biomasa desovante (t)",xlab="Años",col=col_escRecl[3],
-     xlim=c(yearsp[1],yearProy[2]+1),ylim=c(0,1300000),pch=19,main="")
-
-lines(c(yearsp,yearProy),c(SSB,bds2),type="o",col=col_escRecl[2],pch=19)
-lines(c(yearsp,yearProy),c(SSB,bds1),type="o",col=col_escRecl[1],pch=19)
-lines(c(yearsp,yearProy),c(SSB,c(NA,NA)),type="o",col=1,pch=19)
-
-abline(v=yearProy[1]-1,lty=2)
-
-legend(2007,1300000,escRecl,pch=19,lwd=1,col=col_escRecl,bty="n")
-#text(2024,890000,"b)")
-#=======================================================
-# plot bd/BDrms
-plot(c(yearsp,yearProy),c(SSB,bds3)/BRMS,
-     type="o",ylab=expression("BD/BD"[RMS]),col=col_escRecl[3],xlab="Años",
-     pch=19,xlim=c(yearsp[1],yearProy[2]+1),ylim=c(0,2.1))
-
-lines(c(yearsp,yearProy),c(SSB,bds2)/BRMS,type="o",col=col_escRecl[2],pch=19)
-lines(c(yearsp,yearProy),c(SSB,bds1)/BRMS,type="o",col=col_escRecl[1],pch=19)
-lines(c(yearsp,yearProy),c(SSB,c(NA,NA))/BRMS,type="o",col=1,pch=19)
-
-abline(v=yearProy[1]-1,h=1,lty=2)
-abline(h=0.5,lty=2,col=2)
-#text(2024,3,"c)")
-
-#=======================================================
-# plot capturas proyectadas
-plot(c(yearsp,yearProy),c(desembarquepred,cs3),
-     type="o",ylab="Capturas (t)",col=col_escRecl[3],xlab="Años",
-     pch=19,xlim=c(yearsp[1],yearProy[2]+1))
-
-lines(c(yearsp,yearProy),c(desembarquepred,cs2),type="o",col=col_escRecl[2],pch=19)
-lines(c(yearsp,yearProy),c(desembarquepred,cs1),type="o",col=col_escRecl[1],pch=19)
-lines(c(yearsp,yearProy),c(desembarquepred,c(NA,NA)),type="o",col=1,pch=19)
-
-abline(v=yearProy[1]-1,lty=2)
-#text(2024,820000,"d)")
 
 ```
 
