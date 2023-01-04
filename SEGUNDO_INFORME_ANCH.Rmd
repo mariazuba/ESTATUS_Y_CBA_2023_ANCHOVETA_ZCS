@@ -2077,7 +2077,14 @@ En relación al ajuste a los datos de composiciones de edades, se observa que el
 
 ```{r Fig22,fig.cap="\\label{Fig22}Ajustes del modelo anual en edades a los valores de biomasas de cruceros de verano, otoño y desembarques. Las barras corresponden al intervalo de confianza asintótico y el círculo al valor del estimador",fig.height=7,fig.width=8}
 
-base1<-rbind(indobs_marzo,indpred_sept,indpred_marzo )
+source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+source(paste(dir.fun,"Fn_Figuras.R",sep=""))
+
+indpred_H1<-indpred_Fig1(RdataH1,'Hito 1: septiembre')
+indobs_H2<-indobs_Fig1(RdataH2,'Hito 2: marzo')
+indpred_H2<-indpred_Fig1(RdataH2,'Hito 2: marzo')
+
+base1<-rbind(indobs_H2,indobs_H2,indpred_H1 )
 
 fig1(base1)
 
@@ -2442,6 +2449,9 @@ Los pasos para el cálculo de $BD_0$, $BD_{RMS}$ y $BD_{LIM}$ se describe en la 
 
 ```{r}
 
+source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+source(paste(dir.fun,"Fn_Figuras.R",sep=""))
+
 etapas<-c("Paso 1", "Paso 1", "Paso 2","Paso 2","Paso 3", "Paso 3", "Paso 4", "Paso 5", "Paso 6")
 
 pbrs<-c("$BD_{promedio}$",
@@ -2463,27 +2473,11 @@ calculo<-c("Promedio de la serie histórica entre 1991-2022",
            "$BD_{RMS}=BD_{0}*\\%BD_{F_{RMS}}$",
            "$BD_{LIM}=BD_{0}*\\%BD_{F_{LIM}}$")
 
+PBRproxy(pSPR_Fmh1,pB_Fmh1,rep1,Rt1,BD1,BD1std,Ft1,Ft1std,Hito="Hito1",dir.Rdata)
+Hito1<-TablaPBRproxy(load(paste(dir.Rdata,'PBRproxyHito1.RData',sep="")))
 
-Hito1<-c(round(Bmed1/10^3,0),
-                 formatC(round(Fmedian1,2), decimal.mark = ","), 
-                 formatC(pSPR_Fmh1*100, decimal.mark = ","), 
-                 formatC(60, decimal.mark = ","),
-                 formatC(pB_Fmh1*100, decimal.mark = ","),
-                 formatC(55, decimal.mark = ","),
-                 round(Bo1/10^3,0),
-                 round(BRMS1/10^3,0),
-                 round(BLIM1/10^3,0))
-
-Hito2<-c(round(Bmed2/10^3,0),
-                 formatC(round(Fmedian2,2), decimal.mark = ","), 
-                 formatC(pSPR_Fmh2*100, decimal.mark = ","), 
-                 formatC(60, decimal.mark = ","),
-                 formatC(pB_Fmh2*100, decimal.mark = ","),
-                 formatC(55, decimal.mark = ","),
-                 round(Bo2/10^3,0),
-                 round(BRMS2/10^3,0),
-                 round(BLIM2/10^3,0))
-
+PBRproxy(pSPR_Fmh2,pB_Fmh2,rep2,Rt2,BD2,BD2std,Ft2,Ft2std,Hito="Hito2",dir.Rdata)
+Hito2<-TablaPBRproxy(load(paste(dir.Rdata,'PBRproxyHito2.RData',sep="")))
 
 tablapbrs<-data.frame(etapas,calculo,pbrs,Hito1,Hito2)
 
@@ -2504,15 +2498,12 @@ add_header_above(c(" " = 3,"Asesorías" = 2))
 
 ```{r Fig32,fig.cap="\\label{Fig32}Series de Biomasa desovante y mortalidad por pesca junto a los PBRs calculados a partir de la BD promedio y mediana de F ($F_{mh}$) para el período 1997-2022.",fig.height=4.5,fig.width=9}
 
+#source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+source(paste(dir.fun,"Fn_Figuras.R",sep=""))
 
-lbrms <-BRMS1
-lblim <-BLIM1
-lbo   <-Bo1
-lbmed <-Bmed1
-lfrms <-FRMS1
-lfmedian<- median(VarPobSep$Ft)  
+load(paste(dir.Rdata,'PBRproxyHito1.RData',sep=""))
 
-fig12(lbrms,lblim,lbo,lbmed,lfrms,lfmedian)
+fig12(BRMS,BLIM,Bo,Bmed,FRMS,Fmedian)
 
 ```
 
@@ -2714,25 +2705,18 @@ La  proyección de la población se realizó 2 años biológicos hacia el futuro
  # source(paste(dir.fun,"Fn_Salidas.R",sep=""))
 # source(paste(dir.fun,"Fn_Figuras.R",sep=""))
 
-
-
-
 yearProy<-c(2023,2024)
 escRecl <- c("R_prom 1997-2009",
              "R_prom Histórico",
              "R_prom 2010-2022",
              "Serie histórica")
-
 col_escRecl<-c(2,3,4,1)
 
 SSB<-rep1$SSB
 BRMS<-BRMS1
 desembarquepred<-rep1$desembarquepred
-
 DataProy<-datafig18(dir.0,carpetaCBA_sept,admb_sept,yearProy,SSB,BRMS,desembarquepred)
 fig18(DataProy,escRecl,col_escRecl)
-
-
 
 ```
 

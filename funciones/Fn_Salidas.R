@@ -16,6 +16,7 @@ library(here)
 dir.0   <- here() # directorio de trabajo 
 dir.1   <- paste(dir.0,"/codigos_admb",sep="") # carpeta de códigos ADMB 
 dir.fun <- paste(dir.0,"/funciones/",sep="") # carpeta de funciones utilizadas en este informe
+dir.Rdata<-paste(dir.0,"/Rdata/",sep="")
 source(paste(dir.fun,"functions.R",sep="")) # funciones para leer .dat y .rep
 source(paste(dir.fun,"Fn_PBRs.R",sep="")) # funciones para leer .dat y .rep
 
@@ -34,26 +35,130 @@ carpetaCBA_sept <- "/CBA_sept/"
 carpetaCBA_mar  <- "/CBA_mar/"
 carpetaCBA_jul  <- "/CBA_jul/"
 
-# ASESORÍA DE SEPTIEMBRE ----
-data1        <- lisread(admb_dat[3]) 
-names(data1) <- str_trim(names(data1), side="right")
-dat1         <- data1
-rep1         <- reptoRlist(admb_rep[3])
-std1         <- read.table(admb_std[3],header=T,sep="",na="NA",fill=T) 
+# Función DataHito ----
+DataHito<-function(admb_dat,admb_rep,admb_std,Hito){
+  
+  data        <- lisread(admb_dat) 
+  names(data) <- str_trim(names(data), side="right")
+  dat         <- data
+  rep         <- reptoRlist(admb_rep)
+  std         <- read.table(admb_std,header=T,sep="",na="NA",fill=T) 
+  
+  #datos para Rdata
+  years  <- rep$years
+  nyears <- length(years)
+  
+  age     <- seq(0,4,1)                                            
+  nage    <- length(age)  
+  
+  #indices
+  names_ind<- c('Crucero_verano', 
+                'Crucero_otoño',
+                'Crucero_huevos', 
+                'Desembarques') 
+  #observados
+  reclasobs     <-rep$reclasobs
+  pelacesobs    <-rep$pelacesobs
+  mphobs        <-rep$mphobs
+  desembarqueobs<-rep$desembarqueobs
+  #predichos
+  reclaspred     <-rep$reclaspred 
+  pelacespred    <-rep$pelacespred 
+  mphpred        <-rep$mphpred
+  desembarquepred<-rep$desembarquepred
+  #Cvs indices
+  cvBcV   <-0.30
+  cvBcO   <-0.30
+  cvdes   <-0.01
+  #composiciones edad
+  #observados
+  pfobs<-rep$pf_obs
+  pRobs<-rep$pobs_RECLAS
+  pPobs<-rep$pobs_PELACES
+  #predichos
+  pfpred<-rep$pf_pred
+  pRpred<-rep$ppred_RECLAS
+  pPpred<-rep$ppred_PELACES
+  
+  #Variables poblacionales
+  Rt      <- subset(std,name=="Reclutas")$value 
+  Rtstd   <- subset(std,name=="Reclutas")$std
+  BT      <- subset(std,name=="BT")$value   
+  BTstd   <- subset(std,name=="BT")$std
+  BD      <- subset(std,name=="SSB")$value   
+  BDstd   <- subset(std,name=="SSB")$std
+  Ft      <- subset(std,name=="log_Ft")$value   
+  Ftstd   <- subset(std,name=="log_Ft")$std
+  
+  #guarda Rdata
+  save(years,nyears,age,nage,names_ind,
+       reclasobs,pelacesobs,mphobs,desembarqueobs,
+       reclaspred,pelacespred,mphpred,desembarquepred,
+       cvBcV,cvBcO,cvdes,
+       pfobs,pRobs,pPobs,
+       pfpred,pRpred,pPpred,
+       Rt,Rtstd,BT,BTstd,BD,BDstd,Ft,Ftstd,
+       file=paste(dir.Rdata,'Datos',Hito,'.RData',sep=""))
+  
+}
 
-# ASESORÍA DE MARZO ----
-data2        <- lisread(admb_dat[1]) 
-names(data2) <- str_trim(names(data2), side="right")
-dat2         <- data2
-rep2         <- reptoRlist(admb_rep[1])
-std2         <- read.table(admb_std[1],header=T,sep="",na="NA",fill=T) 
+# función datos índices observados ----
+indobs_Fig1<-function(Rdata,Hitoasesoria){
+  indobs  <- data.frame(reclasobs,
+                        pelacesobs,
+                        mphobs,
+                        desembarqueobs) %>% 
+    na_if(0) %>% 
+    magrittr::set_colnames(names_ind) %>%
+    mutate(Asesoria=Hitoasesoria,type='observado',yrs= years) %>% 
+    melt(id.var=c('yrs','type', 'Asesoria'))  
+  indobs
+}
 
-# ASESORÍA DE JULIO ----
-data3        <- lisread(admb_dat[2]) 
-names(data3) <- str_trim(names(data3), side="right")
-dat3         <- data3
-rep3         <- reptoRlist(admb_rep[2])
-std3         <- read.table(admb_std[2],header=T,sep="",na="NA",fill=T) 
+# función datos índices predichos ----
+indpred_Fig1<-function(Rdata,Hitoasesoria){
+  indpred  <- data.frame(reclaspred,
+                        pelacespred,
+                        mphpred,
+                        desembarquepred) %>% 
+    na_if(0) %>% 
+    magrittr::set_colnames(names_ind) %>%
+    mutate(Asesoria=Hitoasesoria,type='predicho',yrs= years) %>% 
+    melt(id.var=c('yrs','type', 'Asesoria'))  
+  indpred
+}
+
+# función datos de composición de edad ----
+compEdad_Fig3<-function(Rdata,propEdad,years,flota,type,Hitoasesoria){
+propE  <- as.data.frame(propEdad) %>% 
+         magrittr::set_colnames(age)%>% 
+         mutate(yrs=years,
+         Asesoria=Hitoasesoria,
+         flota=flota,
+         type=type) %>% 
+        melt(id.vars=c('yrs','Asesoria','flota','type'))
+propE
+}
+
+
+# funcion datos variables poblacionales
+
+Varpobl<-function(Rdata,years,Rt,BT,BD,Ft,Rtstd,BTstd,BDstd,Ftstd){
+Var<- data.frame(x=years, 
+                       Rt=Rt,
+                       BT=BT,
+                       BD=BD,
+                       Ft=exp(Ft), 
+                       lowerRt = (Rt-1.96*Rtstd), 
+                       upperRt = (Rt+1.96*Rtstd),
+                       lowerBT = (BT-1.96*BTstd), 
+                       upperBT = (BT+1.96*BTstd),
+                       lowerBD = (BD-1.96*BDstd), 
+                       upperBD = (BD+1.96*BDstd),
+                       lowerFt = exp(Ft-1.96*Ftstd), 
+                       upperFt = exp(Ft+1.96*Ftstd))
+Var
+}
 
 # AÑOS BIOLOGICO ANCHOVETA ----
 yearsb  <- c("1996/97","1997/98","1998/99","1999/00","2000/01","2001/02","2002/03",
@@ -61,312 +166,132 @@ yearsb  <- c("1996/97","1997/98","1998/99","1999/00","2000/01","2001/02","2002/0
              "2010/11","2011/12","2012/13","2013/14","2014/15","2015/16","2016/17",
              "2017/18","2018/19","2019/20",'2020/21','2021/22','2022/23')
 
-years1  <- rep1$years
-nyears1 <- length(years1)
-
-years2  <- rep2$years
-nyears2 <- length(years2)
-
-years3  <- rep3$years
-nyears3 <- length(years3)
-
-age     <- seq(0,4,1)                                            
-nage    <- length(age)   
+DataHito(admb_dat[3],admb_rep[3],admb_std[3],'Hito1')
+DataHito(admb_dat[1],admb_rep[1],admb_std[1],'Hito2')
+DataHito(admb_dat[2],admb_rep[2],admb_std[2],'Hito3')
 
 
-#  1. AJUSTES INDICES DE ABUNDANCIA ><> ><> ><> ><> ----
-cvBcV   <-0.30
-cvBcO   <-0.30
-cvdes   <-0.01
+# 1. Ajustes composiciones edad Fig1 ----
+indobs_H1<-indobs_Fig1(load(paste(dir.Rdata,'DatosHito1.RData',sep="")),
+                       'Hito 1: septiembre')
+indpred_H1<-indpred_Fig1(load(paste(dir.Rdata,'DatosHito1.RData',sep="")),
+                         'Hito 1: septiembre')
+indobs_H2<-indobs_Fig1(load(paste(dir.Rdata,'DatosHito2.RData',sep="")),
+                       'Hito 2: marzo')
+indpred_H2<-indpred_Fig1(load(paste(dir.Rdata,'DatosHito2.RData',sep="")),
+                         'Hito 2: marzo')
+indobs_H3<-indobs_Fig1(load(paste(dir.Rdata,'DatosHito3.RData',sep="")),
+                       'Hito 3: julio')
+indpred_H3<-indpred_Fig1(load(paste(dir.Rdata,'DatosHito3.RData',sep="")),
+                         'Hito 3: julio')
 
-names_ind<- c('Crucero_verano', 
-              'Crucero_otoño',
-              'Crucero_huevos', 
-              'Desembarques') 
-#Observados
-indobs_sept  <- data.frame(rep1$reclasobs,
-                         rep1$pelacesobs,
-                         rep1$mphobs,
-                         rep1$desembarqueobs) %>% 
-                na_if(0) %>% 
-                magrittr::set_colnames(names_ind) %>%
-                mutate(Asesoria='Hito 1: septiembre',type='observado',yrs= years1) %>% 
-                melt(id.var=c('yrs','type', 'Asesoria'))  
+#base1 <- merge(indobs_H2, merge(indpred_H1, indpred_H2, all = TRUE), all = TRUE)  
 
-indobs_marzo <- data.frame(rep2$reclasobs,
-                          rep2$pelacesobs,
-                          rep2$mphobs,
-                          rep2$desembarqueobs) %>% 
-                na_if(0)%>% 
-                magrittr::set_colnames(names_ind) %>%
-                mutate(Asesoria='Hito 2: marzo',type='observado',yrs= years2) %>% 
-                melt(id.var=c('yrs','type', 'Asesoria'))  
+# 2. Ajustes composiciones de edad 
 
-indobs_julio<- data.frame(rep3$reclasobs,
-                          rep3$pelacesobs,
-                          rep3$mphobs,
-                          rep3$desembarqueobs) %>% 
-                na_if(0)%>% 
-                magrittr::set_colnames(names_ind)%>%
-                mutate(Asesoria='Hito 3: julio',type='observado',yrs= years3) %>% 
-                melt(id.var=c('yrs','type', 'Asesoria'))  
-#Predichos 
+#observados
 
-indpred_sept<- data.frame(rep1$reclaspred, 
-                          rep1$pelacespred, 
-                          rep1$mphpred,
-                          rep1$desembarquepred) %>% 
-                magrittr::set_colnames(names_ind) %>% 
-                mutate (Asesoria='Hito 1: septiembre',type='predicho',yrs= years1)  %>% 
-                melt(id.var=c('yrs','type', 'Asesoria'))
+obsfH1<-compEdad_Fig3(RdataH1,
+                      rbind(pfobs,rep(0,nage)),years=seq(years[1],years[nyears]+1,1),
+                      'Flota','observado','Hito 1: septiembre')
+obsrH1<-compEdad_Fig3(RdataH1,
+                      rbind(pRobs,rep(0,nage)),years=seq(years[1],years[nyears]+1,1),
+                      'Crucero_verano','observado','Hito 1: septiembre')
+obspH1<-compEdad_Fig3(RdataH1,
+                      rbind(pPobs,rep(0,nage)),years=seq(years[1],years[nyears]+1,1),
+                      'Crucero_otoño','observado','Hito 1: septiembre')
 
-indpred_marzo <- data.frame(rep2$reclaspred,
-                           rep2$pelacespred,
-                           rep2$mphpred,
-                           rep2$desembarquepred) %>% 
-                 magrittr::set_colnames(names_ind) %>% 
-                 mutate (Asesoria='Hito 2: marzo',type='predicho',yrs= years2)  %>% 
-                 melt(id.var=c('yrs','type', 'Asesoria'))
-                
-indpred_julio <- data.frame(rep3$reclaspred,
-                           rep3$pelacespred, 
-                           rep3$mphpred,
-                           rep3$desembarquepred) %>% 
-                 magrittr::set_colnames(names_ind) %>% 
-                 mutate (Asesoria='Hito 3: julio',type='predicho',yrs= years3)  %>% 
-                 melt(id.var=c('yrs','type', 'Asesoria'))
+obsfH2<-compEdad_Fig3(RdataH2,pfobs,years,'Flota','observado','Hito 2: marzo')
+obsrH2<-compEdad_Fig3(RdataH2,pRobs,years,'Crucero_verano','observado','Hito 2: marzo')
+obspH2<-compEdad_Fig3(RdataH2,pPobs,years,'Crucero_otoño','observado','Hito 2: marzo')
 
-base1 <- merge(indobs_sept, merge(indpred_sept, indpred_marzo, all = TRUE), all = TRUE)  
+obsfH3<-compEdad_Fig3(RdataH3,pfobs,years,'Flota','observado','Hito 3: julio')
+obsrH3<-compEdad_Fig3(RdataH3,pRobs,years,'Crucero_verano','observado','Hito 3: julio')
+obspH3<-compEdad_Fig3(RdataH3,pPobs,years,'Crucero_otoño','observado','Hito 3: julio')
+
+#predichos
+predfH1<-compEdad_Fig3(RdataH1,
+                       rbind(pfpred,rep(0,nage)),years=seq(years[1],years[nyears]+1,1),
+                       'Flota','predicho','Hito 1: septiembre')
+predrH1<-compEdad_Fig3(RdataH1,
+                       rbind(pRpred,rep(0,nage)),years=seq(years[1],years[nyears]+1,1),
+                      'Crucero_verano','predicho','Hito 1: septiembre')
+predpH1<-compEdad_Fig3(RdataH1,
+                       rbind(pPpred,rep(0,nage)),years=seq(years[1],years[nyears]+1,1),
+                       'Crucero_otoño','predicho','Hito 1: septiembre')
+
+predfH2<-compEdad_Fig3(RdataH2,pfpred,years,'Flota','predicho','Hito 2: marzo')
+predrH2<-compEdad_Fig3(RdataH2,pRpred,years,'Crucero_verano','predicho','Hito 2: marzo')
+predpH2<-compEdad_Fig3(RdataH2,pPpred,years,'Crucero_otoño','predicho','Hito 2: marzo')
+
+predfH3<-compEdad_Fig3(RdataH3,pfpred,years,'Flota','predicho','Hito 3: julio')
+predrH3<-compEdad_Fig3(RdataH3,pRpred,years,'Crucero_verano','predicho','Hito 3: julio')
+predpH3<-compEdad_Fig3(RdataH3,pPpred,years,'Crucero_otoño','predicho','Hito 3: julio')
 
 
-# 2. AJUSTES COMPOSICIONES DE EDAD  ><> ><> ><> ><> ----
-# FLOTA ----
-# Observado
-
-a<-identical(rep1$pf_obs,rep2$pf_obs)
-if(a==FALSE){
-  pf_obs<-rbind(rep1$pf_obs,rep(0,nage))
-  pf_pred<-rbind(rep1$pf_pred,rep(0,nage))} else{
-  pf_obs  <-rep1$pf_obs
-  pf_pred <-rep1$pf_pred}
-
-
-obsf_sept  <- as.data.frame(pf_obs) %>% 
-              magrittr::set_colnames(age)%>% 
-              mutate(yrs=years2,
-                     Asesoria='Hito 1: septiembre',
-                     flota='flota',
-                     type='observado') %>% 
-              melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-obsf_marzo  <- as.data.frame(rep2$pf_obs) %>% 
-               magrittr::set_colnames(age)%>% 
-               mutate(yrs=years2, 
-                      Asesoria='Hito 2: marzo',
-                      flota='flota',
-                      type='observado') %>% 
-               melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-obsf_julio  <- as.data.frame(rep3$pf_obs) %>% 
-               magrittr::set_colnames(age)%>% 
-               mutate(yrs=years3,
-                      Asesoria='Hito 3: julio',
-                      flota='flota',
-                      type='observado') %>% 
-               melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-# Predicho
-predf_sept <- as.data.frame(pf_pred) %>% 
-              magrittr::set_colnames(age)%>% 
-              mutate(yrs=years2,
-                     Asesoria='Hito 1: septiembre',
-                     flota='flota',
-                     type='predicho')%>%
-              melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-predf_marzo <- as.data.frame(rep2$pf_pred ) %>% 
-               magrittr::set_colnames(age)%>% 
-               mutate(yrs=years2,
-                      Asesoria='Hito 2: marzo',
-                      flota='flota',
-                      type='predicho')%>%
-               melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-predf_julio <- as.data.frame(rep3$pf_pred) %>% 
-               magrittr::set_colnames(age)%>% 
-               mutate(yrs=years3,
-                      Asesoria='Hito 3: julio',
-                      flota='flota',
-                      type='predicho')%>%
-               melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-#CRUCERO DE VERANO ----
-a<-identical(rep1$pobs_RECLAS,rep2$pobs_RECLAS)
-if(a==FALSE){
-  pobs_RECLAS<-rbind(rep1$pobs_RECLAS,rep(0,nage))
-  ppred_RECLAS<-rbind(rep1$ppred_RECLAS,rep(0,nage))} else{
-    pobs_RECLAS  <-rep1$pobs_RECLAS
-    ppred_RECLAS <-rep1$ppred_RECLAS}
-
-# Observado
-obsr_sept  <- as.data.frame(pobs_RECLAS) %>% 
-              magrittr::set_colnames(age)%>% 
-              mutate(yrs=years2,
-                     Asesoria='Hito 1: septiembre',
-                     flota='Crucero_verano',
-                     type='observado')%>%
-              melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-obsr_marzo <- as.data.frame(rep2$pobs_RECLAS) %>% 
-              magrittr::set_colnames(age)%>% 
-              mutate(yrs=years2, 
-                     Asesoria='Hito 2: marzo',
-                     flota='Crucero_verano',
-                     type='observado') %>% 
-               melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-obsr_julio <- as.data.frame(rep3$pobs_RECLAS) %>% 
-              magrittr::set_colnames(age)%>% 
-              mutate(yrs=years3,
-                     Asesoria='Hito 3: julio',
-                     flota='Crucero_verano',
-                     type='observado') %>% 
-              melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-# Predicho
-predr_sept <- as.data.frame(ppred_RECLAS) %>% 
-             magrittr::set_colnames(age)%>% 
-             mutate(yrs=years2,
-             Asesoria='Hito 1: septiembre',
-             flota='Crucero_verano',
-             type='predicho')%>%
-             melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-predr_marzo <- as.data.frame(rep2$ppred_RECLAS) %>% 
-               magrittr::set_colnames(age)%>% 
-               mutate(yrs=years2,
-               Asesoria='Hito 2: marzo',
-               flota='Crucero_verano',
-               type='predicho')%>%
-               melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-predr_julio <- as.data.frame(rep3$ppred_RECLAS) %>% 
-               magrittr::set_colnames(age)%>% 
-               mutate(yrs=years3,
-               Asesoria='Hito 3: julio',
-               flota='Crucero_verano',
-               type='predicho')%>%
-               melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-#CRUCERO DE OTOÑO ----
-
-a<-identical(rep1$pobs_PELACES,rep2$pobs_PELACES)
-if(a==FALSE){
-  pobs_PELACES<-rbind(rep1$pobs_PELACES,rep(0,nage))
-  ppred_PELACES<-rbind(rep1$ppred_PELACES,rep(0,nage))} else{
-    pobs_PELACES<-rep1$pobs_PELACES
-    ppred_PELACES<-rep1$ppred_PELACES}
-
-# Observado
-obsp_sept  <- as.data.frame(pobs_PELACES) %>% 
-  magrittr::set_colnames(age)%>% 
-  mutate(yrs=years2,
-         Asesoria='Hito 1: septiembre',
-         flota='Crucero_otoño',
-         type='observado')%>%
-  melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-obsp_marzo  <- as.data.frame(rep2$pobs_PELACES) %>% 
-  magrittr::set_colnames(age)%>% 
-  mutate(yrs=years2, 
-         Asesoria='Hito 2: marzo',
-         flota='Crucero_otoño',
-         type='observado') %>% 
-  melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-obsp_julio  <- as.data.frame(rep3$pobs_PELACES) %>% 
-  magrittr::set_colnames(age)%>% 
-  mutate(yrs=years3,
-         Asesoria='Hito 3: julio',
-         flota='Crucero_otoño',
-         type='observado') %>% 
-  melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-# Predicho
-predp_sept <- as.data.frame(ppred_PELACES) %>% 
-  magrittr::set_colnames(age)%>% 
-  mutate(yrs=years2,
-         Asesoria='Hito 1: septiembre',
-         flota='Crucero_otoño',
-         type='predicho')%>%
-  melt(id.vars=c('yrs','Asesoria','flota','type')) 
-
-predp_marzo <- as.data.frame(rep2$ppred_PELACES) %>% 
-  magrittr::set_colnames(age)%>% 
-  mutate(yrs=years2,
-         Asesoria='Hito 2: marzo',
-         flota='Crucero_otoño',
-         type='predicho')%>%
-  melt(id.vars=c('yrs','Asesoria','flota','type'))
-
-predp_julio <- as.data.frame(rep3$ppred_PELACES) %>% 
-  magrittr::set_colnames(age)%>% 
-  mutate(yrs=years3,
-         Asesoria='Hito 3: julio',
-         flota='Crucero_otoño',
-         type='predicho')%>%
-  melt(id.vars=c('yrs','Asesoria','flota','type'))
 
 # 3. RESIDUOS ><> ><> ><> ><> ----
 # índices de abundancia ----
 
-Res_sept <- indobs_sept %>% 
+Res_sept <- indobs_H1 %>% 
             mutate(
-            Res=(log(indobs_sept$value)-log(indpred_sept$value)),
-            Pred=log(indpred_sept$value))
+            Res=(log(indobs_H1$value)-log(indpred_H1$value)),
+            Pred=log(indpred_H1$value))
 
-Res_marzo <-indobs_marzo %>% 
+Res_marzo <-indobs_H2 %>% 
             mutate(
-            Res=(log(indobs_marzo$value)-log(indpred_marzo$value)),
-            Pred=log(indpred_marzo$value))
+            Res=(log(indobs_H2$value)-log(indpred_H2$value)),
+            Pred=log(indpred_H2$value))
 
-Res_julio <-indobs_julio %>% 
+Res_julio <-indobs_H3 %>% 
              mutate(
-             Res=(log(indobs_julio$value)-log(indpred_julio$value)),
-             Pred=log(indpred_julio$value))
+             Res=(log(indobs_H3$value)-log(indpred_H3$value)),
+             Pred=log(indpred_H3$value))
 
+# 7. VARIABLES POBLACIONALES ><> ><> ><> ><> ----
+VarPobSep<-Varpobl(RdataH1,years=seq(years[1],years[nyears]+1,1),
+                   c(Rt,NA),c(BT,NA),c(BD,NA),c(Ft,NA),
+                   c(Rtstd,NA),c(BTstd,NA),c(BDstd,NA),c(Ftstd,NA))
 
-# Descripción de los datos para Metodología----
+VarPobMar<-Varpobl(RdataH2,years=years,
+                   Rt,BT,BD,Ft,
+                   Rtstd,BTstd,BDstd,Ftstd)
 
-# sobre índices ----
-year<-format(dat2$Ind[,1],nsmall=0, big.mark="")
-recl<-dat2$Ind[,2]
-pela<-dat2$Ind[,4]
-mpdh<-dat2$Ind[,6]
+VarPobJul<-Varpobl(RdataH3,years=years,
+                   Rt,BT,BD,Ft,
+                   Rtstd,BTstd,BDstd,Ftstd)
 
-dataInd<-data.frame(year,recl,pela,mpdh)
-
-#  sobre datos de captura ----
-bioyear<-yearsb
-
-desemYdesc_previo<-c(350755,77701,442110,56441,14545,235359,
-                     269955,359681,431902,328805,639364,411747,
-                     362871,311530,167758,66681,60226,58785,
-                     57116,71774,51957,67425,138520,160799,209506,203330,NA)
-
-desc_previo       <- c(rep(1,4),rep(1.04,15),rep(1.02,1),rep(1.06,1),1.01,rep(1.02,5))
-desembarque       <- desemYdesc_previo/desc_previo
-desc_actualizado  <- c(rep(1,4),rep(1.04,17),1.014,1.021,1.018,1.02,1.02,1.02)
-CapturaDescartada <- -(1-desc_actualizado)*desembarque
-CapturaTotal      <- desembarque+CapturaDescartada
-
-porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%",1),rep("1,8\\%",1),rep("2\\%",3))
-
-dataDes_y_descar<-data.frame("Año"=bioyear,
-                             "Desembarques"=round(desembarque,0),
-                             "Pdescarte"=porcDesc_actualizado,
-                             "Capturadesc"=round(CapturaDescartada,0),
-                             "Capturatotal"=round(CapturaTotal,0))
+# # Descripción de los datos para Metodología----
+# 
+# # sobre índices ----
+# year<-format(dat2$Ind[,1],nsmall=0, big.mark="")
+# recl<-dat2$Ind[,2]
+# pela<-dat2$Ind[,4]
+# mpdh<-dat2$Ind[,6]
+# 
+# dataInd<-data.frame(year,recl,pela,mpdh)
+# 
+# #  sobre datos de captura ----
+# bioyear<-yearsb
+# 
+# desemYdesc_previo<-c(350755,77701,442110,56441,14545,235359,
+#                      269955,359681,431902,328805,639364,411747,
+#                      362871,311530,167758,66681,60226,58785,
+#                      57116,71774,51957,67425,138520,160799,209506,203330,NA)
+# 
+# desc_previo       <- c(rep(1,4),rep(1.04,15),rep(1.02,1),rep(1.06,1),1.01,rep(1.02,5))
+# desembarque       <- desemYdesc_previo/desc_previo
+# desc_actualizado  <- c(rep(1,4),rep(1.04,17),1.014,1.021,1.018,1.02,1.02,1.02)
+# CapturaDescartada <- -(1-desc_actualizado)*desembarque
+# CapturaTotal      <- desembarque+CapturaDescartada
+# 
+# porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%",1),rep("1,8\\%",1),rep("2\\%",3))
+# 
+# dataDes_y_descar<-data.frame("Año"=bioyear,
+#                              "Desembarques"=round(desembarque,0),
+#                              "Pdescarte"=porcDesc_actualizado,
+#                              "Capturadesc"=round(CapturaDescartada,0),
+#                              "Capturatotal"=round(CapturaTotal,0))
 
 
 
@@ -483,84 +408,9 @@ residuos<-res/Ro
 
 setwd(dir.1)
 
-# 7. VARIABLES POBLACIONALES ><> ><> ><> ><> ----
-# HITO 1: SEPTIEMBRE ----
-years1m<-c(rep1$years,2023)
-nyears1m<-length(years1m)
-Rt1      <- c(subset(std1,name=="Reclutas")$value,NA) 
-Rt1std   <- c(subset(std1,name=="Reclutas")$std,NA)
-BT1      <- c(subset(std1,name=="BT")$value,NA)   
-BT1std   <- c(subset(std1,name=="BT")$std,NA)
-BD1      <- c(subset(std1,name=="SSB")$value,NA)   
-BD1std   <- c(subset(std1,name=="SSB")$std,NA)
-Ft1      <- c(subset(std1,name=="log_Ft")$value,NA)   
-Ft1std   <- c(subset(std1,name=="log_Ft")$std,NA)
 
-VarPobSep<- data.frame(x=years1m, 
-                       Rt=Rt1,
-                       BT=BT1,
-                       BD=BD1,
-                       Ft=exp(Ft1), 
-                       lowerRt = (Rt1-1.96*Rt1std), 
-                       upperRt = (Rt1+1.96*Rt1std),
-                       lowerBT = (BT1-1.96*BT1std), 
-                       upperBT = (BT1+1.96*BT1std),
-                       lowerBD = (BD1-1.96*BD1std), 
-                       upperBD = (BD1+1.96*BD1std),
-                       lowerFt = exp(Ft1-1.96*Ft1std), 
-                       upperFt = exp(Ft1+1.96*Ft1std))
-# HITO 2: MARZO----
-years2<-rep2$years
-nyears2<-length(years2)
 
-Rt2      <- subset(std2,name=="Reclutas")$value 
-Rt2std   <- subset(std2,name=="Reclutas")$std
-BT2      <- subset(std2,name=="BT")$value   
-BT2std   <- subset(std2,name=="BT")$std
-BD2      <- subset(std2,name=="SSB")$value   
-BD2std   <- subset(std2,name=="SSB")$std
-Ft2      <- subset(std2,name=="log_Ft")$value   
-Ft2std   <- subset(std2,name=="log_Ft")$std
 
-VarPobMar<- data.frame(x=years2, 
-                       Rt=Rt2,
-                       BT=BT2,
-                       BD=BD2,
-                       Ft=exp(Ft2), 
-                       lowerRt = (Rt2 -1.96*Rt2std), 
-                       upperRt = (Rt2+1.96*Rt2std),
-                       lowerBT = (BT2 -1.96*BT2std), 
-                       upperBT = (BT2+1.96*BT2std),
-                       lowerBD = (BD2 -1.96*BD2std), 
-                       upperBD = (BD2+1.96*BD2std),
-                       lowerFt = exp(Ft2 -1.96*Ft2std), 
-                       upperFt = exp(Ft2+1.96*Ft2std))
-# HITO 3: JULIO----
-years3  <- rep3$years
-nyears3 <- length(years3)
-
-Rt3      <- subset(std3,name=="Reclutas")$value 
-Rt3std   <- subset(std3,name=="Reclutas")$std
-BT3      <- subset(std3,name=="BT")$value   
-BT3std   <- subset(std3,name=="BT")$std
-BD3      <- subset(std3,name=="SSB")$value   
-BD3std   <- subset(std3,name=="SSB")$std
-Ft3      <- subset(std3,name=="log_Ft")$value   
-Ft3std   <- subset(std3,name=="log_Ft")$std
-
-VarPobJul<- data.frame(x=years3, 
-                       Rt=Rt3,
-                       BT=BT3,
-                       BD=BD3,
-                       Ft=exp(Ft3), 
-                       lowerRt = (Rt3 -1.96*Rt3std), 
-                       upperRt = (Rt3 +1.96*Rt3std),
-                       lowerBT = (BT3 -1.96*BT3std), 
-                       upperBT = (BT3 +1.96*BT3std),
-                       lowerBD = (BD3 -1.96*BD3std), 
-                       upperBD = (BD3 +1.96*BD3std),
-                       lowerFt = exp(Ft3 -1.96*Ft3std), 
-                       upperFt = exp(Ft3 +1.96*Ft3std))
 
 # 6. ANÁLISIS RETROSPECTIVO ><> ><> ><> ><> ----
 # dir<-paste(dir.0,"/Retrospectivo_sept",sep="")
@@ -653,7 +503,8 @@ VarPobJul<- data.frame(x=years3,
 
 # 8. PUNTOS BIOLÓGICOS DE REFERENCIA ><> ><> ><> ><> ----
 
-# HITO 1: SEPTIEMBRE----
+# # HITO 1: SEPTIEMBRE----
+nyears<-dat1$nanos
 #PBR año biologico
 Amax        <- dat1$nedades 
 Fmort 	    <- seq(0,3.5,0.02)           
@@ -668,101 +519,130 @@ Dat$Wmed	  <- colMeans(dat1$Wmed)
 Dat$Wini	  <- colMeans(dat1$Wini) 
 Dat$Sel     <- rep1$S_f[1,] 
 
-Rmed1        <- mean(Rt1,na.rm = T)           
-Bmed1        <- mean(BD1,na.rm = T)         
-Fmedian1     <- exp(median(Ft1,na.rm = T))
+Rmed        <- mean(Rt1,na.rm = T)           
+Bmed        <- mean(BD1,na.rm = T)         
+Fmedian     <- exp(median(Ft1,na.rm = T))
+Fstatuquo   <-rep1$Ftot[nyears]
 
-Bobj         <-c(.85,.80,.60,.55,.52,.50,.45,.40,.30,.325,0.425)
-Fobj      	 <- optim(par=rep(0.,11),fn=SPRFpbr,method='BFGS')
+Bobj        <-c(.85,.80,.60,.55,.52,.50,.45,.40,.30,.325,0.425)
+Fobj      	<- optim(par=rep(0.,11),fn=SPRFpbr,method='BFGS')
 
-SPR1 		     <- SPRFmort(Rmed1,c(0,Fobj$par,Fmedian1,rep1$Ftot[25]),Amax,Dat) 
+SPR1 		    <- SPRFmort(Rmed,c(0,Fobj$par,Fmedian,Fstatuquo),Amax,Dat) 
 pSPR_Fmh1    <- as.numeric(SPR1[13,4])     # Paso 2: Cálculo de la curva SPR
 pB_Fmh1      <- pSPR_Fmh1-0.05          # Paso 3: Aproximación obtención de %BD(Fmh)
-SPRcurv1 		 <- SPRFmort(R0,Fmort,Amax,Dat) 
-# PASOS
-Bo1           <- rep1$SSBpbr[1]        # Paso 4: Obtenci?n de Bo
-BRMS1         <- rep1$SSBpbr[3]        # Paso 5: Obtenci?n de Brms = 60%SPRo = 55%Bo
-FRMS1         <- rep1$Fs[2]
-BLIM1         <- Bo1*0.275             # Paso 6: Obtenci?n de Blim = 20%Bo 
-FLIM1         <- rep1$Fs[3]            # Paso 6: Obtenci?n de Flim = 30%SPRo
-SpB1          <- BD1                   # BD serie hist?rica de evaluaci?n de stock 
-SpBSE1        <- BD1std                # desviaci?n estandar BD
-ln_Fyr1       <- Ft1                   # logaritmo de Ft
-ln_FSE1       <- Ft1std                # logaritmo de la desviaci?n standar de Ft
+SPRcurv1 		<- SPRFmort(R0,Fmort,Amax,Dat) 
 
-# HITO 2: MARZO----
-#PBR año biologico
-Amax        <- dat2$nedades 
-Fmort 	    <- seq(0,3.5,0.02)           
-nf          <- length(Fmort) 
-R0 		      <- 1  
-#datos de entrada 
+# # HITO 2: MARZO----
+nyears<-dat2$nanos
+# #PBR año biologico
+Amax        <- dat2$nedades
+Fmort 	    <- seq(0,3.5,0.02)
+nf          <- length(Fmort)
+R0 		      <- 1
+# #datos de entrada 
 Dat<-list()
-Dat$M		    <- dat2$par[5]             
-Dat$Tspw	  <- dat2$Dt[3]              
-Dat$Mad	    <- dat2$madurezsexual        
-Dat$Wmed	  <- colMeans(dat2$Wmed)      
-Dat$Wini	  <- colMeans(dat2$Wini) 
-Dat$Sel     <- rep2$S_f[1,] 
+Dat$M		    <- dat2$par[5]
+Dat$Tspw	  <- dat2$Dt[3]
+Dat$Mad	    <- dat2$madurezsexual
+Dat$Wmed	  <- colMeans(dat2$Wmed)
+Dat$Wini	  <- colMeans(dat2$Wini)
+Dat$Sel     <- rep2$S_f[1,]
 
-Rmed2        <- mean(Rt2)           
-Bmed2        <- mean(BD2)         
+Rmed2        <- mean(Rt2)
+Bmed2        <- mean(BD2)
 Fmedian2     <- exp(median(Ft2))
 
 Bobj         <-c(.85,.80,.60,.55,.52,.50,.45,.40,.30,.325,0.425)
 Fobj         <- optim(par=rep(0.,11),fn=SPRFpbr,method='BFGS')
 
-SPR2 		     <- SPRFmort(Rmed2,c(0,Fobj$par,Fmedian2,rep2$Ftot[25]),Amax,Dat) 
+SPR2 		     <- SPRFmort(Rmed2,c(0,Fobj$par,Fmedian2,rep2$Ftot[nyears]),Amax,Dat)
 pSPR_Fmh2    <- as.numeric(SPR2[13,4])  # Paso 2: Cálculo de la curva SPR
 pB_Fmh2      <- pSPR_Fmh2-0.05      # Paso 3: Aproximación obtención de %BD(Fmh)
-SPRcurv2 		 <- SPRFmort(R0,Fmort,Amax,Dat) 
-# PASOS
-Bo2           <- rep2$SSBpbr[1]       # Paso 4: Obtenci?n de Bo
-BRMS2         <- rep2$SSBpbr[3]       # Paso 5: Obtenci?n de Brms = 60%SPRo = 55%Bo
-FRMS2         <- rep2$Fs[2]
-BLIM2         <- Bo2*0.275            # Paso 6: Obtenci?n de Blim = 20%Bo 
-FLIM2         <- rep2$Fs[3]           # Paso 6: Obtenci?n de Flim = 30%SPRo
-SpB2          <- BD2                  # BD serie hist?rica de evaluaci?n de stock 
-SpBSE2        <- BD2std               # desviaci?n estandar BD
-ln_Fyr2       <- Ft2                  # logaritmo de Ft
-ln_FSE2       <- Ft2std    
+SPRcurv2 		 <- SPRFmort(R0,Fmort,Amax,Dat)
 
-# HITO 3: JULIO----
-#PBR año biologico
-Amax        <- dat3$nedades 
-Fmort 	    <- seq(0,3.5,0.02)           
-nf          <- length(Fmort) 
-R0 		      <- 1  
-#datos de entrada 
+# # HITO 3: JULIO----
+nyears<-dat3$nanos
+# #PBR año biologico
+Amax        <- dat3$nedades
+Fmort 	    <- seq(0,3.5,0.02)
+nf          <- length(Fmort)
+R0 		      <- 1
+# #datos de entrada 
 Dat<-list()
-Dat$M		    <- dat3$par[5]             
-Dat$Tspw	  <- dat3$Dt[3]              
-Dat$Mad	    <- dat3$madurezsexual        
-Dat$Wmed	  <- colMeans(dat3$Wmed)      
-Dat$Wini	  <- colMeans(dat3$Wini) 
-Dat$Sel     <- rep3$S_f[1,] 
+Dat$M		    <- dat3$par[5]
+Dat$Tspw	  <- dat3$Dt[3]
+Dat$Mad	    <- dat3$madurezsexual
+Dat$Wmed	  <- colMeans(dat3$Wmed)
+Dat$Wini	  <- colMeans(dat3$Wini)
+Dat$Sel     <- rep3$S_f[1,]
 
-Rmed3        <- mean(Rt3)           
-Bmed3        <- mean(BD3)         
+Rmed3        <- mean(Rt3)
+Bmed3        <- mean(BD3)
 Fmedian3     <- exp(median(Ft3))
 
 Bobj         <-c(.85,.80,.60,.55,.52,.50,.45,.40,.30,.325,0.425)
 Fobj      	 <- optim(par=rep(0.,11),fn=SPRFpbr,method='BFGS')
 
-SPR3 		     <- SPRFmort(Rmed3,c(0,Fobj$par,Fmedian3,rep3$Ftot[25]),Amax,Dat) 
+SPR3 		     <- SPRFmort(Rmed3,c(0,Fobj$par,Fmedian3,rep3$Ftot[nyears]),Amax,Dat)
 pSPR_Fmh3    <- as.numeric(SPR3[13,4])   # Paso 2: Cálculo de la curva SPR
 pB_Fmh3      <- pSPR_Fmh3-0.05    # Paso 3: Aproximación obtención de %BD(Fmh)
-SPRcurv3 		 <- SPRFmort(R0,Fmort,Amax,Dat) 
+SPRcurv3 		 <- SPRFmort(R0,Fmort,Amax,Dat)
+
+
+# Funcion PBRproxy ----
+
+PBRproxy<-function(pSPR_Fmh,pB_Fmh,rep,Rt,BD,BDstd,Ft,Ftstd,Hito,dir.Rdata){
+Bmed        <- mean(BD,na.rm = T)         
+Fmedian     <- exp(median(Ft,na.rm = T))
+
 # PASOS
-Bo3           <- rep3$SSBpbr[1]       # Paso 4: Obtenci?n de Bo
-BRMS3         <- rep3$SSBpbr[3]       # Paso 5: Obtenci?n de Brms = 60%SPRo = 55%Bo
-FRMS3         <- rep3$Fs[2]
-BLIM3         <- Bo3*0.275            # Paso 6: Obtenci?n de Blim = 20%Bo 
-FLIM3         <- rep3$Fs[3]           # Paso 6: Obtenci?n de Flim = 30%SPRo
-SpB3          <- BD3                  # BD serie hist?rica de evaluaci?n de stock 
-SpBSE3        <- BD3std              # desviaci?n estandar BD
-ln_Fyr3       <- Ft3                 # logaritmo de Ft
-ln_FSE3       <- Ft3std              # logaritmo de la desviaci?n standar de Ft
+Bo           <- rep$SSBpbr[1]        # Paso 4: Obtenci?n de Bo
+BRMS         <- rep$SSBpbr[3]        # Paso 5: Obtenci?n de Brms = 60%SPRo = 55%Bo
+FRMS         <- rep$Fs[2]
+BLIM         <- Bo*0.275             # Paso 6: Obtenci?n de Blim = 20%Bo 
+FLIM         <- rep$Fs[3]            # Paso 6: Obtenci?n de Flim = 30%SPRo
+SpB          <- BD                   # BD serie hist?rica de evaluaci?n de stock 
+SpBSE        <- BDstd                # desviaci?n estandar BD
+ln_Fyr       <- Ft                   # logaritmo de Ft
+ln_FSE       <- Ftstd                # logaritmo de la desviaci?n standar de Ft
+
+save(Bmed,Fmedian,
+     pSPR_Fmh,pB_Fmh,
+     Bo,BRMS,FRMS,BLIM,FLIM,SpB,SpBSE,ln_Fyr,ln_FSE,
+     file=paste(dir.Rdata,'PBRproxy',Hito,'.RData',sep=""))
+
+}
+
+
+# Funcion genera datos para tabla Pasos PBRproxy ----
+TablaPBRproxy<-function(Rdata){
+  
+  Hito<-c(round(Bmed/10^3,0),
+           formatC(round(Fmedian,2), decimal.mark = ","), 
+           formatC(pSPR_Fmh*100, decimal.mark = ","), 
+           formatC(60, decimal.mark = ","),
+           formatC(pB_Fmh*100, decimal.mark = ","),
+           formatC(55, decimal.mark = ","),
+           round(Bo/10^3,0),
+           round(BRMS/10^3,0),
+           round(BLIM/10^3,0))
+  
+ return(Hito) 
+}
+
+
+
+
+# # PASOS
+# Bo3           <- rep3$SSBpbr[1]       # Paso 4: Obtenci?n de Bo
+# BRMS3         <- rep3$SSBpbr[3]       # Paso 5: Obtenci?n de Brms = 60%SPRo = 55%Bo
+# FRMS3         <- rep3$Fs[2]
+# BLIM3         <- Bo3*0.275            # Paso 6: Obtenci?n de Blim = 20%Bo 
+# FLIM3         <- rep3$Fs[3]           # Paso 6: Obtenci?n de Flim = 30%SPRo
+# SpB3          <- BD3                  # BD serie hist?rica de evaluaci?n de stock 
+# SpBSE3        <- BD3std              # desviaci?n estandar BD
+# ln_Fyr3       <- Ft3                 # logaritmo de Ft
+# ln_FSE3       <- Ft3std              # logaritmo de la desviaci?n standar de Ft
 
 # 9. ESTATUS ><> ><> ><> ><> ----
 # HITO 1: SEPTIEMBRE ----
