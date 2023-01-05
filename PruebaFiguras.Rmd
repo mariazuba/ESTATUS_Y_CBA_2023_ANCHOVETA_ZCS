@@ -1,0 +1,96 @@
+---
+title: "PRUEBA SALIDAS"
+author: "María José Zúñiga"
+date: "2023-01-04"
+output: pdf_document
+---
+
+
+```{r global-options, include=FALSE}
+dir.Fig     <-"Figuras/" # carpeta de las figuras utilizadas y generadas en este estudio
+fig         <-c("pdf","png") # formato de figuras generadas por este código
+
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE,fig.path=dir.Fig,dev=fig,fig.align="center",fig.pos="h!")
+```
+
+
+```{r}
+library(stringr) # para arreglo de archivo .dat
+library(tidyverse)
+library(kableExtra) # genera tablas
+library(ggplot2) # genera figuras
+library(ggthemes) # para ggplot
+library(patchwork) # para unir gráficos de ggplot
+library(dplyr)  # para usar melt
+library(reshape) # para usar melt
+library(here)
+
+dir.0   <- here() 
+dir.1   <- paste(dir.0,"/codigos_admb",sep="") 
+dir.fun <- paste(dir.0,"/funciones/",sep="") 
+dir.Rdata<-paste(dir.0,"/Rdata/",sep="")
+
+source(paste(dir.fun,"functions.R",sep="")) 
+source(paste(dir.fun,"Fn_Rdata.R",sep=""))
+
+# source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+# source(paste(dir.fun,"Fn_Figuras.R",sep=""))
+
+```
+
+
+```{r}
+setwd(dir.1)
+
+admb_dat  <- list.files(pattern=".dat")
+admb_rep  <- list.files(pattern=".rep")
+admb_std  <- list.files(pattern=".std")
+
+admb_sept <- str_sub(admb_dat[3], 1, 6)
+admb_mar  <- str_sub(admb_dat[1], 1, 6)
+admb_jul  <- str_sub(admb_dat[2], 1, 6)
+
+
+DataHito(admb_dat[3],admb_rep[3],admb_std[3],'Hito1')
+DataHito(admb_dat[1],admb_rep[1],admb_std[1],'Hito2')
+DataHito(admb_dat[2],admb_rep[2],admb_std[2],'Hito3')
+
+
+
+
+```
+
+
+```{r}
+
+RdataHito2<-load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
+
+dataInd<-data.frame(years,reclasobs,pelacesobs,mphobs)
+
+kbl(dataInd, booktabs = T,format = "latex",position="h!",escape = F,align="c",
+    format.args=list(big.mark = '.'),
+    col.names = linebreak(c("Año\ncalendario ",
+                            "Biomasa crucero\nde verano\n(toneladas)",
+                            "Biomasa crucero\nde otoño\n(toneladas)",
+                            "Biomasa desovante\nMPDH\n(toneladas)"),align="c"),
+caption = "\\label{t1} Estimaciones de biomasas utilizadas en la evaluación de stock de anchoveta provenientes de los cruceros de Verano (RECLAS), Otoño (PELACES) y crucero de huevos (MPDH).") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)
+```
+
+
+```{r}
+
+kbl(dataDes_y_descar, booktabs = T,format = "latex",position="h!",align="c",
+    format.args=list(big.mark = '.'),escape=F,
+col.names = linebreak(c("Año\nbiológico ",
+                        "Desembarques\n(toneladas)",
+                        "Porcentaje\nDescarte",
+                        "Captura\ndescartada\n(toneladas)",
+                        "Captura\ntotal\n(toneladas)"),align="c"),   
+caption = "\\label{t2} Desembarques en toneladas, porcentaje de descarte supuesto,
+captura descartada (toneladas) y captura total (toneladas) estimadas en año biológico para anchoveta de las regiones de Valparaíso a Los Lagos.") %>% 
+  kable_styling(latex_options = c("striped", "condensed"),
+                full_width = FALSE,font_size=10)
+```
+
