@@ -1,41 +1,5 @@
 
 # ARREGLO DATOS PARA SALIDAS DE TABLAS Y FIGURAS ----
-# rm(list=ls(all=T))
-# 
-# library(stringr) # para arreglo de archivo .dat
-# library(tidyverse)
-# library(kableExtra) # genera tablas
-# library(ggplot2) # genera figuras
-# library(ggthemes) # para ggplot
-# library(patchwork) # para unir gráficos de ggplot
-# library(dplyr)  # para usar melt
-# library(reshape) # para usar melt
-# library(here)
-# 
-# 
-# dir.0   <- here() # directorio de trabajo 
-# dir.1   <- paste(dir.0,"/codigos_admb",sep="") # carpeta de códigos ADMB 
-# dir.fun <- paste(dir.0,"/funciones/",sep="") # carpeta de funciones utilizadas en este informe
-# dir.Rdata<-paste(dir.0,"/Rdata/",sep="")
-# source(paste(dir.fun,"functions.R",sep="")) # funciones para leer .dat y .rep
-# source(paste(dir.fun,"Fn_PBRs.R",sep="")) # funciones para leer .dat y .rep
-# 
-# 
-# setwd(dir.1)
-# 
-# admb_dat  <- list.files(pattern=".dat")
-# admb_rep  <- list.files(pattern=".rep")
-# admb_std  <- list.files(pattern=".std")
-# 
-# admb_sept <- str_sub(admb_dat[3], 1, 6)
-# admb_mar  <- str_sub(admb_dat[1], 1, 6)
-# admb_jul  <- str_sub(admb_dat[2], 1, 6)
-# 
-# carpetaCBA_sept <- "/CBA_sept/"
-# carpetaCBA_mar  <- "/CBA_mar/"
-# carpetaCBA_jul  <- "/CBA_jul/"
-
-
 
 # función datos índices observados ----
 indobs_Fig1<-function(Hitoasesoria){
@@ -95,24 +59,64 @@ Var<- data.frame(x=years,
 Var
 }
 
+# PREPARA DATA.FRAME ----
 
 # 1. Ajustes composiciones edad Fig1 ----
 
- 
+load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
+
+indobs_H2    <-indobs_Fig1(Hitoasesoria='Hito2')
+indpred_H2   <-indpred_Fig1(Hitoasesoria='Hito2')
+
+Res_marzo <-indobs_H2 %>%
+            mutate(
+            Res=(log(indobs_H2$value)-log(indpred_H2$value)),
+            Pred=log(indpred_H2$value))
+
 # 2. Ajustes composiciones de edad 
 
+compEdad_obsF_H2  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito2')
+compEdad_predF_H2 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito2')
+
+compEdad_obsR_H2  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito2')
+compEdad_predR_H2 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito2')
+
+compEdad_obsP_H2  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito2')
+compEdad_predP_H2 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito2')
+
+
+
+# 1. Ajustes composiciones edad Fig1 ----
+load(paste(dir.Rdata,'DatosHito1.RData',sep=""))
+
+indobs_H1    <-indobs_Fig1(Hitoasesoria='Hito1')
+indpred_H1   <-indpred_Fig1(Hitoasesoria='Hito1')
+
 # 3. RESIDUOS ><> ><> ><> ><> ----
+Res_sept <- indobs_H1 %>%
+            mutate(
+            Res=(log(indobs_H1$value)-log(indpred_H1$value)),
+            Pred=log(indpred_H1$value))
+
+# 2. Ajustes composiciones de edad 
+
+compEdad_obsF_H1  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito1')
+compEdad_predF_H1 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito1')
+
+compEdad_obsR_H1  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito1')
+compEdad_predR_H1 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito1')
+
+compEdad_obsP_H1  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito1')
+compEdad_predP_H1 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito1')
+
+
 # # índices de abundancia ----
 # 
-# Res_sept <- indobs_H1 %>% 
-#             mutate(
-#             Res=(log(indobs_H1$value)-log(indpred_H1$value)),
-#             Pred=log(indpred_H1$value))
+
+
+
 # 
-# Res_marzo <-indobs_H2 %>% 
-#             mutate(
-#             Res=(log(indobs_H2$value)-log(indpred_H2$value)),
-#             Pred=log(indpred_H2$value))
+
 # 
 # Res_julio <-indobs_H3 %>% 
 #              mutate(

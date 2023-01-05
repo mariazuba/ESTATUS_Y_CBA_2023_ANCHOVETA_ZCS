@@ -117,21 +117,8 @@ CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
   
   
   #guarda Rdata ----
-  save(years,nyears,age,nage,names_ind,
-       WmedF,WiniF, #pesos medios
-       reclasobs,pelacesobs,mphobs,desembarqueobs,#indices de abundancia observadas
-       reclaspred,pelacespred,mphpred,desembarquepred,#indices de abundancia predicha
-       cvBcV,cvBcO,cvdes, # CVs indices de abundancia
-       pfobs,pRobs,pPobs,#composiciones de edad observadas
-       pfpred,pRpred,pPpred,#composiciones de edad predichas
-       Rt,Rtstd,BT,BTstd,BD,BDstd,Ft,Ftstd,#variables poblacionales
-       Bmed,Fmedian,Bo,BRMS,FRMS,BLIM,FLIM,SpB,SpBSE,ln_Fyr,ln_FSE, #PBRs
-       RPR,RPRstd,FRPR,FRPRstd,#indicadores de estatus
-       rprlast,rprlaststd,Frprlast,Frprlaststd, #BD/BDrms y F/Frms último año
-       xb1,xb,yb,icb, #probabilidad BD/BDrms último año
-       xf1,xf,yf,icf, #probabilidad F/Frms último año
-       xxb,yyb,xxf,yyf, #distribución de probabilidad 
-       pa,pb,pc,pd,pe, # probabilidades de riesgo
+  
+  save(list=ls(all=T),
        file=paste(dir.Rdata,'Datos',Hito,'.RData',sep=""))
   
 }
