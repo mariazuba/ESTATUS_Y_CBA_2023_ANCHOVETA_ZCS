@@ -635,6 +635,7 @@ captura descartada (toneladas) y captura total (toneladas) estimadas en año bio
 \pagebreak
 
 
+
 ```{r Fig17,fig.cap="\\label{Fig17}Serie de desembarques y biomasas estimadas por la evaluación hidroacústica de verano y otoño utilizadas como datos de entrada al modelo de evaluación de stock de anchoveta de las regiones de Valparaíso a Los Lagos.", fig.height=6.5,fig.width=5}
  
 des_obs <- data.frame(rep1$desembarqueobs)
@@ -666,7 +667,6 @@ p <- ggplot()  +
 p
 
 ```
-
 
 
 ```{r Fig18,fig.height=4,fig.width=9}
