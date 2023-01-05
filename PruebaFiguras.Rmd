@@ -296,33 +296,50 @@ g1 + g2
 
 
 ```{r}
-
-load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
-
-indobs_H2    <-indobs_Fig1(Hitoasesoria='Hito2')
-indpred_H2   <-indpred_Fig1(Hitoasesoria='Hito2')
-
-compEdad_obsF_H2  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito2')
-compEdad_predF_H2 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito2')
-
-compEdad_obsR_H2  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito2')
-compEdad_predR_H2 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito2')
-
-compEdad_obsP_H2  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito2')
-compEdad_predP_H2 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito2')
-
+# 
+# load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
+# 
+# indobs_H2    <-indobs_Fig1(Hitoasesoria='Hito2')
+# indpred_H2   <-indpred_Fig1(Hitoasesoria='Hito2')
+# 
+# compEdad_obsF_H2  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito2')
+# compEdad_predF_H2 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito2')
+# 
+# compEdad_obsR_H2  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito2')
+# compEdad_predR_H2 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito2')
+# 
+# compEdad_obsP_H2  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito2')
+# compEdad_predP_H2 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito2')
+# 
 
 ```
 
 ```{r}
-
-load(paste(dir.Rdata,'DatosHito1.RData',sep=""))
-indobs_H1    <-indobs_Fig1(Hitoasesoria='Hito1')
-indpred_H1   <-indpred_Fig1(Hitoasesoria='Hito1')
+# 
+# load(paste(dir.Rdata,'DatosHito1.RData',sep=""))
+# indobs_H1    <-indobs_Fig1(Hitoasesoria='Hito1')
+# indpred_H1   <-indpred_Fig1(Hitoasesoria='Hito1')
 ```
 
-```{r}
-base1 <- merge(indobs_H2, merge(indpred_H1, indpred_H2, all = TRUE), all = TRUE)  
+
+```{r Fig22,fig.cap="\\label{Fig22}Ajustes del modelo anual en edades a los valores de biomasas de cruceros de verano, otoño y desembarques. Las barras corresponden al intervalo de confianza asintótico y el círculo al valor del estimador.",fig.height=7,fig.width=8}
+
+source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+source(paste(dir.fun,"Fn_Figuras.R",sep=""))
+
+
+base1<-merge(indobs_H2, merge(indpred_H1, indpred_H2, all = TRUE), all = TRUE)  
+
+fig1(base1)
 
 ```
+
+
+
+```{r Fig23,fig.cap="\\label{Fig23}Residuales (escala log) del ajuste del modelo base actual a los datos observados.",fig.height=5.7,fig.width=6.5}
+
+fig2(Res_marzo)
+
+```
+
 
