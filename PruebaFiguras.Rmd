@@ -31,9 +31,8 @@ dir.fun <- paste(dir.0,"/funciones/",sep="")
 dir.Rdata<-paste(dir.0,"/Rdata/",sep="")
 
 source(paste(dir.fun,"functions.R",sep="")) 
-source(paste(dir.fun,"Fn_Rdata.R",sep=""))
-
-# source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+source(paste(dir.fun,"Fn_Rdata_EvalStock.R",sep=""))
+source(paste(dir.fun,"Fn_Salidas.R",sep=""))
 # source(paste(dir.fun,"Fn_Figuras.R",sep=""))
 
 ```
@@ -46,24 +45,22 @@ admb_dat  <- list.files(pattern=".dat")
 admb_rep  <- list.files(pattern=".rep")
 admb_std  <- list.files(pattern=".std")
 
-admb_sept <- str_sub(admb_dat[3], 1, 6)
-admb_mar  <- str_sub(admb_dat[1], 1, 6)
-admb_jul  <- str_sub(admb_dat[2], 1, 6)
+CreaRdata(admb_dat[3],admb_rep[3],admb_std[3],'Hito1')
+CreaRdata(admb_dat[1],admb_rep[1],admb_std[1],'Hito2')
+CreaRdata(admb_dat[2],admb_rep[2],admb_std[2],'Hito3')
 
 
-DataHito(admb_dat[3],admb_rep[3],admb_std[3],'Hito1')
-DataHito(admb_dat[1],admb_rep[1],admb_std[1],'Hito2')
-DataHito(admb_dat[2],admb_rep[2],admb_std[2],'Hito3')
-
-
-
+yearsb  <- c("1996/97","1997/98","1998/99","1999/00","2000/01","2001/02","2002/03",
+               "2003/04","2004/05","2005/06","2006/07","2007/08","2008/09","2009/10",
+               "2010/11","2011/12","2012/13","2013/14","2014/15","2015/16","2016/17",
+               "2017/18","2018/19","2019/20",'2020/21','2021/22','2022/23')
 
 ```
 
 
 ```{r}
 
-RdataHito2<-load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
+load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
 
 dataInd<-data.frame(years,reclasobs,pelacesobs,mphobs)
 
@@ -81,6 +78,28 @@ caption = "\\label{t1} Estimaciones de biomasas utilizadas en la evaluación de 
 
 ```{r}
 
+bioyear<-yearsb
+desemYdesc_previo<-c(350755,77701,442110,56441,14545,235359,
+                     269955,359681,431902,328805,639364,411747,
+                     362871,311530,167758,66681,60226,58785,
+                     57116,71774,51957,67425,138520,160799,209506,203330,NA)
+
+desc_previo       <- c(rep(1,4),rep(1.04,15),rep(1.02,1),rep(1.06,1),1.01,rep(1.02,5))
+desembarque       <- desemYdesc_previo/desc_previo
+desc_actualizado  <- c(rep(1,4),rep(1.04,17),1.014,1.021,1.018,1.02,1.02,1.02)
+CapturaDescartada <- -(1-desc_actualizado)*desembarque
+CapturaTotal      <- desembarque+CapturaDescartada
+
+porcDesc_actualizado<-c(rep("0\\%",4),rep("4\\%",17),rep("1,4\\%",1),rep("2,1\\%",1),rep("1,8\\%",1),rep("2\\%",3))
+
+
+dataDes_y_descar<-data.frame("Año"=bioyear,
+                             "Desembarques"=round(desembarque,0),
+                             "Pdescarte"=porcDesc_actualizado,
+                             "Capturadesc"=round(CapturaDescartada,0),
+                             "Capturatotal"=round(CapturaTotal,0))
+
+
 kbl(dataDes_y_descar, booktabs = T,format = "latex",position="h!",align="c",
     format.args=list(big.mark = '.'),escape=F,
 col.names = linebreak(c("Año\nbiológico ",
@@ -92,5 +111,218 @@ caption = "\\label{t2} Desembarques en toneladas, porcentaje de descarte supuest
 captura descartada (toneladas) y captura total (toneladas) estimadas en año biológico para anchoveta de las regiones de Valparaíso a Los Lagos.") %>% 
   kable_styling(latex_options = c("striped", "condensed"),
                 full_width = FALSE,font_size=10)
+```
+
+
+
+```{r Fig17,fig.cap="\\label{Fig17}Serie de desembarques y biomasas estimadas por la evaluación hidroacústica de verano y otoño utilizadas como datos de entrada al modelo de evaluación de stock de anchoveta de las regiones de Valparaíso a Los Lagos.", fig.height=6.5,fig.width=5}
+ 
+
+
+ obsC  <- as.data.frame(reclasobs) %>% 
+                        mutate(year=years) %>% 
+                        melt(id.vars='year') %>% 
+                        mutate(type='2.Cruceros de Verano')
+ obsP  <- as.data.frame(pelacesobs) %>% 
+                        mutate(year=years) %>% 
+                        melt(id.vars='year') %>% 
+                        mutate(type='3.Cruceros de Otoño')
+ obsD  <- as.data.frame(desembarqueobs) %>% 
+                        mutate(year=years) %>% 
+                        melt(id.vars='year') %>% 
+                        mutate(type='1.Desembarques')
+ Bcru  <-rbind(obsC,obsP,obsD)
+
+p <- ggplot()  +
+           geom_bar(data=Bcru, aes(x=year, y =value), 
+           stat="identity", fill='gray66', color = 'gray28') + 
+           facet_wrap(~type,scale="free",dir = 'v', as.table = TRUE) + 
+           labs(x="Años", y="Toneladas") +  
+           theme(panel.background = element_rect(fill ="gray99")) + 
+           theme(panel.grid=element_line(color="gray66"))
+
+p
+
+```
+
+
+```{r Fig18,fig.height=4,fig.width=9}
+
+
+WmF <- as.data.frame(WmedF) %>% 
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='WmedF')
+
+pobsF <- as.data.frame(pfobs) %>% 
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='pobsF')
+
+f1<-ggplot(pobsF, aes(x = years, y = value, group=variable))+
+    geom_line(aes(colour=variable)) +
+    geom_point(aes(colour=variable),size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',fill="") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("FLOTA")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+
+f2<-ggplot(WmF, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line(aes(colour=variable)) +
+    geom_point(aes(colour=variable), size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Pesos medios (grs)',fill="") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    scale_colour_discrete(name = "Grupos de edad", 
+    labels = c('GE 0','GE 1','GE 2','GE 3','GE 4'))+
+    ggtitle("FLOTA")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+f1 + f2
+
+```
+
+
+```{r Fig19,fig.cap="\\label{Fig19}Variabilidad interanual de la proporción de la captura de la flota (panel superior izquierdo) y pesos medios (panel superior derecho) de cada grupo de edad (edad 0 a 4). Composición de edad de la captura de la flota (panel inferior izquierdo) y pesos medios (panel inferior derecho) utilizados en la evaluación de stock de anchoveta de las regiones de Valparaíso a Los Lagos.",fig.height=6,fig.width=9}
+
+    
+pF       <- c(pfobs); pF[pF==0]  <-NA
+Wm       <- c(WmedF); Wm[Wm==0]  <-NA     
+
+anos <- rep(years,nage) 
+edad <- gl(nage,nyears,label=age)   
+
+datosProp=data.frame(x=edad,y=anos,tamanio=pF)
+datosWmed=data.frame(x=edad,y=anos,tamanio=Wm )
+
+g1 <- ggplot (datosProp,aes(x,y)) +
+      geom_point(aes(size=tamanio),color = 'gray25',
+                 shape=21, fill="gray85",alpha = 0.7) +
+      scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Proporción") +
+      ggtitle("Proporción de edad de la Flota")+
+      theme_bw(base_size=9) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g2 <- ggplot (datosWmed,aes(x,y)) + 
+      geom_point(aes(size=tamanio),color = 'gray25',
+                 shape=21, fill="gray85",alpha=0.7) +
+      scale_size_continuous(breaks = seq(15,75,20),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Gramos") +
+      ggtitle("Pesos medios de la Flota")+
+      theme_bw(base_size=9) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g1 + g2
+
+```
+
+
+```{r Fig20,fig.height=4,fig.width=9}
+
+pobsR <- as.data.frame(pRobs) %>% 
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='pobsR')
+
+pobsP <- as.data.frame(pPobs) %>%
+                       mutate(years=years) %>% 
+                       melt(id.vars='years') %>%             
+                       mutate(edad = rep(age, each=nyears)) %>% 
+                       mutate(type='pobsP')
+
+f1<-ggplot(pobsR, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line() +
+    geom_point( size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',
+         fill="",color=" grupos de edad") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("CRUCERO DE VERANO")+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+
+f2<-ggplot(pobsP, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line() +
+    geom_point( size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',
+    fill="",color=" grupos de edad") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("CRUCERO DE OTOÑO")+
+    scale_colour_discrete(name = "Grupos de edad", 
+    labels = c('GE 0','GE 1','GE 2','GE 3','GE 4'))+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+f1 + f2
+
+```
+
+
+```{r Fig21,fig.cap="\\label{Fig21}Variabilidad interanual de la proporción de la captura del crucero de verano (panel superior izquierdo) y crucero de otoño (panel superior derecho) de cada grupo de edad (edad 0 a 4). Composición de edad de la captura de los cruceros de verano (panel inferior izquierdo) y otoño (panel inferior derecho) utilizados en la evaluación de stock.",fig.height=6,fig.width=9}
+
+    
+pR       <- c(pRobs); pR[pR==0]  <-NA
+pP       <- c(pPobs); pP[pP==0]  <-NA 
+
+anos <- rep(years,length(age)) 
+edad <- gl((length(age)),length(years),label=age)   
+
+datosPropR=data.frame(x=edad,y=anos,tamanio=pR)
+datosPropP=data.frame(x=edad,y=anos,tamanio=pP )
+
+g1 <- ggplot (datosPropR,aes(x,y)) +
+      geom_point(aes(size=tamanio),color = 'gray25',shape=21, fill="gray85",alpha = 0.7) +
+      scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Proporción") +
+      ggtitle("Cruceros de Verano")+
+      theme_bw(base_size=11) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g2 <- ggplot (datosPropP,aes(x,y)) + 
+      geom_point(aes(size=tamanio),color = 'gray25',shape=21, fill="gray85",alpha=0.7) +
+      scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+      labs(x = 'Edades', y = 'Años',size="Proporción") +
+      ggtitle("Cruceros de otoño")+
+      theme_bw(base_size=11) + 
+      theme(plot.title = element_text(hjust = 0.5))
+
+g1 + g2
+
+```
+
+
+```{r}
+
+load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
+
+indobs_H2    <-indobs_Fig1(Hitoasesoria='Hito2')
+indpred_H2   <-indpred_Fig1(Hitoasesoria='Hito2')
+
+compEdad_obsF_H2  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito2')
+compEdad_predF_H2 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito2')
+
+compEdad_obsR_H2  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito2')
+compEdad_predR_H2 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito2')
+
+compEdad_obsP_H2  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito2')
+compEdad_predP_H2 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito2')
+
+
+```
+
+```{r}
+
+load(paste(dir.Rdata,'DatosHito1.RData',sep=""))
+indobs_H1    <-indobs_Fig1(Hitoasesoria='Hito1')
+indpred_H1   <-indpred_Fig1(Hitoasesoria='Hito1')
+```
+
+```{r}
+base1 <- merge(indobs_H2, merge(indpred_H1, indpred_H2, all = TRUE), all = TRUE)  
+
 ```
 
