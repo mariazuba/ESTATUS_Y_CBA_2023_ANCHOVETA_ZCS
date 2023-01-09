@@ -2,7 +2,9 @@
 # ARREGLO DATOS PARA SALIDAS DE TABLAS Y FIGURAS ----
 
 # función datos índices observados ----
-indobs_Fig1<-function(Hitoasesoria){
+indobs_Fig1<-function(archivo.Rdata,Hitoasesoria){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+  
   indobs  <- data.frame(reclasobs,
                         pelacesobs,
                         mphobs,
@@ -15,7 +17,9 @@ indobs_Fig1<-function(Hitoasesoria){
 }
 
 # función datos índices predichos ----
-indpred_Fig1<-function(Hitoasesoria){
+indpred_Fig1<-function(archivo.Rdata,Hitoasesoria){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+  
   indpred  <- data.frame(reclaspred,
                         pelacespred,
                         mphpred,
@@ -27,8 +31,28 @@ indpred_Fig1<-function(Hitoasesoria){
   indpred
 }
 
+# función datos residuos índices ----
+resind_Fig2<-function(indobs,indpred){
+Res_H1 <- indobs %>%
+              mutate(
+              Res=(log(indobs$value)-log(indpred$value)),
+              Pred=log(indpred$value))
+}  
+
 # función datos de composición de edad ----
-compEdad_Fig3<-function(propEdad,flota,type,Hitoasesoria){
+propE_Fig3<-function(archivo.Rdata,flota,type,Hitoasesoria){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+
+  if(flota=='Flota'&type=='observado'){propEdad<-pfobs}
+  if(flota=='Flota'&type=='predicho'){propEdad<-pfpred}
+  
+  if(flota=='Crucero_verano'&type=='observado'){propEdad<-pRobs}
+  if(flota=='Crucero_verano'&type=='predicho'){propEdad<-pRpred}
+  
+  if(flota=='Crucero_otoño'&type=='observado'){propEdad<-pPpred}
+  if(flota=='Crucero_otoño'&type=='predicho'){propEdad<-pPpred}
+  
+  
 propE  <- as.data.frame(propEdad) %>% 
          magrittr::set_colnames(age)%>% 
          mutate(yrs=years,
@@ -42,102 +66,23 @@ propE
 
 # funcion datos variables poblacionales
 
-Varpobl<-function(years,Rt,BT,BD,Ft,Rtstd,BTstd,BDstd,Ftstd){
-Var<- data.frame(x=years, 
-                       Rt=Rt,
-                       BT=BT,
-                       BD=BD,
-                       Ft=exp(Ft), 
-                       lowerRt = (Rt-1.96*Rtstd), 
-                       upperRt = (Rt+1.96*Rtstd),
-                       lowerBT = (BT-1.96*BTstd), 
-                       upperBT = (BT+1.96*BTstd),
-                       lowerBD = (BD-1.96*BDstd), 
-                       upperBD = (BD+1.96*BDstd),
-                       lowerFt = exp(Ft-1.96*Ftstd), 
-                       upperFt = exp(Ft+1.96*Ftstd))
-Var
+Varpobl<-function(archivo.Rdata,hito){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+  
+Rt<- data.frame(x=years,y=Rt,lower = (Rt-1.96*Rtstd),upper = (Rt+1.96*Rtstd))%>% 
+     mutate(indicador='Rt')
+BT<- data.frame(x=years,y=BT,lower = (BT-1.96*BTstd),upper = (BT+1.96*BTstd))%>% 
+  mutate(indicador='BT')
+BD<- data.frame(x=years,y=BD,lower = (BD-1.96*BDstd),upper = (BD+1.96*BDstd))%>% 
+  mutate(indicador='BD')
+Ft<- data.frame(x=years,y=exp(Ft),lower = exp(Ft-1.96*Ftstd),upper = exp(Ft+1.96*Ftstd))%>% 
+  mutate(indicador='Ft')
+
+Var<-rbind(Rt,BT,BD,Ft) %>%mutate(Hito=hito)%>% melt(id.vars=c('x','Hito','indicador','lower','upper'))
+
 }
 
-# PREPARA DATA.FRAME ----
 
-# 1. Ajustes composiciones edad Fig1 ----
-
-load(paste(dir.Rdata,'DatosHito2.RData',sep=""))
-
-indobs_H2    <-indobs_Fig1(Hitoasesoria='Hito2')
-indpred_H2   <-indpred_Fig1(Hitoasesoria='Hito2')
-
-Res_marzo <-indobs_H2 %>%
-            mutate(
-            Res=(log(indobs_H2$value)-log(indpred_H2$value)),
-            Pred=log(indpred_H2$value))
-
-# 2. Ajustes composiciones de edad 
-
-compEdad_obsF_H2  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito2')
-compEdad_predF_H2 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito2')
-
-compEdad_obsR_H2  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito2')
-compEdad_predR_H2 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito2')
-
-compEdad_obsP_H2  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito2')
-compEdad_predP_H2 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito2')
-
-
-
-# 1. Ajustes composiciones edad Fig1 ----
-load(paste(dir.Rdata,'DatosHito1.RData',sep=""))
-
-indobs_H1    <-indobs_Fig1(Hitoasesoria='Hito1')
-indpred_H1   <-indpred_Fig1(Hitoasesoria='Hito1')
-
-# 3. RESIDUOS ><> ><> ><> ><> ----
-Res_sept <- indobs_H1 %>%
-            mutate(
-            Res=(log(indobs_H1$value)-log(indpred_H1$value)),
-            Pred=log(indpred_H1$value))
-
-# 2. Ajustes composiciones de edad 
-
-compEdad_obsF_H1  <-compEdad_Fig3(propEdad=pfobs,flota='Flota',type='observado',Hitoasesoria='Hito1')
-compEdad_predF_H1 <-compEdad_Fig3(propEdad=pfpred,flota='Flota',type='predicho',Hitoasesoria='Hito1')
-
-compEdad_obsR_H1  <-compEdad_Fig3(propEdad=pRobs,flota='Crucero_verano',type='observado',Hitoasesoria='Hito1')
-compEdad_predR_H1 <-compEdad_Fig3(propEdad=pRpred,flota='Crucero_verano',type='predicho',Hitoasesoria='Hito1')
-
-compEdad_obsP_H1  <-compEdad_Fig3(propEdad=pPobs,flota='Crucero_otoño',type='observado',Hitoasesoria='Hito1')
-compEdad_predP_H1 <-compEdad_Fig3(propEdad=pPpred,flota='Crucero_otoño',type='predicho',Hitoasesoria='Hito1')
-
-
-# # índices de abundancia ----
-# 
-
-
-
-# 
-
-# 
-# Res_julio <-indobs_H3 %>% 
-#              mutate(
-#              Res=(log(indobs_H3$value)-log(indpred_H3$value)),
-#              Pred=log(indpred_H3$value))
-# 
-# # 7. VARIABLES POBLACIONALES ><> ><> ><> ><> ----
-# VarPobSep<-Varpobl(RdataH1,years=seq(years[1],years[nyears]+1,1),
-#                    c(Rt,NA),c(BT,NA),c(BD,NA),c(Ft,NA),
-#                    c(Rtstd,NA),c(BTstd,NA),c(BDstd,NA),c(Ftstd,NA))
-# 
-# VarPobMar<-Varpobl(RdataH2,years=years,
-#                    Rt,BT,BD,Ft,
-#                    Rtstd,BTstd,BDstd,Ftstd)
-# 
-# VarPobJul<-Varpobl(RdataH3,years=years,
-#                    Rt,BT,BD,Ft,
-#                    Rtstd,BTstd,BDstd,Ftstd)
-# 
-# 
-# 
 # # 4. COMPARACIÓN CON ASESORÍAS PREVIAS ><> ><> ><> ><> ----
 # 
 # dir<-paste(dir.0,"/rep_AsesoriasPrevias",sep="")
