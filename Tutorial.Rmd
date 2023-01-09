@@ -1,13 +1,14 @@
 ---
-title: "PRUEBA SALIDAS"
+title: "TUTORIAL PARA GENERAR REPORTE ESTATUS Y CBA PELÁGICOS CENTRO-SUR"
 author: "María José Zúñiga"
-date: xxx
+date: '`r format(Sys.Date(),"Última actualización: %B, %d, %Y")`'
 output: 
   pdf_document:
    toc: TRUE
    number_sections: yes
 ---
 
+\pagebreak
 
 ```{r global-options, include=FALSE}
 knitr::opts_chunk$set(echo=T, warning=FALSE, message=FALSE,fig.align="center",fig.pos="h!")
@@ -44,7 +45,7 @@ source(paste(dir.fun,"Fn_Figuras.R",sep=""))
 source(paste(dir.fun,"Fn_Tablas.R",sep=""))
 ```
 
-# Función `CrearRdata`
+# `Fn_CrearRdata.R`
 ```{r}
 setwd(dir.1)
 
@@ -58,7 +59,30 @@ CreaRdata(admb_dat[2],admb_rep[2],admb_std[2],'Hito3',dir.Rdata)
 
 ```
 
-# Función `Fn_Tablas`
+\pagebreak
+
+# `Fn_Data.frame.R`
+
+## `indobs_Fig1` 
+```{r}
+indobs_H2<-indobs_Fig1(archivo.Rdata='DatosHito2.RData',Hitoasesoria='Hito2')
+
+```
+
+## `indpred_Fig1`
+```{r}
+indpred_H2<-indpred_Fig1(archivo.Rdata='DatosHito2.RData',Hitoasesoria='Hito2')
+indpred_H1<-indpred_Fig1(archivo.Rdata='DatosHito1.RData',Hitoasesoria='Hito1')
+```
+
+## `resind_Fig2`
+```{r}
+Res_H2<-resind_Fig2(indobs_H2,indpred_H2)
+```
+
+\pagebreak
+
+# `Fn_Tablas.R`
 
 ## `tb1`
 
@@ -95,8 +119,9 @@ tb2(bioyear,desembarque,porcDesc_actualizado,CapturaDescartada,CapturaTotal)
 
 ```
 
+\pagebreak
 
-# Función `Fn_Figuras`
+# `Fn_Figuras.R`
 
 ## `fig1.0`
 ```{r fig.height=6.5,fig.width=5}
@@ -120,7 +145,7 @@ fig3.0('DatosHito2.RData')
 ```
 
 ## `fig4.0`
-```{r Fig20,fig.height=4,fig.width=9}
+```{r fig.height=4,fig.width=9}
 
 fig4.0('DatosHito2.RData')
 
@@ -133,14 +158,6 @@ fig5.0('DatosHito2.RData')
 
 ```
 
-# Función `Fn_Data.frame`
-
-## `indobs_Fig1` y `indpred_Fig1`
-```{r}
-indobs_H2<-indobs_Fig1(archivo.Rdata='DatosHito2.RData',Hitoasesoria='Hito2')
-indpred_H2<-indpred_Fig1(archivo.Rdata='DatosHito2.RData',Hitoasesoria='Hito2')
-indpred_H1<-indpred_Fig1(archivo.Rdata='DatosHito1.RData',Hitoasesoria='Hito1')
-```
 
 ## `fig1` 
 ```{r fig.height=7,fig.width=8}
@@ -152,11 +169,9 @@ fig1(base1)
 ```
 
 
-## `resind_Fig2` y `fig2`
-```{r Fig23,fig.cap="\\label{Fig23}Residuales (escala log) del ajuste del modelo base actual a los datos observados.",fig.height=5.7,fig.width=6.5}
+## `fig2`
+```{r fig.height=5.7,fig.width=6.5}
 
-Res_H2<-resind_Fig2(indobs_H2,indpred_H2)
-  
 fig2(Res_H2)
 
 ```
