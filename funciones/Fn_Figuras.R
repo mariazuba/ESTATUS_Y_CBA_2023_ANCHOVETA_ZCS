@@ -1,13 +1,191 @@
 
 # FIGURAS ----
 
+# DESCRIPCION DE DATOS ----
+# Índices de abundancia
+fig1.0<-function(archivo.Rdata){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+  
+  
+  obsC  <- as.data.frame(reclasobs) %>% 
+    mutate(year=years) %>% 
+    melt(id.vars='year') %>% 
+    mutate(type='2.Cruceros de Verano')
+  obsP  <- as.data.frame(pelacesobs) %>% 
+    mutate(year=years) %>% 
+    melt(id.vars='year') %>% 
+    mutate(type='3.Cruceros de Otoño')
+  obsD  <- as.data.frame(desembarqueobs) %>% 
+    mutate(year=years) %>% 
+    melt(id.vars='year') %>% 
+    mutate(type='1.Desembarques')
+  
+  Bcru  <-rbind(obsC,obsP,obsD)
+  
+  p <- ggplot()  +
+    geom_bar(data=Bcru, aes(x=year, y =value), 
+             stat="identity", fill='gray66', color = 'gray28') + 
+    facet_wrap(~type,scale="free",dir = 'v', as.table = TRUE) + 
+    labs(x="Años", y="Toneladas") +  
+    theme(panel.background = element_rect(fill ="gray99")) + 
+    theme(panel.grid=element_line(color="gray66"))
+  
+  p
+  
+}
 
-source(paste(dir.fun,"Fn_Salidas.R",sep=""))
+fig2.0<-function(archivo.Rdata){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+  
+  WmF <- as.data.frame(WmedF) %>% 
+    mutate(years=years) %>% 
+    melt(id.vars='years') %>%             
+    mutate(edad = rep(age, each=nyears)) %>% 
+    mutate(type='WmedF')
+  
+  pobsF <- as.data.frame(pfobs) %>% 
+    mutate(years=years) %>% 
+    melt(id.vars='years') %>%             
+    mutate(edad = rep(age, each=nyears)) %>% 
+    mutate(type='pobsF')
+  
+  f1<-ggplot(pobsF, aes(x = years, y = value, group=variable))+
+    geom_line(aes(colour=variable)) +
+    geom_point(aes(colour=variable),size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',fill="") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("FLOTA")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+  
+  f2<-ggplot(WmF, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line(aes(colour=variable)) +
+    geom_point(aes(colour=variable), size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Pesos medios (grs)',fill="") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    scale_colour_discrete(name = "Grupos de edad", 
+                          labels = c('GE 0','GE 1','GE 2','GE 3','GE 4'))+
+    ggtitle("FLOTA")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  f1 + f2
+  
+}
 
+fig3.0<-function(archivo.Rdata){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+ 
+  pF       <- c(pfobs); pF[pF==0]  <-NA
+  Wm       <- c(WmedF); Wm[Wm==0]  <-NA     
+  
+  anos <- rep(years,nage) 
+  edad <- gl(nage,nyears,label=age)   
+  
+  datosProp=data.frame(x=edad,y=anos,tamanio=pF)
+  datosWmed=data.frame(x=edad,y=anos,tamanio=Wm )
+  
+  g1 <- ggplot (datosProp,aes(x,y)) +
+    geom_point(aes(size=tamanio),color = 'gray25',
+               shape=21, fill="gray85",alpha = 0.7) +
+    scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+    labs(x = 'Edades', y = 'Años',size="Proporción") +
+    ggtitle("Proporción de edad de la Flota")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  g2 <- ggplot (datosWmed,aes(x,y)) + 
+    geom_point(aes(size=tamanio),color = 'gray25',
+               shape=21, fill="gray85",alpha=0.7) +
+    scale_size_continuous(breaks = seq(15,75,20),range=c(0,6))+
+    labs(x = 'Edades', y = 'Años',size="Gramos") +
+    ggtitle("Pesos medios de la Flota")+
+    theme_bw(base_size=9) + 
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  g1 + g2
+  
+}
 
+fig4.0<-function(archivo.Rdata){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+
+  pobsR <- as.data.frame(pRobs) %>% 
+    mutate(years=years) %>% 
+    melt(id.vars='years') %>%             
+    mutate(edad = rep(age, each=nyears)) %>% 
+    mutate(type='pobsR')
+  
+  pobsP <- as.data.frame(pPobs) %>%
+    mutate(years=years) %>% 
+    melt(id.vars='years') %>%             
+    mutate(edad = rep(age, each=nyears)) %>% 
+    mutate(type='pobsP')
+  
+  f1<-ggplot(pobsR, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line() +
+    geom_point( size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',
+         fill="",color=" grupos de edad") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("CRUCERO DE VERANO")+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
+  
+  f2<-ggplot(pobsP, aes(x = years, y = value, group=variable,colour=variable))+
+    geom_line() +
+    geom_point( size=2, shape=21, fill="white") + 
+    labs(x = '', y = 'Proporción de captura en N° a la edad',
+         fill="",color=" grupos de edad") +
+    scale_x_continuous(breaks = seq(from = 1990, to = 2020, by = 5)) +
+    ggtitle("CRUCERO DE OTOÑO")+
+    scale_colour_discrete(name = "Grupos de edad", 
+                          labels = c('GE 0','GE 1','GE 2','GE 3','GE 4'))+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  f1 + f2
+}
+
+fig5.0<-function(archivo.Rdata){
+  load(paste(dir.Rdata,archivo.Rdata,sep=""))
+  
+  pR       <- c(pRobs); pR[pR==0]  <-NA
+  pP       <- c(pPobs); pP[pP==0]  <-NA 
+  
+  anos <- rep(years,length(age)) 
+  edad <- gl((length(age)),length(years),label=age)   
+  
+  datosPropR=data.frame(x=edad,y=anos,tamanio=pR)
+  datosPropP=data.frame(x=edad,y=anos,tamanio=pP )
+  
+  g1 <- ggplot (datosPropR,aes(x,y)) +
+    geom_point(aes(size=tamanio),color = 'gray25',shape=21, fill="gray85",alpha = 0.7) +
+    scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+    labs(x = 'Edades', y = 'Años',size="Proporción") +
+    ggtitle("Cruceros de Verano")+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  g2 <- ggplot (datosPropP,aes(x,y)) + 
+    geom_point(aes(size=tamanio),color = 'gray25',shape=21, fill="gray85",alpha=0.7) +
+    scale_size_continuous(breaks = seq(0.05,0.65,0.2),range=c(0,6))+
+    labs(x = 'Edades', y = 'Años',size="Proporción") +
+    ggtitle("Cruceros de otoño")+
+    theme_bw(base_size=11) + 
+    theme(plot.title = element_text(hjust = 0.5))
+  
+  g1 + g2
+  
+}
+
+# DIAGNOSTICO ----
 # 1. Ajuste Índices ----
 
 fig1<-function(base1){
+  cvBcO<-0.3
+  cvBcV<-0.3
+  cvdes<-0.01
   
 BcV <- ggplot(base1 %>% filter(type!='observado', variable=='Crucero_verano'), 
               aes(yrs,value/1000000)) + 
@@ -141,68 +319,37 @@ r1.1 + r2.2 + r4.4
 # 3. Ajustes Composición de edad ----
 
 # Flota ----
-fig3 <-function(matf){
-  figf <- ggplot(matf %>% filter(type=='observado')) + 
+fig3 <-function(compEdad,flota,col_line,type_line){
+  figf <- ggplot(compEdad %>% filter(type=='observado')) + 
     geom_bar(aes(x = variable, y = value), stat="identity", fill='gray66', color = 'gray28') + 
-    facet_wrap(~yrs, dir = 'v', as.table = TRUE) + 
+    facet_wrap(vars(yrs), dir = 'v', as.table = TRUE) + 
     labs(x = 'Edad', y = 'Proporción') +
-    geom_line(data = matf %>% filter(type=='predicho'),
+    geom_line(data = compEdad %>% filter(type=='predicho'),
               aes(x = as.numeric(variable), y = value,colour=Asesoria,linetype =Asesoria)) +
-    scale_colour_manual(values=c('black','red'),name="Asesoría") +
-    scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
+    scale_colour_manual(values=col_line,name="Asesoría") +
+    scale_linetype_manual(values=type_line,name="Asesoría")+
     theme(panel.background = element_rect(fill ="gray99")) + 
     theme(panel.grid=element_line(color=NA)) +
-    ggtitle("FLOTA") + theme(plot.title = element_text(size = 12))
+    ggtitle(flota) + theme(plot.title = element_text(size = 12))
   figf
   
 }
 
-# crucero de verano ----
-fig4 <-function(matr){
-  figr <- ggplot(filter(matr, type=='observado')) + 
-  geom_bar(aes(x = variable, y = value), stat="identity", fill='gray66', color = 'gray28') + 
-  facet_wrap(~yrs, dir = 'v', as.table = TRUE) + 
-  labs(x = 'Edad', y = 'Proporción') +
-  geom_line(data = matr %>% filter(type != 'observado'), aes(x = as.numeric(variable), y = value, colour=Asesoria,linetype =Asesoria)) +
-  scale_colour_manual(values=c('black','red'),name="Asesoría") +
-  scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
-  theme(panel.background = element_rect(fill ="gray99")) + theme(panel.grid=element_line(color=NA)) +
-  ggtitle("CRUCEROS DE VERANO") + theme(plot.title = element_text(size = 12))
-figr
-}
-
-# crucero de otoño ----
-fig5 <-function(matp){
-  figp <- ggplot(filter(matp, type=='observado')) + 
-    geom_bar(aes(x = variable, y = value), stat="identity", fill='gray66', color = 'gray28') + 
-    facet_wrap(~yrs, dir = 'v', as.table = TRUE) + labs(x = 'Edad', y = 'Proporción') +
-    geom_line(data = matp %>% filter(type != 'observado'), aes(x = as.numeric(variable), y = value, colour=Asesoria,linetype =Asesoria)) +
-    scale_colour_manual(values=c('black','red'),name="Asesoría") +
-    scale_linetype_manual(values=c("solid",'dashed'),name="Asesoría")+
-    theme(panel.background = element_rect(fill ="gray99")) + theme(panel.grid=element_line(color=NA)) +
-    ggtitle("CRUCEROS DE OTOÑO") + theme(plot.title = element_text(size = 12))
-  figp
-}
 
 
-# 4. Residuos composición de edades ----
-fig6 <-function(rep){
-# Flota----
-ppredF <-rep$pf_pred 
-anos   <-rep$years
-obsF   <-rep$pf_obs
-preF   <-rep$pf_pred 
+# 4. Función de figura Residuos composición de edades ----
+fig4 <-function(anos,pobs,ppred,title,panel){
 
-resF <-obsF-preF
-rng  <-range(resF,na.rm=T)
-dd   <-dim(resF)
+res  <-pobs-ppred
+rng  <-range(res,na.rm=T)
+dd   <-dim(res)
 est  <-matrix(NA,nrow=dd[1],ncol=dd[2])
 
-for(j in 1:dd[1]){for(k in 1:dd[2]){val<-resF[j,k]
+for(j in 1:dd[1]){for(k in 1:dd[2]){val<-res[j,k]
 if(val>0){est[j,k]<-val/rng[2]}
 else{est[j,k]<-val/rng[1]*-1}}}
 
-par(mfrow=c(1,3),mar=c(5.4,6.7,2,1),cex.axis=1,cex.lab=1.1)
+#par(mfrow=c(1,3),mar=c(5.4,6.7,2,1),cex.axis=1,cex.lab=1.1)
 fig1<-image(age,anos,t(est),col=0,yaxt="n",xlab="",ylab="")
 ee  <-dim(est)
 for(n in 1:ee[1]){for(m in 1:ee[2]){vol<-est[n,m]
@@ -211,72 +358,11 @@ if(is.na(vol)==FALSE){
   if(vol<0){points(age[m],anos[n],pch=1,cex=2.82*sqrt(vol*-1),col=1)}
 }}}
 
-mtext("Flota",side=3,cex=1.2)
+mtext(title,side=3,cex=1.2)
 mtext("Edades",side=1,line=3.2,cex=1.1);posi<-seq(1,57,by=4)
 axis(2,at=anos,labels=anos,las=2)
 mtext("Años",side=2,line=4.7,cex=1.1)
-mtext("a)",side=3,line=0.25,adj=-0.15,cex=1.5)
-box()
-
-
-#Crucero de verano----
-ppredR<-rep$ppred_RECLAS  
-anos  <-rep$years[4:length(rep$years)]
-obsR  <-rep$pobs_RECLAS[4:length(rep$years),]
-preR  <-rep$ppred_RECLAS[4:length(rep$years),]
-resR  <-obsR-preR
-
-rng <-range(resR,na.rm=T)
-dd  <-dim(resR)
-est <-matrix(NA,nrow=dd[1],ncol=dd[2])
-
-for(j in 1:dd[1]){for(k in 1:dd[2]){val<-resR[j,k]
-if(val>0){est[j,k]<-val/rng[2]}
-else{est[j,k]<-val/rng[1]*-1}}}
-
-par(mar=c(5.4,6.7,2,1),cex.axis=1,cex.lab=1.1)
-image(age,anos,t(est),col=0,yaxt="n",xlab="",ylab="")
-ee  <-dim(est)
-for(n in 1:ee[1]){for(m in 1:ee[2]){vol<-est[n,m]
-if(is.na(vol)==FALSE){
-  if(vol>0){points(age[m],anos[n],pch=19,cex=2.82*sqrt(vol),col=1)}
-  if(vol<0){points(age[m],anos[n],pch=1,cex=2.82*sqrt(vol*-1),col=1)}
-}}}
-mtext("Cruceros de verano",side=3,cex=1.2)
-mtext("Edades",side=1,line=3.2,cex=1.1);posi<-seq(1,57,by=4)
-axis(2,at=anos,labels=anos,las=2)
-mtext("Años",side=2,line=4.7,cex=1.1)
-mtext("b)",side=3,line=0.25,adj=-0.15,cex=1.5)
-box()
-
-#Crucero de otoño----
-ppredP <-rep$ppred_PELACES 
-anos   <-rep$years[11:length(rep$years)]
-obsP   <-rep$pobs_PELACES[11:length(rep$years),]
-preP   <-rep$ppred_PELACES[11:length(rep$years),]  
-resP   <-obsP-preP
-
-rng <-range(resP,na.rm=T)
-dd  <-dim(resP)
-est <-matrix(NA,nrow=dd[1],ncol=dd[2])
-
-for(j in 1:dd[1]){for(k in 1:dd[2]){val<-resP[j,k]
-if(val>0){est[j,k]<-val/rng[2]}
-else{est[j,k]<-val/rng[1]*-1}}}
-
-par(mar=c(5.4,6.7,2,1),cex.axis=1,cex.lab=1.1)
-image(age,anos,t(est),col=0,yaxt="n",xlab="",ylab="")
-ee  <-dim(est)
-for(n in 1:ee[1]){for(m in 1:ee[2]){vol<-est[n,m]
-if(is.na(vol)==FALSE){
-  if(vol>0){points(age[m],anos[n],pch=19,cex=2.82*sqrt(vol),col=1)}
-  if(vol<0){points(age[m],anos[n],pch=1,cex=2.82*sqrt(vol*-1),col=1)}
-}}}
-mtext("Cruceros de otoño",side=3,cex=1.2)
-mtext("Edades",side=1,line=3.2,cex=1.1);posi<-seq(1,57,by=4)
-axis(2,at=anos,labels=anos,las=2)
-mtext("Años",side=2,line=4.7,cex=1.1)
-mtext("c)",side=3,line=0.25,adj=-0.15,cex=1.5)
+mtext(panel,side=3,line=0.25,adj=-0.15,cex=1.5)
 box()
 }
 
@@ -382,73 +468,28 @@ fig9 <-function(asesoria){
 
 # 8. Variables poblacionales ----
 
-fig10<-function(meanRt,meanBT,meanBD,medianFt){
+fig10<-function(DATA,HITOact,IND,name_IND,col_line,type_line,col_fill){
   
-  Rt <- ggplot() + 
-    geom_line(data=VarPobMar,aes(y=Rt, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
-    geom_line(data=VarPobSep,aes(y=Rt, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
-    geom_ribbon(data=VarPobMar,aes(ymin=lowerRt, ymax=upperRt, x=x, fill = "IC"), alpha = 0.2)+
-    geom_ribbon(data=VarPobSep,aes(ymin=lowerRt, ymax=upperRt, x=x, fill = "IC"), alpha = 0.2)+
-    geom_hline(yintercept = meanRt,colour='black',lty=2) +
-    annotate("text", x=2012, y=meanRt+5000,label=expression("R"[promedio])) +
-    labs(x = '', y = 'Reclutamientos',colour='Asesorías')  +
-    scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
-    scale_linetype_manual('',values=c('Hito 1'="solid",'Hito 2'='dashed'))+
-    scale_fill_manual("",values=c("grey50","grey60"))+
+  ind<-DATA %>% filter(Hito==HITOact,indicador==IND) 
+  meanind<-mean(ind$value)
+  name_meanind<-paste(ind$indicador[1],' promedio',sep='')
+  
+  ggplot()+
+    geom_line(data=DATA %>% filter(indicador==IND),aes(x=x,y=value,colour=Hito,linetype=Hito))+
+    geom_hline(yintercept = meanind,colour='black',lty=2) +
+    geom_ribbon(data=DATA %>% filter(Hito==HITOact,indicador==IND),aes(ymin=lower,ymax=upper,x=x),alpha=0.2)+
+    geom_text(aes(x=2011, y=meanind*1.05,label=name_meanind)) +
+    guides(color = guide_legend(title = "Asesorías"),
+           linetype = guide_legend(title = "Asesorías"))+
+    labs(x = '', y = name_IND)  +
+    scale_x_continuous(breaks = seq(from = 1960, to = 2060, by = 4)) +
+    scale_colour_manual("",values=col_line)+
+    scale_linetype_manual('',values=type_line)+
+    scale_fill_manual("",values=col_fill)+
     theme_bw(base_size=11) +
     ggtitle('')+
     theme(plot.title = element_text(hjust = 0.5),legend.position="top")
   
-  BT <- ggplot() + 
-    geom_line(data=VarPobMar,aes(y=BT, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
-    geom_line(data=VarPobSep,aes(y=BT, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
-    geom_ribbon(data=VarPobMar,aes(ymin=lowerBT, ymax=upperBT, x=x, fill = "IC"), alpha = 0.2)+
-    geom_ribbon(data=VarPobSep,aes(ymin=lowerBT, ymax=upperBT, x=x, fill = "IC"), alpha = 0.2)+
-    geom_hline(yintercept = meanBT,colour='black',lty=2) +
-    annotate("text", x=2012, y=meanBT+25000,label=expression("BT"[promedio])) +
-    labs(x = '', y = 'Biomasa total (t)',colour='Asesorías')  +
-    scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
-    scale_linetype_manual(values=c('Hito 1'="solid",'Hito 2'='dashed'))+
-    scale_fill_manual("",values=c("grey50","grey60"))+
-    theme_bw(base_size=11) +
-    ggtitle('')+
-    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
-  
-  BD <- ggplot() + 
-    geom_line(data=VarPobMar,aes(y=BD, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
-    geom_line(data=VarPobSep,aes(y=BD, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
-    geom_ribbon(data=VarPobMar,aes(ymin=lowerBD, ymax=upperBD, x=x, fill = "IC"), alpha = 0.2)+
-    geom_ribbon(data=VarPobSep,aes(ymin=lowerBD, ymax=upperBD, x=x, fill = "IC"), alpha = 0.2)+
-    geom_hline(yintercept = meanBD,colour='black',lty=2) +
-    annotate("text", x=2012, y=meanBD+25000,label=expression("BD"[promedio])) +
-    labs(x = '', y = 'Biomasa desovante (t)',colour='Asesorías')  +
-    scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
-    scale_linetype_manual(values=c('Hito 1'="solid",'Hito 2'='dashed'))+
-    scale_fill_manual("",values=c("grey50","grey60"))+
-    theme_bw(base_size=11) +
-    ggtitle('')+
-    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
-  
-  Ft <- ggplot() +
-    geom_line(data=VarPobMar,aes(y=Ft, x=x, colour = "Hito 2",linetype ="Hito 2"), size=0.5)+
-    geom_line(data=VarPobSep,aes(y=Ft, x=x, colour = "Hito 1",linetype ="Hito 1"), size=0.5)+
-    geom_ribbon(data=VarPobMar,aes(ymin=lowerFt, ymax=upperFt, x=x, fill = "IC"), alpha = 0.2)+
-    geom_ribbon(data=VarPobSep,aes(ymin=lowerFt, ymax=upperFt, x=x, fill = "IC"), alpha = 0.2)+
-    geom_hline(yintercept = medianFt,colour='black',lty=2) +
-    annotate("text", x=2011, y=medianFt+0.15,label=expression("F"[mediana])) +
-    labs(x = '', y = 'Mortalidad por pesca (F)',colour='Asesorías')  +
-    scale_x_continuous(breaks = seq(from = 1960, to = 2022, by = 4)) +
-    scale_colour_manual("",values=c('Hito 1'='black','Hito 2'='red'))+
-    scale_linetype_manual(values=c('Hito 1'="solid",'Hito 2'='dashed'))+
-    scale_fill_manual("",values=c("grey50","grey60"))+
-    theme_bw(base_size=11) +
-    ggtitle('')+
-    theme(plot.title = element_text(hjust = 0.5),legend.position="none")
-  
-  Rt/BT | (BD/Ft)
 }
 
 # 9. Selectividades ----
