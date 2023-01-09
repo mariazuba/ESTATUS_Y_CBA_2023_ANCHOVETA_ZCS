@@ -1,20 +1,17 @@
 # Función DataHito ----
 
-CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
+CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito,dir.Rdata){
+  
   data        <- lisread(admb_dat) 
   names(data) <- str_trim(names(data), side="right")
   dat         <- data
   rep         <- reptoRlist(admb_rep)
   std         <- read.table(admb_std,header=T,sep="",na="NA",fill=T) 
-  
   #datos para Rdata ----
-  
   years  <- rep$years
   nyears <- length(years)
-  
   age     <- seq(0,4,1)                                            
   nage    <- length(age)  
-  
   #pesos medios ----
   WmedF    <- dat$Wmed                                             
   WiniF    <- dat$Wini   
@@ -46,7 +43,6 @@ CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
   pfpred<-rep$pf_pred
   pRpred<-rep$ppred_RECLAS
   pPpred<-rep$ppred_PELACES
-  
   #Variables poblacionales ----
   Rt      <- subset(std,name=="Reclutas")$value 
   Rtstd   <- subset(std,name=="Reclutas")$std
@@ -56,10 +52,15 @@ CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
   BDstd   <- subset(std,name=="SSB")$std
   Ft      <- subset(std,name=="log_Ft")$value   
   Ftstd   <- subset(std,name=="log_Ft")$std
-  
+  #Selectividades ----
+  sel_Flota<-rep$S_f[1,]
+  sel_CruV <-rep$Scru_reclas[1,]
+  sel_CruO <-rep$Scru_pelaces[1,]
   # Puntos biológicos de referencia ----
+  Rmed        <-mean(Rt,na.rm = T) 
   Bmed        <- mean(BD,na.rm = T)         
   Fmedian     <- exp(median(Ft,na.rm = T))
+  Fstatuquo   <- rep$Ftot[nyears]
   Bo           <- rep$SSBpbr[1]        # Paso 4: Obtenci?n de Bo
   BRMS         <- rep$SSBpbr[3]        # Paso 5: Obtenci?n de Brms = 60%SPRo = 55%Bo
   FRMS         <- rep$Fs[2]
@@ -69,13 +70,11 @@ CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
   SpBSE        <- BDstd                # desviaci?n estandar BD
   ln_Fyr       <- Ft                   # logaritmo de Ft
   ln_FSE       <- Ftstd                # logaritmo de la desviaci?n standar de Ft
-  
   # Indicadores de Estatus ----
   RPR     <- c(subset(std,name=="RPRequ3")$value); 
   RPRstd  <- c(subset(std,name=="RPRequ3")$std)
   FRPR    <- c(subset(std,name=="Frpr")$value); 
   FRPRstd <- c(subset(std,name=="Frpr")$std)
-  
   # Probabilidades de estatus ----
   #Para densidad de probabilidad último año----
   rprlast     <-subset(std,name=="RPRequ3")$value[nyears]
@@ -97,12 +96,10 @@ CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
   yyb<- c(yb[xb>=icb[1]&xb<=icb[2]],rep(0,length(yb[xb>=icb[1]&xb<=icb[2]])))
   xxf<- c(xf[xf>=icf[1]&xf<=icf[2]],rev(xf[xf>=icf[1]&xf<=icf[2]]))
   yyf<- c(yf[xf>=icf[1]&xf<=icf[2]],rep(0,length(yf[xf>=icf[1]&xf<=icf[2]])))
-  
   ####################################################################################
   # densb_b  <- data.frame(x=xxb, y=yyb , t=rep('a', length(xxb)), r=seq(1,length(xxb),1))
   # densb_f  <- data.frame(x=xxf, y=yyf , t=rep('a', length(xxf)), r=seq(1,length(xxf),1))
   # ####################################################################################
-  
   # *Probabilidad de estar bajo BRMS* #Asesoría  #P(BD<BDrms)---- 
   pa <-pnorm(0.9,rprlast,rprlaststd,lower.tail = TRUE,log.p = F)
   # *Probabilidad de estar bajo FRMS* #Asesoría  #P(F>Frms)----
@@ -114,10 +111,7 @@ CreaRdata<-function(admb_dat,admb_rep,admb_std,Hito){
   pd <-pnorm(0.5,rprlast,rprlaststd,lower.tail = TRUE,log.p = F)
   # *Probailidad de sobrepesca* #Asesoría  #P(F>Frms)----
   pe <-1-pnorm(1.1,Frprlast,Frprlaststd,lower.tail = TRUE,log.p = F)
-  
-  
   #guarda Rdata ----
-  
   save(list=ls(all=T),
        file=paste(dir.Rdata,'Datos',Hito,'.RData',sep=""))
   
